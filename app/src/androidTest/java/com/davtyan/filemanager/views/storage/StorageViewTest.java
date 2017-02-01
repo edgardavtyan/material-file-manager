@@ -43,13 +43,13 @@ public class StorageViewTest {
     public void setSpace_setSpaceTextViewTextToGivenValuesInGigaBytes() {
         TextView spaceTextView = (TextView) storageView.findViewById(R.id.space_text);
         storageView.setSpace(1363487549l, 3489764313l);
-        assertThat(spaceTextView.getText()).isEqualTo("1.36 GB free of 3.49 GB, 39%");
+        assertThat(spaceTextView.getText()).isEqualTo("1.36 GB free of 3.49 GB, 60% used");
     }
 
     @Test
     public void setSpace_setSpaceBarProgress() {
         ProgressBar spaceBarView = (ProgressBar) storageView.findViewById(R.id.space_bar);
         storageView.setSpace(32454567864l, 47454557764l);
-        assertThat(spaceBarView.getProgress()).isEqualTo(683);
+        assertThat(spaceBarView.getProgress()).isEqualTo(316);
     }
 }

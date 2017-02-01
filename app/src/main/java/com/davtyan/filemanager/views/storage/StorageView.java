@@ -47,10 +47,11 @@ public class StorageView extends LinearLayout {
     public void setSpace(long freeSize, long totalSize) {
         double freeGB = freeSize / 1000000000.0;
         double totalGB = totalSize / 1000000000.0;
-        int percentage = (int) (freeGB / totalGB * 100);
+        double usedGB = totalGB - freeGB;
+        int percentage = (int) (usedGB / totalGB * 100);
         String spaceText = getResources().getString(R.string.storage_space_text, freeGB, totalGB, percentage);
         spaceTextView.setText(spaceText);
-        spaceBarView.setProgress((int) (freeGB / totalGB * 1000));
+        spaceBarView.setProgress((int) (usedGB / totalGB * 1000));
     }
 
     private void init() {
