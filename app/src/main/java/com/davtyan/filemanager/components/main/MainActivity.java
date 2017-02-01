@@ -10,7 +10,7 @@ import com.davtyan.filemanager.views.storage.StorageView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MainMvp.View {
 
     @BindView(R.id.storage_internal) StorageView internalStorageView;
 
@@ -20,13 +20,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        MainModel model = new MainModel(this, new FileInfo());
-
+        MainPresenter presenter = new MainPresenter(this, new MainModel(this, new FileInfo()));
+        presenter.onCreate();
+        
         internalStorageView.setTitle(R.string.storage_internal_title);
         internalStorageView.setIcon(R.drawable.ic_smartphone);
-        internalStorageView.setSpace(
-                model.getInternalStorageFreeSpace(),
-                model.getInternalStorageTotalSpace());
     }
 
     public void setInternalStorageInfo(long freeSpace, long totalSpace) {

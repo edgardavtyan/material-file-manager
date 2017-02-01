@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.davtyan.filemanager.utils.FileInfo;
 
-public class MainModel {
+public class MainModel implements MainMvp.Model {
 
     private final Context context;
     private final FileInfo fileInfo;
