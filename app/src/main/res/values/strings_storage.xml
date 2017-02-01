@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="storage_space_text">%1$.2f GB free of %2$.2f GB, %3$d%%</string>
+
+    <string name="storage.internal.title">Internal Storage</string>
+
+</resources>

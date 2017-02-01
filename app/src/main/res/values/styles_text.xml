@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Text_Primary">
+        <item name="android:textColor">@color/textColorPrimary</item>
+        <item name="android:textSize">@dimen/font_normal</item>
+    </style>
+
+    <style name="Text_Secondary">
+        <item name="android:textColor">@color/textColorSecondary</item>
+        <item name="android:textSize">@dimen/font_small</item>
+    </style>
+
+</resources>
