@@ -43,7 +43,7 @@ public class StorageViewTest {
     public void setSpace_setSpaceTextViewTextToGivenValuesInGigaBytes() {
         TextView spaceTextView = (TextView) storageView.findViewById(R.id.space_text);
         storageView.setSpace(1363487549l, 3489764313l);
-        assertThat(spaceTextView.getText()).isEqualTo("1.36 GB free of 3.49 GB");
+        assertThat(spaceTextView.getText()).isEqualTo("1.36 GB free of 3.49 GB, 39%");
     }
 
     @Test
