@@ -11,5 +11,6 @@ public interface MainMvp {
     }
 
     interface Presenter {
+        void onCreate();
     }
 }

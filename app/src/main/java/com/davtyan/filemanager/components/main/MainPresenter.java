@@ -9,6 +9,7 @@ public class MainPresenter implements MainMvp.Presenter {
         this.model = model;
     }
 
+    @Override
     public void onCreate() {
         view.setInternalStorageInfo(
                 model.getInternalStorageFreeSpace(),

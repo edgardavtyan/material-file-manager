@@ -14,10 +14,12 @@ public class MainModel implements MainMvp.Model {
         this.fileInfo = fileInfo;
     }
 
+    @Override
     public long getInternalStorageFreeSpace() {
         return fileInfo.getFreeSpace(context.getFilesDir());
     }
 
+    @Override
     public long getInternalStorageTotalSpace() {
         return fileInfo.getTotalSpace(context.getFilesDir());
     }
