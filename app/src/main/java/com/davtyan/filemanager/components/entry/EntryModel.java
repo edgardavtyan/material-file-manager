@@ -19,9 +19,4 @@ public class EntryModel implements EntryMvp.Model {
 
         this.entries = entries;
     }
-
-    @Override
-    public Storage getEntryAt(int position) {
-        return entries[position];
-    }
 }

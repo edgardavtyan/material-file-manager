@@ -14,7 +14,6 @@ public interface EntryMvp {
     interface Model {
         void updateEntries(String dirPath);
         Storage[] getEntries();
-        Storage getEntryAt(int position);
     }
 
     interface Presenter {
