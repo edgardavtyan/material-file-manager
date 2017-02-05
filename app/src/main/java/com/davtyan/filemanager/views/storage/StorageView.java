@@ -44,6 +44,10 @@ public class StorageView extends LinearLayout {
         titleView.setText(getResources().getString(stringId));
     }
 
+    public void setTitle(String title) {
+        titleView.setText(title);
+    }
+
     public void setSpace(long freeSize, long totalSize) {
         double freeGB = freeSize / 1000000000.0;
         double totalGB = totalSize / 1000000000.0;

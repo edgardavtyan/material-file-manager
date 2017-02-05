@@ -2,6 +2,7 @@ package com.davtyan.filemanager.components.main;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.LinearLayout;
 
 import com.davtyan.filemanager.App;
 import com.davtyan.filemanager.R;
@@ -13,6 +14,7 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity implements MainMvp.View {
 
     @BindView(R.id.storage_internal) StorageView internalStorageView;
+    @BindView(R.id.storage_container) LinearLayout storageContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +32,15 @@ public class MainActivity extends AppCompatActivity implements MainMvp.View {
 
     @Override
     public void setInternalStorageInfo(long freeSpace, long totalSpace) {
-        internalStorageView.setSpace(freeSpace ,totalSpace);
+        internalStorageView.setSpace(freeSpace, totalSpace);
+    }
+
+    @Override
+    public void addExternalStorage(String name, long freeSpace, long totalSpace) {
+        StorageView storageView = new StorageView(this);
+        storageView.setTitle(name);
+        storageView.setSpace(freeSpace, totalSpace);
+        storageView.setIcon(R.drawable.ic_sdcard);
+        storageContainer.addView(storageView);
     }
 }
