@@ -13,6 +13,10 @@ public class Storage {
         return file.getName();
     }
 
+    public String getPath() {
+        return file.getAbsolutePath();
+    }
+
     public long getFreeSpace() {
         return file.getFreeSpace();
     }

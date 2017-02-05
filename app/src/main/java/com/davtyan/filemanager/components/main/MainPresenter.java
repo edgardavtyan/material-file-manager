@@ -16,4 +16,14 @@ public class MainPresenter implements MainMvp.Presenter {
             view.setExternalStorage(model.getExternalStorage());
         }
     }
+
+    @Override
+    public void onInternalStorageClick() {
+        view.gotoEntryActivity(model.getInternalStorage().getPath());
+    }
+
+    @Override
+    public void onExternalStorageClick() {
+        view.gotoEntryActivity(model.getExternalStorage().getPath());
+    }
 }

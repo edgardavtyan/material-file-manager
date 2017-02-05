@@ -12,9 +12,12 @@ public interface MainMvp {
     interface View {
         void setInternalStorage(Storage storage);
         void setExternalStorage(Storage storage);
+        void gotoEntryActivity(String path);
     }
 
     interface Presenter {
         void onCreate();
+        void onInternalStorageClick();
+        void onExternalStorageClick();
     }
 }

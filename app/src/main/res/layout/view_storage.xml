@@ -5,17 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?selectableItemBackground"
-    android:clickable="true"
-    android:focusable="true"
     android:orientation="horizontal"
     android:padding="8dp"
-    tools:parentTag="LinearLayout"
     >
 
     <ImageView
         android:id="@+id/icon"
         android:layout_width="?listPreferredItemHeight"
         android:layout_height="?listPreferredItemHeight"
+        android:clickable="false"
+        android:duplicateParentState="true"
         android:padding="8dp"
         tools:src="@drawable/ic_smartphone"
         />
@@ -25,6 +24,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_weight="1"
+        android:clickable="false"
+        android:duplicateParentState="true"
         android:orientation="vertical"
         >
 

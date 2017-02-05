@@ -1,6 +1,7 @@
 package com.davtyan.filemanager.components.main;
 
 import android.content.Context;
+import android.os.Environment;
 
 import com.davtyan.filemanager.data.Storage;
 
@@ -14,7 +15,7 @@ public class MainModel implements MainMvp.Model {
     private final @Getter Storage externalStorage;
 
     public MainModel(Context context) {
-        internalStorage = new Storage(context.getFilesDir());
+        internalStorage = new Storage(Environment.getExternalStorageDirectory());
         externalStorage = new Storage(getSDCardFile());
     }
 
