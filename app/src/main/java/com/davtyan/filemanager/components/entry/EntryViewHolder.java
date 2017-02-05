@@ -9,12 +9,17 @@ import com.davtyan.filemanager.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class EntryViewHolder extends EntryMvp.ViewHolder {
+public class EntryViewHolder extends EntryMvp.ViewHolder implements View.OnClickListener {
+
+    private final EntryMvp.Presenter presenter;
+
     @BindView(R.id.title) TextView titleView;
     @BindView(R.id.icon) ImageView iconView;
 
-    public EntryViewHolder(View itemView) {
+    public EntryViewHolder(View itemView, EntryMvp.Presenter presenter) {
         super(itemView);
+        this.presenter = presenter;
+        itemView.setOnClickListener(this);
         ButterKnife.bind(this, itemView);
     }
 
@@ -30,5 +35,10 @@ public class EntryViewHolder extends EntryMvp.ViewHolder {
         } else {
             iconView.setImageResource(R.drawable.ic_file);
         }
+    }
+
+    @Override
+    public void onClick(View v) {
+        presenter.onEntryClick(getAdapterPosition());
     }
 }

@@ -12,19 +12,21 @@ import com.davtyan.filemanager.utils.BoolUtils;
 import java.util.Arrays;
 
 public class EntryAdapter extends EntryMvp.Adapter {
-    
+
     private final Context context;
+    private final EntryMvp.Presenter presenter;
 
     private Storage[] entries;
 
     public EntryAdapter(Context context, EntryMvp.Presenter presenter) {
         this.context = context;
+        this.presenter = presenter;
     }
 
     @Override
     public EntryMvp.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.listitem_entry, parent, false);
-        return new EntryViewHolder(view);
+        return new EntryViewHolder(view, presenter);
     }
 
     @Override

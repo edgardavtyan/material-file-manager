@@ -11,6 +11,13 @@ public class EntryPresenter implements EntryMvp.Presenter {
 
     @Override
     public void onCreate(String path) {
-        view.updateEntries(model.getDirEntries(path));
+        model.updateEntries(path);
+        view.updateEntries(model.getEntries());
+    }
+
+    @Override
+    public void onEntryClick(int position) {
+        model.updateEntries(model.getEntryAt(position).getPath());
+        view.updateEntries(model.getEntries());
     }
 }

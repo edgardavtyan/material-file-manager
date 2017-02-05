@@ -12,11 +12,14 @@ public interface EntryMvp {
     }
 
     interface Model {
-        Storage[] getDirEntries(String dirPath);
+        void updateEntries(String dirPath);
+        Storage[] getEntries();
+        Storage getEntryAt(int position);
     }
 
     interface Presenter {
         void onCreate(String path);
+        void onEntryClick(int position);
     }
 
     abstract class Adapter extends RecyclerView.Adapter<ViewHolder> {
