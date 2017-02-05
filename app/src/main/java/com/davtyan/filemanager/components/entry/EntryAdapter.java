@@ -12,6 +12,7 @@ import com.davtyan.filemanager.utils.BoolUtils;
 import java.util.Arrays;
 
 public class EntryAdapter extends EntryMvp.Adapter {
+    
     private final Context context;
 
     private Storage[] entries;
@@ -42,7 +43,7 @@ public class EntryAdapter extends EntryMvp.Adapter {
     public void updateEntries(Storage[] entries) {
         this.entries = entries;
         Arrays.sort(entries, (a, b) -> a.getName().compareToIgnoreCase(b.getName()));
-        Arrays.sort(this.entries, (a, b) -> BoolUtils.compare(a.isFile(), b.isFile()));
+        Arrays.sort(entries, (a, b) -> BoolUtils.compare(a.isFile(), b.isFile()));
         notifyDataSetChanged();
     }
 }
