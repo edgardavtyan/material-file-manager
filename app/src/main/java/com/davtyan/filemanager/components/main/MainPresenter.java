@@ -11,15 +11,9 @@ public class MainPresenter implements MainMvp.Presenter {
 
     @Override
     public void onCreate() {
-        view.setInternalStorageInfo(
-                model.getInternalStorageFreeSpace(),
-                model.getInternalStorageTotalSpace());
-
-        if (model.hasSDCardStorage()) {
-            view.addExternalStorage(
-                    model.getSDCardFile().getName(),
-                    model.getSDCardFreeSpace(),
-                    model.getSDCardTotalSpace());
+        view.setInternalStorage(model.getInternalStorage());
+        if (model.hasExternalStorage()) {
+            view.setExternalStorage(model.getExternalStorage());
         }
     }
 }

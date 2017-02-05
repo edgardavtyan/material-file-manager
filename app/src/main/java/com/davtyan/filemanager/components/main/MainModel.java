@@ -2,37 +2,23 @@ package com.davtyan.filemanager.components.main;
 
 import android.content.Context;
 
-import com.davtyan.filemanager.utils.FileInfo;
+import com.davtyan.filemanager.data.Storage;
 
 import java.io.File;
 
+import lombok.Getter;
+
 public class MainModel implements MainMvp.Model {
 
-    private final Context context;
-    private final FileInfo fileInfo;
+    private final @Getter Storage internalStorage;
+    private final @Getter Storage externalStorage;
 
-    public MainModel(Context context, FileInfo fileInfo) {
-        this.context = context;
-        this.fileInfo = fileInfo;
+    public MainModel(Context context) {
+        internalStorage = new Storage(context.getFilesDir());
+        externalStorage = new Storage(getSDCardFile());
     }
 
-    @Override
-    public long getInternalStorageFreeSpace() {
-        return fileInfo.getFreeSpace(context.getFilesDir());
-    }
-
-    @Override
-    public long getInternalStorageTotalSpace() {
-        return fileInfo.getTotalSpace(context.getFilesDir());
-    }
-
-    @Override
-    public boolean hasSDCardStorage() {
-        return fileInfo.hasExternalStorage(context);
-    }
-
-    @Override
-    public File getSDCardFile() {
+    private File getSDCardFile() {
         File storage = new File("/storage");
         for (String dir : storage.list()) {
             File file = new File(storage, dir);
@@ -45,12 +31,7 @@ public class MainModel implements MainMvp.Model {
     }
 
     @Override
-    public long getSDCardFreeSpace() {
-        return fileInfo.getFreeSpace(getSDCardFile());
-    }
-
-    @Override
-    public long getSDCardTotalSpace() {
-        return fileInfo.getTotalSpace(getSDCardFile());
+    public boolean hasExternalStorage() {
+        return getSDCardFile() != null;
     }
 }

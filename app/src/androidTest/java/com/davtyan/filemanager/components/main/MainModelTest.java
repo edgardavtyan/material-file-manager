@@ -1,7 +1,6 @@
 package com.davtyan.filemanager.components.main;
 
 import com.davtyan.filemanager.test_lib.tests.BaseTest;
-import com.davtyan.filemanager.utils.FileInfo;
 
 import org.junit.Test;
 
@@ -17,7 +16,7 @@ public class MainModelTest extends BaseTest {
     public void beforeEach() {
         super.beforeEach();
         fileInfo = mock(FileInfo.class);
-        mainModel = new MainModel(context, fileInfo);
+        mainModel = new MainModel(context);
     }
 
     @Test
