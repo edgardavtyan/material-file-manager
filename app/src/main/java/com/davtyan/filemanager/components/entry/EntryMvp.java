@@ -20,6 +20,8 @@ public interface EntryMvp {
     interface Presenter {
         void onCreate(String path);
         void onEntryClick(int position);
+        void onBindViewHolder(ViewHolder holder, int position);
+        int getEntryCount();
     }
 
     abstract class Adapter extends RecyclerView.Adapter<ViewHolder> {

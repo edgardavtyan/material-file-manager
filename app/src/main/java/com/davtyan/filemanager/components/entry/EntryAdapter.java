@@ -16,8 +16,6 @@ public class EntryAdapter extends EntryMvp.Adapter {
     private final Context context;
     private final EntryMvp.Presenter presenter;
 
-    private Storage[] entries;
-
     public EntryAdapter(Context context, EntryMvp.Presenter presenter) {
         this.context = context;
         this.presenter = presenter;
@@ -31,19 +29,16 @@ public class EntryAdapter extends EntryMvp.Adapter {
 
     @Override
     public void onBindViewHolder(EntryMvp.ViewHolder holder, int position) {
-        Storage entry = entries[position];
-        holder.setTitle(entry.getName());
-        holder.setIsDirectory(entry.isDirectory());
+        presenter.onBindViewHolder(holder, position);
     }
 
     @Override
     public int getItemCount() {
-        return entries.length;
+        return presenter.getEntryCount();
     }
 
     @Override
     public void updateEntries(Storage[] entries) {
-        this.entries = entries;
         Arrays.sort(entries, (a, b) -> a.getName().compareToIgnoreCase(b.getName()));
         Arrays.sort(entries, (a, b) -> BoolUtils.compare(a.isFile(), b.isFile()));
         notifyDataSetChanged();
