@@ -6,7 +6,9 @@
     android:layout_height="wrap_content"
     android:background="?selectableItemBackground"
     android:orientation="horizontal"
-    android:padding="8dp"
+    android:paddingRight="16dp"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp"
     >
 
     <ImageView

@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="?listPreferredItemHeightSmall"
     android:background="?selectableItemBackground"
+    android:paddingLeft="8dp"
     android:clickable="true"
     android:gravity="center_vertical"
     android:orientation="horizontal"
