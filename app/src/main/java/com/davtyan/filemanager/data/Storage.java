@@ -28,4 +28,8 @@ public class Storage {
     public boolean isDirectory() {
         return file.isDirectory();
     }
+
+    public boolean isFile() {
+        return file.isFile();
+    }
 }

@@ -7,6 +7,9 @@ import android.view.ViewGroup;
 
 import com.davtyan.filemanager.R;
 import com.davtyan.filemanager.data.Storage;
+import com.davtyan.filemanager.utils.BoolUtils;
+
+import java.util.Arrays;
 
 public class EntryAdapter extends EntryMvp.Adapter {
     private final Context context;
@@ -38,6 +41,7 @@ public class EntryAdapter extends EntryMvp.Adapter {
     @Override
     public void updateEntries(Storage[] entries) {
         this.entries = entries;
+        Arrays.sort(this.entries, (a, b) -> BoolUtils.compare(a.isFile(), b.isFile()));
         notifyDataSetChanged();
     }
 }
