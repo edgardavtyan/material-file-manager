@@ -41,6 +41,7 @@ public class EntryAdapter extends EntryMvp.Adapter {
     @Override
     public void updateEntries(Storage[] entries) {
         this.entries = entries;
+        Arrays.sort(entries, (a, b) -> a.getName().compareToIgnoreCase(b.getName()));
         Arrays.sort(this.entries, (a, b) -> BoolUtils.compare(a.isFile(), b.isFile()));
         notifyDataSetChanged();
     }
