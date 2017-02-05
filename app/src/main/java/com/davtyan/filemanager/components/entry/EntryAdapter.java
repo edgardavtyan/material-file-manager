@@ -6,11 +6,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.davtyan.filemanager.R;
+import com.davtyan.filemanager.data.Storage;
 
 public class EntryAdapter extends EntryMvp.Adapter {
     private final Context context;
 
-    private String[] entries;
+    private Storage[] entries;
 
     public EntryAdapter(Context context, EntryMvp.Presenter presenter) {
         this.context = context;
@@ -24,7 +25,9 @@ public class EntryAdapter extends EntryMvp.Adapter {
 
     @Override
     public void onBindViewHolder(EntryMvp.ViewHolder holder, int position) {
-        holder.setTitle(entries[position]);
+        Storage entry = entries[position];
+        holder.setTitle(entry.getName());
+        holder.setIsDirectory(entry.isDirectory());
     }
 
     @Override
@@ -33,7 +36,7 @@ public class EntryAdapter extends EntryMvp.Adapter {
     }
 
     @Override
-    public void updateEntries(String[] entries) {
+    public void updateEntries(Storage[] entries) {
         this.entries = entries;
         notifyDataSetChanged();
     }

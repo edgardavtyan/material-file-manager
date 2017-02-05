@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.davtyan.filemanager.R;
+import com.davtyan.filemanager.data.Storage;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,7 +35,7 @@ public class EntryActivity extends AppCompatActivity implements EntryMvp.View {
     }
 
     @Override
-    public void updateEntries(String[] entries) {
+    public void updateEntries(Storage[] entries) {
         adapter.updateEntries(entries);
     }
 }

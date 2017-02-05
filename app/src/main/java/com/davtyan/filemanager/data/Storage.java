@@ -24,4 +24,8 @@ public class Storage {
     public long getTotalSpace() {
         return file.getTotalSpace();
     }
+
+    public boolean isDirectory() {
+        return file.isDirectory();
+    }
 }
