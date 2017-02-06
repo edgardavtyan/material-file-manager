@@ -19,13 +19,23 @@ public class EntryPresenter implements EntryMvp.Presenter {
 
     @Override
     public void onEntryClick(int position) {
-        model.updateEntries(model.getEntryAt(position).getPath());
+        model.navigateForward(position);
         view.updateEntries(model.getEntries());
     }
 
     @Override
+    public void onNavigateBack() {
+        if (model.isAtRoot()) {
+            view.close();
+        } else {
+            model.navigateBack();
+            view.updateEntries(model.getEntries());
+        }
+    }
+
+    @Override
     public void onBindViewHolder(EntryMvp.ViewHolder holder, int position) {
-        Storage entry = model.getEntryAt(position);
+        Storage entry = model.getEntries()[position];
         holder.setTitle(entry.getName());
         holder.setIsDirectory(entry.isDirectory());
     }

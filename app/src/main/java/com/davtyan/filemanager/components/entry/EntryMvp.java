@@ -9,16 +9,21 @@ public interface EntryMvp {
 
     interface View {
         void updateEntries(Storage[] entries);
+        void close();
     }
 
     interface Model {
         void updateEntries(String dirPath);
+        void navigateForward(int position);
+        void navigateBack();
         Storage[] getEntries();
+        boolean isAtRoot();
     }
 
     interface Presenter {
         void onCreate(String path);
         void onEntryClick(int position);
+        void onNavigateBack();
         void onBindViewHolder(ViewHolder holder, int position);
         int getEntryCount();
     }

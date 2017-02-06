@@ -16,6 +16,7 @@ public class EntryActivity extends AppCompatActivity implements EntryMvp.View {
     @BindView(R.id.list) RecyclerView list;
 
     private EntryMvp.Adapter adapter;
+    private EntryPresenter presenter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -24,7 +25,7 @@ public class EntryActivity extends AppCompatActivity implements EntryMvp.View {
         ButterKnife.bind(this);
 
         EntryMvp.Model model = new EntryModel();
-        EntryMvp.Presenter presenter = new EntryPresenter(this, model);
+        presenter = new EntryPresenter(this, model);
         adapter = new EntryAdapter(this, presenter);
 
         list.setLayoutManager(new LinearLayoutManager(this));
@@ -35,7 +36,17 @@ public class EntryActivity extends AppCompatActivity implements EntryMvp.View {
     }
 
     @Override
+    public void onBackPressed() {
+        presenter.onNavigateBack();
+    }
+
+    @Override
     public void updateEntries(Storage[] entries) {
         adapter.updateEntries(entries);
+    }
+
+    @Override
+    public void close() {
+        finish();
     }
 }
