@@ -25,6 +25,7 @@
         android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        tools:visibility="gone"
         />
 
     <LinearLayout
@@ -34,7 +35,9 @@
         android:gravity="center"
         android:orientation="vertical"
         android:visibility="gone"
-        tools:ignore="UseCompoundDrawables">
+        tools:ignore="UseCompoundDrawables"
+        tools:visibility="visible"
+        >
 
         <ImageView
             android:layout_width="100dp"
