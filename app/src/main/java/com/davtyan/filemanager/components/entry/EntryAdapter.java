@@ -1,6 +1,7 @@
 package com.davtyan.filemanager.components.entry;
 
 import android.content.Context;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,24 +12,24 @@ import com.davtyan.filemanager.utils.BoolUtils;
 
 import java.util.Arrays;
 
-public class EntryAdapter extends EntryMvp.Adapter {
+public class EntryAdapter extends RecyclerView.Adapter<EntryViewHolder> {
 
     private final Context context;
-    private final EntryMvp.Presenter presenter;
+    private final EntryPresenter presenter;
 
-    public EntryAdapter(Context context, EntryMvp.Presenter presenter) {
+    public EntryAdapter(Context context, EntryPresenter presenter) {
         this.context = context;
         this.presenter = presenter;
     }
 
     @Override
-    public EntryMvp.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public EntryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.listitem_entry, parent, false);
         return new EntryViewHolder(view, presenter);
     }
 
     @Override
-    public void onBindViewHolder(EntryMvp.ViewHolder holder, int position) {
+    public void onBindViewHolder(EntryViewHolder holder, int position) {
         presenter.onBindViewHolder(holder, position);
     }
 
@@ -37,7 +38,6 @@ public class EntryAdapter extends EntryMvp.Adapter {
         return presenter.getEntryCount();
     }
 
-    @Override
     public void updateEntries(Storage[] entries) {
         Arrays.sort(entries, (a, b) -> a.getName().compareToIgnoreCase(b.getName()));
         Arrays.sort(entries, (a, b) -> BoolUtils.compare(a.isFile(), b.isFile()));

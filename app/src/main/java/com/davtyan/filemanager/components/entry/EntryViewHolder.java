@@ -1,6 +1,7 @@
 package com.davtyan.filemanager.components.entry;
 
 import android.graphics.drawable.Drawable;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -11,18 +12,21 @@ import com.davtyan.filemanager.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class EntryViewHolder extends EntryMvp.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
+public class EntryViewHolder
+        extends RecyclerView.ViewHolder
+        implements View.OnClickListener,
+                   View.OnLongClickListener {
 
     @BindView(R.id.root) LinearLayout root;
     @BindView(R.id.title) TextView titleView;
     @BindView(R.id.icon_main) ImageView iconView;
     @BindView(R.id.icon_selected) ImageView selectedIconView;
 
-    private final EntryMvp.Presenter presenter;
+    private final EntryPresenter presenter;
 
     private Drawable rootNormalBackground;
 
-    public EntryViewHolder(View itemView, EntryMvp.Presenter presenter) {
+    public EntryViewHolder(View itemView, EntryPresenter presenter) {
         super(itemView);
         this.presenter = presenter;
         itemView.setOnClickListener(this);
@@ -31,12 +35,10 @@ public class EntryViewHolder extends EntryMvp.ViewHolder implements View.OnClick
         rootNormalBackground = root.getBackground();
     }
 
-    @Override
     public void setTitle(String title) {
         titleView.setText(title);
     }
 
-    @Override
     public void setIsDirectory(boolean isDirectory) {
         if (isDirectory) {
             iconView.setImageResource(R.drawable.ic_directory);
@@ -45,7 +47,6 @@ public class EntryViewHolder extends EntryMvp.ViewHolder implements View.OnClick
         }
     }
 
-    @Override
     public void setIsSelected(boolean isSelected) {
         if (isSelected) {
             root.setBackgroundResource(R.color.listitem_selected_background);

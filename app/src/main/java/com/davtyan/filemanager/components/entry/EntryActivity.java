@@ -16,12 +16,14 @@ import com.davtyan.filemanager.data.Storage;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class EntryActivity extends AppCompatActivity implements EntryMvp.View {
+public class EntryActivity extends AppCompatActivity {
+    public static final String EXTRA_PATH = "extra_path";
+
     @BindView(R.id.list) RecyclerView list;
     @BindView(R.id.current_path) TextView currentPathView;
     @BindView(R.id.empty_directory_msg) LinearLayout emptyDirectoryView;
 
-    private EntryMvp.Adapter adapter;
+    private EntryAdapter adapter;
     private EntryPresenter presenter;
 
     @Override
@@ -30,7 +32,7 @@ public class EntryActivity extends AppCompatActivity implements EntryMvp.View {
         setContentView(R.layout.activity_entry);
         ButterKnife.bind(this);
 
-        EntryMvp.Model model = new EntryModel();
+        EntryModel model = new EntryModel();
         presenter = new EntryPresenter(this, model);
         adapter = new EntryAdapter(this, presenter);
 
@@ -38,7 +40,7 @@ public class EntryActivity extends AppCompatActivity implements EntryMvp.View {
         list.setAdapter(adapter);
         ((SimpleItemAnimator) list.getItemAnimator()).setSupportsChangeAnimations(false);
 
-        String path = getIntent().getStringExtra(EntryMvp.EXTRA_PATH);
+        String path = getIntent().getStringExtra(EXTRA_PATH);
         presenter.onCreate(path);
     }
 
@@ -47,7 +49,6 @@ public class EntryActivity extends AppCompatActivity implements EntryMvp.View {
         presenter.onNavigateBack();
     }
 
-    @Override
     public void updateEntries(Storage[] entries) {
         adapter.updateEntries(entries);
 
@@ -60,22 +61,18 @@ public class EntryActivity extends AppCompatActivity implements EntryMvp.View {
         }
     }
 
-    @Override
     public void updateViewSelectionAt(int position) {
         adapter.notifyItemChanged(position);
     }
 
-    @Override
     public void clearSelections() {
         adapter.notifyDataSetChanged();
     }
 
-    @Override
     public void setCurrentPath(String path) {
         currentPathView.setText(path);
     }
 
-    @Override
     public void close() {
         finish();
     }

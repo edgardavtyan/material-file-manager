@@ -7,7 +7,7 @@ import java.util.Stack;
 
 import lombok.Getter;
 
-public class EntryModel implements EntryMvp.Model {
+public class EntryModel {
     private final Stack<String> entriesStack;
     private @Getter Storage[] entries;
     private String currentPath;
@@ -16,7 +16,6 @@ public class EntryModel implements EntryMvp.Model {
         entriesStack = new Stack<>();
     }
 
-    @Override
     public void updateEntries(String dirPath) {
         String[] filenames = new File(dirPath).list();
         Storage[] entries = new Storage[filenames.length];
@@ -29,33 +28,27 @@ public class EntryModel implements EntryMvp.Model {
         this.currentPath = dirPath;
     }
 
-    @Override
     public void toggleEntrySelectedAt(int position) {
         entries[position].toggleSelected();
     }
 
-    @Override
     public void clearSelections() {
         for (Storage entry : entries) entry.clearSelection();
     }
 
-    @Override
     public void navigateForward(int position) {
         entriesStack.push(currentPath);
         updateEntries(entries[position].getPath());
     }
 
-    @Override
     public void navigateBack() {
         updateEntries(entriesStack.pop());
     }
 
-    @Override
     public String getCurrentPath() {
         return currentPath;
     }
 
-    @Override
     public boolean isAtRoot() {
         return entriesStack.size() == 0;
     }

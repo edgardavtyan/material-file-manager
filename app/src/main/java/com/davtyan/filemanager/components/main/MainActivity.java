@@ -9,7 +9,6 @@ import android.widget.LinearLayout;
 import com.davtyan.filemanager.App;
 import com.davtyan.filemanager.R;
 import com.davtyan.filemanager.components.entry.EntryActivity;
-import com.davtyan.filemanager.components.entry.EntryMvp;
 import com.davtyan.filemanager.data.Storage;
 import com.davtyan.filemanager.views.storage.StorageView;
 
@@ -64,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements MainMvp.View {
     @Override
     public void gotoEntryActivity(String path) {
         Intent intent = new Intent(this, EntryActivity.class);
-        intent.putExtra(EntryMvp.EXTRA_PATH, path);
+        intent.putExtra(EntryActivity.EXTRA_PATH, path);
         startActivity(intent);
     }
 }
