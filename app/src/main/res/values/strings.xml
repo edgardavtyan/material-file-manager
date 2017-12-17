@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">Material File Manager</string>
 
-    <string name="folder_empty">No files in this folder</string>
+    <string name="directory_empty">No files in this directory</string>
 </resources>
