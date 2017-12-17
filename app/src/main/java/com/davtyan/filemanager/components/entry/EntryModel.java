@@ -10,7 +10,7 @@ import lombok.Getter;
 public class EntryModel implements EntryMvp.Model {
     private final Stack<String> entriesStack;
     private @Getter Storage[] entries;
-    private String currentDir;
+    private String currentPath;
 
     public EntryModel() {
         entriesStack = new Stack<>();
@@ -26,18 +26,23 @@ public class EntryModel implements EntryMvp.Model {
         }
 
         this.entries = entries;
-        this.currentDir = dirPath;
+        this.currentPath = dirPath;
     }
 
     @Override
     public void navigateForward(int position) {
-        entriesStack.push(currentDir);
+        entriesStack.push(currentPath);
         updateEntries(entries[position].getPath());
     }
 
     @Override
     public void navigateBack() {
         updateEntries(entriesStack.pop());
+    }
+
+    @Override
+    public String getCurrentPath() {
+        return currentPath;
     }
 
     @Override

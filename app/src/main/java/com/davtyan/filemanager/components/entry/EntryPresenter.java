@@ -15,12 +15,14 @@ public class EntryPresenter implements EntryMvp.Presenter {
     public void onCreate(String path) {
         model.updateEntries(path);
         view.updateEntries(model.getEntries());
+        view.setCurrentPath(model.getCurrentPath());
     }
 
     @Override
     public void onEntryClick(int position) {
         model.navigateForward(position);
         view.updateEntries(model.getEntries());
+        view.setCurrentPath(model.getCurrentPath());
     }
 
     @Override
@@ -30,6 +32,7 @@ public class EntryPresenter implements EntryMvp.Presenter {
         } else {
             model.navigateBack();
             view.updateEntries(model.getEntries());
+            view.setCurrentPath(model.getCurrentPath());
         }
     }
 

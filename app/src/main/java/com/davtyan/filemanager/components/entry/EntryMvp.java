@@ -9,6 +9,7 @@ public interface EntryMvp {
 
     interface View {
         void updateEntries(Storage[] entries);
+        void setCurrentPath(String path);
         void close();
     }
 
@@ -17,6 +18,7 @@ public interface EntryMvp {
         void navigateForward(int position);
         void navigateBack();
         Storage[] getEntries();
+        String getCurrentPath();
         boolean isAtRoot();
     }
 

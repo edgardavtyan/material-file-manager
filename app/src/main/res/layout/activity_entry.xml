@@ -19,6 +19,18 @@
             app:titleTextColor="@color/textContrastPrimary"
             />
 
+        <TextView
+            android:id="@+id/current_path"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/spacing_small"
+            android:paddingLeft="@dimen/spacing_normal"
+            android:ellipsize="start"
+            android:singleLine="true"
+            android:textColor="@color/textContrastPrimary"
+            android:textSize="@dimen/font_normal"
+            tools:text="/storage/emulated/0/Download"/>
+
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v7.widget.RecyclerView

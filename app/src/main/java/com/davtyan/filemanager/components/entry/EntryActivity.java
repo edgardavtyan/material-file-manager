@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.davtyan.filemanager.R;
 import com.davtyan.filemanager.data.Storage;
@@ -16,6 +17,7 @@ import butterknife.ButterKnife;
 
 public class EntryActivity extends AppCompatActivity implements EntryMvp.View {
     @BindView(R.id.list) RecyclerView list;
+    @BindView(R.id.current_path) TextView currentPathView;
     @BindView(R.id.empty_directory_msg) LinearLayout emptyDirectoryView;
 
     private EntryMvp.Adapter adapter;
@@ -54,6 +56,11 @@ public class EntryActivity extends AppCompatActivity implements EntryMvp.View {
             list.setVisibility(View.VISIBLE);
             emptyDirectoryView.setVisibility(View.GONE);
         }
+    }
+
+    @Override
+    public void setCurrentPath(String path) {
+        currentPathView.setText(path);
     }
 
     @Override
