@@ -18,7 +18,7 @@
         android:clickable="false"
         android:duplicateParentState="true"
         android:padding="8dp"
-        android:tint="@color/colorAccent"
+        android:tint="@color/iconSecondary"
         tools:src="@drawable/ic_smartphone"
         />
 
