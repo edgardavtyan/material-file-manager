@@ -59,6 +59,16 @@ public class EntryActivity extends AppCompatActivity implements EntryMvp.View {
     }
 
     @Override
+    public void selectEntryAt(int position) {
+        adapter.notifyItemChanged(position);
+    }
+
+    @Override
+    public void clearSelections() {
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
     public void setCurrentPath(String path) {
         currentPathView.setText(path);
     }

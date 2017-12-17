@@ -2,13 +2,18 @@ package com.davtyan.filemanager.components.entry;
 
 import com.davtyan.filemanager.data.Storage;
 
+import lombok.Getter;
+
 public class EntryPresenter implements EntryMvp.Presenter {
     private final EntryMvp.View view;
     private final EntryMvp.Model model;
 
+    private @Getter boolean isInSelectMode;
+
     public EntryPresenter(EntryMvp.View view, EntryMvp.Model model) {
         this.view = view;
         this.model = model;
+        isInSelectMode = false;
     }
 
     @Override
@@ -26,13 +31,26 @@ public class EntryPresenter implements EntryMvp.Presenter {
     }
 
     @Override
+    public void onEntryToggleSelected(int position) {
+        model.selectEntryAt(position);
+        view.selectEntryAt(position);
+        isInSelectMode = true;
+    }
+
+    @Override
     public void onNavigateBack() {
-        if (model.isAtRoot()) {
-            view.close();
+        if (isInSelectMode) {
+            isInSelectMode = false;
+            model.clearSelections();
+            view.clearSelections();
         } else {
-            model.navigateBack();
-            view.updateEntries(model.getEntries());
-            view.setCurrentPath(model.getCurrentPath());
+            if (model.isAtRoot()) {
+                view.close();
+            } else {
+                model.navigateBack();
+                view.updateEntries(model.getEntries());
+                view.setCurrentPath(model.getCurrentPath());
+            }
         }
     }
 
@@ -41,6 +59,7 @@ public class EntryPresenter implements EntryMvp.Presenter {
         Storage entry = model.getEntries()[position];
         holder.setTitle(entry.getName());
         holder.setIsDirectory(entry.isDirectory());
+        holder.setIsSelected(entry.isSelected());
     }
 
     @Override

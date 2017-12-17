@@ -30,6 +30,18 @@ public class EntryModel implements EntryMvp.Model {
     }
 
     @Override
+    public void selectEntryAt(int position) {
+        entries[position].setSelected(true);
+    }
+
+    @Override
+    public void clearSelections() {
+        for (Storage entry : entries) {
+            entry.setSelected(false);
+        }
+    }
+
+    @Override
     public void navigateForward(int position) {
         entriesStack.push(currentPath);
         updateEntries(entries[position].getPath());

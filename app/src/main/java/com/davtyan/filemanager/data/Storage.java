@@ -2,8 +2,12 @@ package com.davtyan.filemanager.data;
 
 import java.io.File;
 
+import lombok.Getter;
+import lombok.Setter;
+
 public class Storage {
     private File file;
+    private @Setter @Getter boolean isSelected;
 
     public Storage(File file) {
         this.file = file;

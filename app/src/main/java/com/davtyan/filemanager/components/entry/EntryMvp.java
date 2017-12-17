@@ -9,12 +9,16 @@ public interface EntryMvp {
 
     interface View {
         void updateEntries(Storage[] entries);
+        void selectEntryAt(int position);
+        void clearSelections();
         void setCurrentPath(String path);
         void close();
     }
 
     interface Model {
         void updateEntries(String dirPath);
+        void selectEntryAt(int position);
+        void clearSelections();
         void navigateForward(int position);
         void navigateBack();
         Storage[] getEntries();
@@ -25,9 +29,11 @@ public interface EntryMvp {
     interface Presenter {
         void onCreate(String path);
         void onEntryClick(int position);
+        void onEntryToggleSelected(int position);
         void onNavigateBack();
         void onBindViewHolder(ViewHolder holder, int position);
         int getEntryCount();
+        boolean isInSelectMode();
     }
 
     abstract class Adapter extends RecyclerView.Adapter<ViewHolder> {
@@ -41,5 +47,6 @@ public interface EntryMvp {
 
         public abstract void setTitle(String title);
         public abstract void setIsDirectory(boolean isDirectory);
+        public abstract void setIsSelected(boolean isSelected);
     }
 }
