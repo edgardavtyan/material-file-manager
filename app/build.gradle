@@ -4,21 +4,15 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.3'
-        classpath 'me.tatarka:gradle-retrolambda:3.2.3'
+        classpath 'com.android.tools.build:gradle:3.0.1'
     }
 }
 
-plugins {
-    id "me.tatarka.retrolambda" version "3.2.3"
-}
-
 apply plugin: 'com.android.application'
-apply plugin: 'me.tatarka.retrolambda'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    buildToolsVersion "26.0.2"
     defaultConfig {
         applicationId "com.davtyan.filemanager"
         minSdkVersion 16
@@ -40,21 +34,22 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:appcompat-v7:25.1.0'
-    compile 'com.android.support:recyclerview-v7:25.1.0'
-    compile 'com.jakewharton:butterknife:8.4.0'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:25.4.0'
+    implementation 'com.android.support:recyclerview-v7:25.4.0'
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 
-    provided "org.projectlombok:lombok:1.12.6"
+    compileOnly "org.projectlombok:lombok:1.16.18"
+    annotationProcessor "org.projectlombok:lombok:1.16.18"
 
-    androidTestCompile 'com.android.support:support-annotations:25.1.0'
-    androidTestCompile 'com.android.support.test:runner:0.5'
-    androidTestCompile 'com.android.support.test:rules:0.5'
-    androidTestCompile 'junit:junit:4.12'
-    androidTestCompile "org.mockito:mockito-core:1.9.5"
-    androidTestCompile 'org.assertj:assertj-core:2.5.0'
-    androidTestCompile 'com.crittercism.dexmaker:dexmaker:1.4'
-    androidTestCompile 'com.crittercism.dexmaker:dexmaker-mockito:1.4'
-    androidTestCompile 'com.crittercism.dexmaker:dexmaker-dx:1.4'
+    androidTestImplementation 'com.android.support:support-annotations:25.1.0'
+    androidTestImplementation 'com.android.support.test:runner:0.5'
+    androidTestImplementation 'com.android.support.test:rules:0.5'
+    androidTestImplementation 'junit:junit:4.12'
+    androidTestImplementation "org.mockito:mockito-core:1.9.5"
+    androidTestImplementation 'org.assertj:assertj-core:2.5.0'
+    androidTestImplementation 'com.crittercism.dexmaker:dexmaker:1.4'
+    androidTestImplementation 'com.crittercism.dexmaker:dexmaker-mockito:1.4'
+    androidTestImplementation 'com.crittercism.dexmaker:dexmaker-dx:1.4'
 }
