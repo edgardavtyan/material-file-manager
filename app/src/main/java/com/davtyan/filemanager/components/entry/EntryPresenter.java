@@ -32,8 +32,8 @@ public class EntryPresenter implements EntryMvp.Presenter {
 
     @Override
     public void onEntryToggleSelected(int position) {
-        model.selectEntryAt(position);
-        view.selectEntryAt(position);
+        model.toggleEntrySelectedAt(position);
+        view.updateViewSelectionAt(position);
         isInSelectMode = true;
     }
 

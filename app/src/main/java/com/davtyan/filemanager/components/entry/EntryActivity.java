@@ -61,7 +61,7 @@ public class EntryActivity extends AppCompatActivity implements EntryMvp.View {
     }
 
     @Override
-    public void selectEntryAt(int position) {
+    public void updateViewSelectionAt(int position) {
         adapter.notifyItemChanged(position);
     }
 

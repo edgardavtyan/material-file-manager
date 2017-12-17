@@ -30,15 +30,13 @@ public class EntryModel implements EntryMvp.Model {
     }
 
     @Override
-    public void selectEntryAt(int position) {
-        entries[position].setSelected(true);
+    public void toggleEntrySelectedAt(int position) {
+        entries[position].toggleSelected();
     }
 
     @Override
     public void clearSelections() {
-        for (Storage entry : entries) {
-            entry.setSelected(false);
-        }
+        for (Storage entry : entries) entry.clearSelection();
     }
 
     @Override

@@ -9,7 +9,7 @@ public interface EntryMvp {
 
     interface View {
         void updateEntries(Storage[] entries);
-        void selectEntryAt(int position);
+        void updateViewSelectionAt(int position);
         void clearSelections();
         void setCurrentPath(String path);
         void close();
@@ -17,7 +17,7 @@ public interface EntryMvp {
 
     interface Model {
         void updateEntries(String dirPath);
-        void selectEntryAt(int position);
+        void toggleEntrySelectedAt(int position);
         void clearSelections();
         void navigateForward(int position);
         void navigateBack();

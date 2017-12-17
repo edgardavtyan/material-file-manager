@@ -3,11 +3,10 @@ package com.davtyan.filemanager.data;
 import java.io.File;
 
 import lombok.Getter;
-import lombok.Setter;
 
 public class Storage {
     private File file;
-    private @Setter @Getter boolean isSelected;
+    private @Getter boolean isSelected;
 
     public Storage(File file) {
         this.file = file;
@@ -35,5 +34,13 @@ public class Storage {
 
     public boolean isFile() {
         return file.isFile();
+    }
+
+    public void toggleSelected() {
+        isSelected = !isSelected;
+    }
+
+    public void clearSelection() {
+        isSelected = false;
     }
 }
