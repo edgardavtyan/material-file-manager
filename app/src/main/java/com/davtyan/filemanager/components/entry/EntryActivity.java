@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SimpleItemAnimator;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -35,6 +36,7 @@ public class EntryActivity extends AppCompatActivity implements EntryMvp.View {
 
         list.setLayoutManager(new LinearLayoutManager(this));
         list.setAdapter(adapter);
+        ((SimpleItemAnimator) list.getItemAnimator()).setSupportsChangeAnimations(false);
 
         String path = getIntent().getStringExtra(EntryMvp.EXTRA_PATH);
         presenter.onCreate(path);
