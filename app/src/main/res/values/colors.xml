@@ -6,4 +6,6 @@
     <color name="textColorPrimary">#dd000000</color>
     <color name="textColorSecondary">#89000000</color>
     <color name="iconSecondary">#333</color>
+
+    <color name="textContrastPrimary">#ddffffff</color>
 </resources>
