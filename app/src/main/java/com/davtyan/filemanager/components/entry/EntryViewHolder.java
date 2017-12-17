@@ -15,7 +15,8 @@ public class EntryViewHolder extends EntryMvp.ViewHolder implements View.OnClick
 
     @BindView(R.id.root) LinearLayout root;
     @BindView(R.id.title) TextView titleView;
-    @BindView(R.id.icon) ImageView iconView;
+    @BindView(R.id.icon_main) ImageView iconView;
+    @BindView(R.id.icon_selected) ImageView selectedIconView;
 
     private final EntryMvp.Presenter presenter;
 
@@ -47,9 +48,11 @@ public class EntryViewHolder extends EntryMvp.ViewHolder implements View.OnClick
     @Override
     public void setIsSelected(boolean isSelected) {
         if (isSelected) {
-            root.setBackgroundResource(R.color.listitem_selected);
+            root.setBackgroundResource(R.color.listitem_selected_background);
+            selectedIconView.setVisibility(View.VISIBLE);
         } else {
             root.setBackground(rootNormalBackground);
+            selectedIconView.setVisibility(View.INVISIBLE);
         }
     }
 

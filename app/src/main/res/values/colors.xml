@@ -8,5 +8,6 @@
     <color name="iconSecondary">#333</color>
 
     <color name="textContrastPrimary">#ddffffff</color>
-    <color name="listitem_selected">#dddddd</color>
+    <color name="listitem_selected_background">#dddddd</color>
+    <color name="listitem_selected_icon">#64dd17</color>
 </resources>
