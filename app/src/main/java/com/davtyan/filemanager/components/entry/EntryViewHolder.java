@@ -50,9 +50,11 @@ public class EntryViewHolder extends EntryMvp.ViewHolder implements View.OnClick
         if (isSelected) {
             root.setBackgroundResource(R.color.listitem_selected_background);
             selectedIconView.setVisibility(View.VISIBLE);
+            iconView.setVisibility(View.INVISIBLE);
         } else {
             root.setBackground(rootNormalBackground);
             selectedIconView.setVisibility(View.INVISIBLE);
+            iconView.setVisibility(View.VISIBLE);
         }
     }
 

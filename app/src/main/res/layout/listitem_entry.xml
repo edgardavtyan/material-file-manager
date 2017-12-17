@@ -5,7 +5,7 @@
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="?listPreferredItemHeightSmall"
-    android:paddingLeft="8dp"
+    android:paddingLeft="12dp"
     android:background="?selectableItemBackground"
     android:clickable="true"
     android:gravity="center_vertical"
@@ -21,8 +21,8 @@
 
         <ImageView
             android:id="@+id/icon_main"
-            android:layout_width="?listPreferredItemHeightSmall"
-            android:layout_height="?listPreferredItemHeightSmall"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             tools:src="@drawable/ic_directory"/>
 
         <ImageView
@@ -42,7 +42,7 @@
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="8dp"
+        android:paddingLeft="12dp"
         android:paddingRight="8dp"
         android:ellipsize="end"
         android:maxLines="1"
