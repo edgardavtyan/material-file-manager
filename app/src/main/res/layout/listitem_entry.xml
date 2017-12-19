@@ -23,6 +23,7 @@
             android:id="@+id/icon_main"
             android:layout_width="24dp"
             android:layout_height="24dp"
+            android:tint="@color/iconTintPrimary"
             tools:src="@drawable/ic_directory"/>
 
         <ImageView
@@ -31,7 +32,7 @@
             android:layout_height="24dp"
             android:layout_gravity="right|bottom"
             android:src="@drawable/ic_check_circle"
-            android:tint="@color/listitem_selected_icon"
+            android:tint="@color/listitemSelectedIcon"
             android:visibility="gone"
             tools:visibility="visible"
             />
@@ -46,7 +47,7 @@
         android:paddingRight="8dp"
         android:ellipsize="end"
         android:maxLines="1"
-        android:textColor="@color/textColorPrimary"
+        android:textColor="@color/textPrimary"
         android:textSize="@dimen/font_normal"
         tools:text="Directory"
         />

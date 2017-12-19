@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#212121</color>
-    <color name="colorPrimaryDark">#000000</color>
-    <color name="colorAccent">#00796b</color>
-    <color name="textColorPrimary">#dd000000</color>
-    <color name="textColorSecondary">#89000000</color>
-    <color name="iconSecondary">#333</color>
+    <color name="primary">#212121</color>
+    <color name="primaryDark">#000000</color>
+    <color name="accent">#00796b</color>
 
+    <color name="textPrimary">#dd000000</color>
+    <color name="textSecondary">#89000000</color>
     <color name="textContrastPrimary">#ddffffff</color>
-    <color name="listitem_selected_background">#dddddd</color>
-    <color name="listitem_selected_icon">#8bc34a</color>
+
+    <color name="iconTintPrimary">#333333</color>
+
+    <color name="listitemSelectedBackground">#dddddd</color>
+    <color name="listitemSelectedIcon">#8bc34a</color>
 </resources>

@@ -49,7 +49,7 @@ public class EntryViewHolder
 
     public void setIsSelected(boolean isSelected) {
         if (isSelected) {
-            root.setBackgroundResource(R.color.listitem_selected_background);
+            root.setBackgroundResource(R.color.listitemSelectedBackground);
             selectedIconView.setVisibility(View.VISIBLE);
             iconView.setVisibility(View.INVISIBLE);
         } else {
