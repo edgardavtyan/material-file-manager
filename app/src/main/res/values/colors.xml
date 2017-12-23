@@ -11,5 +11,5 @@
     <color name="iconTintPrimary">#333333</color>
 
     <color name="selectModeBackground">#dddddd</color>
-    <color name="selectModeIcon">#3f51b5</color>
+    <color name="selectMode">#3f51b5</color>
 </resources>

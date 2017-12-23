@@ -32,7 +32,7 @@
             android:layout_height="24dp"
             android:layout_gravity="right|bottom"
             android:src="@drawable/ic_check_circle"
-            android:tint="@color/selectModeIcon"
+            android:tint="@color/selectMode"
             android:visibility="gone"
             tools:visibility="visible"
             />
