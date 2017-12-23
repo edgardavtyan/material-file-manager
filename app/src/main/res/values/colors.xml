@@ -10,6 +10,6 @@
 
     <color name="iconTintPrimary">#333333</color>
 
-    <color name="listitemSelectedBackground">#dddddd</color>
-    <color name="listitemSelectedIcon">#8bc34a</color>
+    <color name="selectModeBackground">#dddddd</color>
+    <color name="selectModeIcon">#8bc34a</color>
 </resources>

@@ -117,7 +117,7 @@ public class EntryActivity extends AppCompatActivity {
     }
 
     public void enterSelectMode() {
-        appbar.setBackgroundResource(R.color.listitemSelectedIcon);
+        appbar.setBackgroundResource(R.color.selectModeIcon);
     }
 
     public void exitSelectMode() {
