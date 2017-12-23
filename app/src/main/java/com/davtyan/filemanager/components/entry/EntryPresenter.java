@@ -31,6 +31,7 @@ public class EntryPresenter {
     public void onEntryToggleSelected(int position) {
         model.toggleEntrySelectedAt(position);
         view.updateViewSelectionAt(position);
+        view.enterSelectMode();
         isInSelectMode = true;
     }
 
@@ -39,6 +40,7 @@ public class EntryPresenter {
             isInSelectMode = false;
             model.clearSelections();
             view.clearSelections();
+            view.exitSelectMode();
         } else {
             if (model.isAtRoot()) {
                 view.close();

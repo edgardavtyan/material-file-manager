@@ -1,7 +1,9 @@
 package com.davtyan.filemanager.components.entry;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.AppBarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -25,9 +27,12 @@ public class EntryActivity extends AppCompatActivity {
     @BindView(R.id.current_path) TextView currentPathView;
     @BindView(R.id.empty_directory_msg) LinearLayout emptyDirectoryView;
     @BindView(R.id.toolbar) Toolbar toolbar;
+    @BindView(R.id.appbar) AppBarLayout appbar;
     private boolean deleteMenuEnabled;
     private EntryAdapter adapter;
     private EntryPresenter presenter;
+
+    private Drawable originalAppBarBackground;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,6 +53,8 @@ public class EntryActivity extends AppCompatActivity {
 
         String path = getIntent().getStringExtra(EXTRA_PATH);
         presenter.onCreate(path);
+
+        originalAppBarBackground = appbar.getBackground();
     }
 
     @Override
@@ -107,5 +114,13 @@ public class EntryActivity extends AppCompatActivity {
 
     public void close() {
         finish();
+    }
+
+    public void enterSelectMode() {
+        appbar.setBackgroundResource(R.color.listitemSelectedIcon);
+    }
+
+    public void exitSelectMode() {
+        appbar.setBackground(originalAppBarBackground);
     }
 }
