@@ -11,7 +11,7 @@ public class EntryModel {
     private final Stack<String> entriesStack;
     private @Getter Storage[] entries;
     private @Getter int selectedEntriesCount;
-    private String currentPath;
+    private @Getter String currentPath;
 
     public EntryModel() {
         entriesStack = new Stack<>();
@@ -52,10 +52,6 @@ public class EntryModel {
 
     public void navigateBack() {
         updateEntries(entriesStack.pop());
-    }
-
-    public String getCurrentPath() {
-        return currentPath;
     }
 
     public boolean isAtRoot() {
