@@ -116,11 +116,15 @@ public class EntryActivity extends AppCompatActivity {
         finish();
     }
 
-    public void enterSelectMode() {
+    public void enterSelectMode(int entriesCount) {
         appbar.setBackgroundResource(R.color.selectMode);
+
+        String selectModeTitle = getString(R.string.select_mode_title, entriesCount);
+        toolbar.setTitle(selectModeTitle);
     }
 
     public void exitSelectMode() {
         appbar.setBackground(originalAppBarBackground);
+        toolbar.setTitle(R.string.app_name);
     }
 }

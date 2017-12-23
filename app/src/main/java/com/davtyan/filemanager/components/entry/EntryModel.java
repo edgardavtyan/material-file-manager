@@ -10,6 +10,7 @@ import lombok.Getter;
 public class EntryModel {
     private final Stack<String> entriesStack;
     private @Getter Storage[] entries;
+    private @Getter int selectedEntriesCount;
     private String currentPath;
 
     public EntryModel() {
@@ -29,11 +30,19 @@ public class EntryModel {
     }
 
     public void toggleEntrySelectedAt(int position) {
-        entries[position].toggleSelected();
+        Storage entry = entries[position];
+        if (entry.isSelected()) {
+            entry.setSelected(false);
+            selectedEntriesCount--;
+        } else {
+            entry.setSelected(true);
+            selectedEntriesCount++;
+        }
     }
 
     public void clearSelections() {
         for (Storage entry : entries) entry.clearSelection();
+        selectedEntriesCount = 0;
     }
 
     public void navigateForward(int position) {

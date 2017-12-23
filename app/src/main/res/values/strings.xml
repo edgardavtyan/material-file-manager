@@ -2,4 +2,6 @@
     <string name="app_name">Material File Manager</string>
 
     <string name="directory_empty">No files in this directory</string>
+
+    <string name="select_mode_title">%1$d selected</string>
 </resources>

@@ -31,7 +31,7 @@ public class EntryPresenter {
     public void onEntryToggleSelected(int position) {
         model.toggleEntrySelectedAt(position);
         view.updateViewSelectionAt(position);
-        view.enterSelectMode();
+        view.enterSelectMode(model.getSelectedEntriesCount());
         isInSelectMode = true;
     }
 

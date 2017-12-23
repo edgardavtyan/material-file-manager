@@ -40,8 +40,8 @@ public class Storage {
         return file.delete();
     }
 
-    public void toggleSelected() {
-        isSelected = !isSelected;
+    public void setSelected(boolean isSelected) {
+        this.isSelected = isSelected;
     }
 
     public void clearSelection() {
