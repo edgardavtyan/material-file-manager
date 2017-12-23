@@ -52,4 +52,12 @@ public class EntryModel {
     public boolean isAtRoot() {
         return entriesStack.size() == 0;
     }
+
+    public void deleteSelectedItems() {
+        for (Storage entry : entries) {
+            if (!entry.isSelected()) continue;
+            entry.delete();
+            updateEntries(currentPath);
+        }
+    }
 }

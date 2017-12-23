@@ -36,6 +36,10 @@ public class Storage {
         return file.isFile();
     }
 
+    public boolean delete() {
+        return file.delete();
+    }
+
     public void toggleSelected() {
         isSelected = !isSelected;
     }

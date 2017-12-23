@@ -60,4 +60,9 @@ public class EntryPresenter {
     public int getEntryCount() {
         return model.getEntries().length;
     }
+
+    public void onDeleteMenuItemClicked() {
+        model.deleteSelectedItems();
+        view.updateEntries(model.getEntries());
+    }
 }

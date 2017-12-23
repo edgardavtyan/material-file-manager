@@ -21,14 +21,11 @@ import butterknife.ButterKnife;
 
 public class EntryActivity extends AppCompatActivity {
     public static final String EXTRA_PATH = "extra_path";
-
-    private boolean deleteMenuEnabled;
-
     @BindView(R.id.list) RecyclerView list;
     @BindView(R.id.current_path) TextView currentPathView;
     @BindView(R.id.empty_directory_msg) LinearLayout emptyDirectoryView;
     @BindView(R.id.toolbar) Toolbar toolbar;
-
+    private boolean deleteMenuEnabled;
     private EntryAdapter adapter;
     private EntryPresenter presenter;
 
@@ -67,6 +64,17 @@ public class EntryActivity extends AppCompatActivity {
         deleteMenuItem.setEnabled(deleteMenuEnabled);
 
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menuitem_delete:
+                presenter.onDeleteMenuItemClicked();
+                return true;
+            default:
+                return false;
+        }
     }
 
     public void updateEntries(Storage[] entries) {
