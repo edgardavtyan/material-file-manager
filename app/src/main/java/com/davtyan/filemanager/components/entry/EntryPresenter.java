@@ -19,7 +19,7 @@ public class EntryPresenter {
     public void onCreate(String path) {
         model.updateEntries(path);
         view.updateEntries(model.getEntries());
-        view.setCurrentPath(model.getCurrentPath());
+            view.setCurrentPath(model.getCurrentPath());
     }
 
     public void onEntryClick(int position) {
