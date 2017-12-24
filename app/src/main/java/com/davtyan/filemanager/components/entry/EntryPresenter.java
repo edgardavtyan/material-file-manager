@@ -72,5 +72,6 @@ public class EntryPresenter {
     public void onDeleteMenuItemClicked() {
         model.deleteSelectedItems();
         view.updateEntries(model.getEntries());
+        view.exitSelectMode();
     }
 }
