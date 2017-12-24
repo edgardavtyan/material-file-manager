@@ -3,34 +3,34 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root"
+    android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="?listPreferredItemHeightSmall"
-    android:paddingLeft="12dp"
     android:background="?selectableItemBackground"
     android:clickable="true"
+    android:focusable="true"
     android:gravity="center_vertical"
-    android:orientation="horizontal"
     >
 
     <FrameLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         >
 
         <ImageView
             android:id="@+id/icon_main"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="?listPreferredItemHeightSmall"
+            android:layout_height="?listPreferredItemHeightSmall"
+            android:padding="12dp"
             android:tint="@color/iconTintPrimary"
-            tools:src="@drawable/ic_directory"/>
+            tools:src="@drawable/ic_directory"
+            />
 
         <ImageView
             android:id="@+id/icon_selected"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_gravity="right|bottom"
+            android:layout_width="?listPreferredItemHeightSmall"
+            android:layout_height="?listPreferredItemHeightSmall"
+            android:padding="12dp"
             android:src="@drawable/ic_check_circle"
             android:tint="@color/selectMode"
             android:visibility="gone"
@@ -42,11 +42,11 @@
     <TextView
         android:id="@+id/title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="12dp"
+        android:layout_height="match_parent"
         android:paddingRight="8dp"
-        android:ellipsize="end"
-        android:maxLines="1"
+        android:ellipsize="middle"
+        android:gravity="center_vertical"
+        android:singleLine="true"
         android:textColor="@color/textPrimary"
         android:textSize="@dimen/font_normal"
         tools:text="Directory"
