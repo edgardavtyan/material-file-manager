@@ -2,12 +2,12 @@ package com.davtyan.filemanager.components.main;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.LinearLayout;
 
 import com.davtyan.filemanager.App;
 import com.davtyan.filemanager.R;
+import com.davtyan.filemanager.base.BaseActivity;
 import com.davtyan.filemanager.components.entry.EntryActivity;
 import com.davtyan.filemanager.data.Storage;
 import com.davtyan.filemanager.views.storage.StorageView;
@@ -15,7 +15,7 @@ import com.davtyan.filemanager.views.storage.StorageView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity implements MainMvp.View {
+public class MainActivity extends BaseActivity implements MainMvp.View {
 
     @BindView(R.id.storage_internal) StorageView internalStorageView;
     @BindView(R.id.storage_container) LinearLayout storageContainer;

@@ -12,16 +12,18 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.davtyan.filemanager.R;
+import com.davtyan.filemanager.base.BaseActivity;
 import com.davtyan.filemanager.data.Storage;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class EntryActivity extends AppCompatActivity {
+public class EntryActivity extends BaseActivity {
     public static final String EXTRA_PATH = "extra_path";
     @BindView(R.id.list) RecyclerView list;
     @BindView(R.id.current_path) TextView currentPathView;
