@@ -3,6 +3,7 @@ package com.davtyan.filemanager.components.entry;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -19,19 +20,30 @@ public class EntryViewHolder
 
     @BindView(R.id.root) LinearLayout root;
     @BindView(R.id.title) TextView titleView;
+    @BindView(R.id.icon_wrapper) FrameLayout iconWrapperView;
     @BindView(R.id.icon_main) ImageView iconView;
     @BindView(R.id.icon_selected) ImageView selectedIconView;
 
     private final EntryPresenter presenter;
 
-    private Drawable rootNormalBackground;
+    private final Drawable rootNormalBackground;
+
+    @SuppressWarnings("FieldCanBeLocal")
+    private final View.OnClickListener onIconWrapperClickListener
+            = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            presenter.onEntryToggleSelected(getAdapterPosition());
+        }
+    };
 
     public EntryViewHolder(View itemView, EntryPresenter presenter) {
         super(itemView);
         this.presenter = presenter;
+        ButterKnife.bind(this, itemView);
         itemView.setOnClickListener(this);
         itemView.setOnLongClickListener(this);
-        ButterKnife.bind(this, itemView);
+        iconWrapperView.setOnClickListener(onIconWrapperClickListener);
         rootNormalBackground = root.getBackground();
     }
 
