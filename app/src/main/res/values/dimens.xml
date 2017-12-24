@@ -1,5 +1,4 @@
 <resources>
-
     <dimen name="font_normal">16sp</dimen>
     <dimen name="font_small">14sp</dimen>
 
@@ -7,5 +6,4 @@
     <dimen name="spacing_normal">16dp</dimen>
 
     <dimen name="toolbar_placeholder_height">56dp</dimen>
-
 </resources>
