@@ -4,7 +4,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SimpleItemAnimator;
@@ -12,13 +12,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.davtyan.filemanager.R;
 import com.davtyan.filemanager.base.BaseActivity;
 import com.davtyan.filemanager.data.Storage;
+import com.davtyan.filemanager.utils.StatusBarUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,8 +33,10 @@ public class EntryActivity extends BaseActivity {
     private boolean deleteMenuEnabled;
     private EntryAdapter adapter;
     private EntryPresenter presenter;
+    private StatusBarUtils statusBarUtils;
 
     private Drawable originalAppBarBackground;
+    private int originalStatusBarColor;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -56,7 +58,10 @@ public class EntryActivity extends BaseActivity {
         String path = getIntent().getStringExtra(EXTRA_PATH);
         presenter.onCreate(path);
 
+        statusBarUtils = new StatusBarUtils(getWindow());
+
         originalAppBarBackground = appbar.getBackground();
+        originalStatusBarColor = statusBarUtils.getStatusBarColor();
     }
 
     @Override
@@ -120,6 +125,7 @@ public class EntryActivity extends BaseActivity {
 
     public void enterSelectMode(int entriesCount) {
         appbar.setBackgroundResource(R.color.selectMode);
+        statusBarUtils.setStatusBarColor(ContextCompat.getColor(this, R.color.selectModeDark));
 
         String selectModeTitle = getString(R.string.select_mode_title, entriesCount);
         toolbar.setTitle(selectModeTitle);
@@ -128,5 +134,6 @@ public class EntryActivity extends BaseActivity {
     public void exitSelectMode() {
         appbar.setBackground(originalAppBarBackground);
         toolbar.setTitle(R.string.app_name);
+        statusBarUtils.setStatusBarColor(originalStatusBarColor);
     }
 }
