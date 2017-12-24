@@ -13,10 +13,7 @@ import com.davtyan.filemanager.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class EntryViewHolder
-        extends RecyclerView.ViewHolder
-        implements View.OnClickListener,
-                   View.OnLongClickListener {
+public class EntryViewHolder extends RecyclerView.ViewHolder {
 
     @BindView(R.id.root) LinearLayout root;
     @BindView(R.id.title) TextView titleView;
@@ -37,12 +34,35 @@ public class EntryViewHolder
         }
     };
 
+    @SuppressWarnings("FieldCanBeLocal")
+    private final View.OnClickListener onEntryClickListener
+            = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if (presenter.isInSelectMode()) {
+                presenter.onEntryToggleSelected(getAdapterPosition());
+            } else {
+                presenter.onEntryClick(getAdapterPosition());
+            }
+        }
+    };
+
+    @SuppressWarnings("FieldCanBeLocal")
+    private final View.OnLongClickListener onEntryLongClickListener
+            = new View.OnLongClickListener() {
+        @Override
+        public boolean onLongClick(View v) {
+            presenter.onEntryToggleSelected(getAdapterPosition());
+            return true;
+        }
+    };
+
     public EntryViewHolder(View itemView, EntryPresenter presenter) {
         super(itemView);
         this.presenter = presenter;
         ButterKnife.bind(this, itemView);
-        itemView.setOnClickListener(this);
-        itemView.setOnLongClickListener(this);
+        itemView.setOnClickListener(onEntryClickListener);
+        itemView.setOnLongClickListener(onEntryLongClickListener);
         iconWrapperView.setOnClickListener(onIconWrapperClickListener);
         rootNormalBackground = root.getBackground();
     }
@@ -69,20 +89,5 @@ public class EntryViewHolder
             selectedIconView.setVisibility(View.INVISIBLE);
             iconView.setVisibility(View.VISIBLE);
         }
-    }
-
-    @Override
-    public void onClick(View v) {
-        if (presenter.isInSelectMode()) {
-            presenter.onEntryToggleSelected(getAdapterPosition());
-        } else {
-            presenter.onEntryClick(getAdapterPosition());
-        }
-    }
-
-    @Override
-    public boolean onLongClick(View v) {
-        presenter.onEntryToggleSelected(getAdapterPosition());
-        return true;
     }
 }
