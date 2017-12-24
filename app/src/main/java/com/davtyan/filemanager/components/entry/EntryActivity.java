@@ -25,16 +25,19 @@ import butterknife.ButterKnife;
 
 public class EntryActivity extends BaseActivity {
     public static final String EXTRA_PATH = "extra_path";
+
     @BindView(R.id.list) RecyclerView list;
     @BindView(R.id.current_path) TextView currentPathView;
     @BindView(R.id.empty_directory_msg) LinearLayout emptyDirectoryView;
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.appbar) AppBarLayout appbar;
-    private boolean deleteMenuEnabled;
+
     private EntryAdapter adapter;
     private EntryPresenter presenter;
-    private StatusBarUtils statusBarUtils;
 
+    private boolean deleteMenuEnabled;
+
+    private StatusBarUtils statusBarUtils;
     private Drawable originalAppBarBackground;
     private int originalStatusBarColor;
 
@@ -124,16 +127,14 @@ public class EntryActivity extends BaseActivity {
     }
 
     public void enterSelectMode(int entriesCount) {
+        toolbar.setTitle(getString(R.string.select_mode_title, entriesCount));
         appbar.setBackgroundResource(R.color.selectMode);
         statusBarUtils.setStatusBarColor(ContextCompat.getColor(this, R.color.selectModeDark));
-
-        String selectModeTitle = getString(R.string.select_mode_title, entriesCount);
-        toolbar.setTitle(selectModeTitle);
     }
 
     public void exitSelectMode() {
-        appbar.setBackground(originalAppBarBackground);
         toolbar.setTitle(R.string.app_name);
+        appbar.setBackground(originalAppBarBackground);
         statusBarUtils.setStatusBarColor(originalStatusBarColor);
     }
 }
