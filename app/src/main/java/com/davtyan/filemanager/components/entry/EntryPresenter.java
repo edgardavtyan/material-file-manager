@@ -31,8 +31,14 @@ public class EntryPresenter {
     public void onEntryToggleSelected(int position) {
         model.toggleEntrySelectedAt(position);
         view.updateViewSelectionAt(position);
-        view.enterSelectMode(model.getSelectedEntriesCount());
-        isInSelectMode = true;
+
+        if (model.getSelectedEntriesCount() == 0) {
+            view.exitSelectMode();
+            isInSelectMode = false;
+        } else {
+            view.enterSelectMode(model.getSelectedEntriesCount());
+            isInSelectMode = true;
+        }
     }
 
     public void onNavigateBack() {
