@@ -60,6 +60,15 @@ public class EntryPresenterTest {
         verify(model).toggleEntrySelectedAt(0);
         verify(view).updateViewSelectionAt(0);
         verify(view).enterSelectMode(selectedEntriesCount);
+        assertThat(presenter.isInSelectMode()).isTrue();
+    }
+
+    @Test
+    public void onEntryToggleSelected_lastEntryUnselected_exitSelectMode() {
+        when(model.getSelectedEntriesCount()).thenReturn(0);
+        presenter.onEntryToggleSelected(0);
+        verify(view).exitSelectMode();
+        assertThat(presenter.isInSelectMode()).isFalse();
     }
 
     @Test
