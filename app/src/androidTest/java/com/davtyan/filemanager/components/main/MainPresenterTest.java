@@ -1,4 +1,4 @@
-package com.davtyan.filemanager.components.entry;
+package com.davtyan.filemanager.components.main;
 
 import com.davtyan.filemanager.data.Storage;
 
@@ -10,10 +10,10 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-public class EntryPresenterTest {
-    private EntryPresenter presenter;
-    private EntryActivity view;
-    private EntryModel model;
+public class MainPresenterTest {
+    private MainPresenter presenter;
+    private MainActivity view;
+    private MainModel model;
 
     private Storage[] entries;
     private String currentPath;
@@ -25,13 +25,13 @@ public class EntryPresenterTest {
         currentPath = "path";
         selectedEntriesCount = 3;
 
-        model = mock(EntryModel.class);
+        model = mock(MainModel.class);
         when(model.getEntries()).thenReturn(entries);
         when(model.getCurrentPath()).thenReturn(currentPath);
         when(model.getSelectedEntriesCount()).thenReturn(selectedEntriesCount);
 
-        view = mock(EntryActivity.class);
-        presenter = new EntryPresenter(view, model);
+        view = mock(MainActivity.class);
+        presenter = new MainPresenter(view, model);
     }
 
     @Test
@@ -39,7 +39,7 @@ public class EntryPresenterTest {
         Storage[] entries = new Storage[5];
         when(model.getEntries()).thenReturn(entries);
 
-        presenter.onCreate(currentPath);
+        presenter.onCreate();
 
         verify(model).updateEntries(currentPath);
         verify(view).updateEntries(entries);

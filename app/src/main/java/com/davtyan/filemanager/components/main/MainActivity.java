@@ -1,4 +1,4 @@
-package com.davtyan.filemanager.components.entry;
+package com.davtyan.filemanager.components.main;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -26,9 +26,7 @@ import com.davtyan.filemanager.utils.StatusBarUtils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class EntryActivity extends BaseActivity {
-    public static final String EXTRA_PATH = "extra_path";
-
+public class MainActivity extends BaseActivity {
     private static final int GROUP_STORAGE = 0;
     private static final int ITEM_STORAGE_INTERNAL = 0;
     private static final int ITEM_STORAGE_EXTERNAL = 1;
@@ -42,7 +40,7 @@ public class EntryActivity extends BaseActivity {
     @BindView(R.id.drawer) DrawerLayout drawerLayout;
 
     private EntryAdapter adapter;
-    private EntryPresenter presenter;
+    private MainPresenter presenter;
 
     private Menu navMenu;
 
@@ -85,8 +83,8 @@ public class EntryActivity extends BaseActivity {
 
         deleteMenuEnabled = false;
 
-        EntryModel model = new EntryModel();
-        presenter = new EntryPresenter(this, model);
+        MainModel model = new MainModel();
+        presenter = new MainPresenter(this, model);
         adapter = new EntryAdapter(this, presenter);
 
         list.setLayoutManager(new LinearLayoutManager(this));

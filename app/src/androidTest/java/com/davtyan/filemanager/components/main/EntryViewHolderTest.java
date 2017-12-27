@@ -1,4 +1,4 @@
-package com.davtyan.filemanager.components.entry;
+package com.davtyan.filemanager.components.main;
 
 import android.view.View;
 import android.widget.FrameLayout;
@@ -22,7 +22,7 @@ import static org.mockito.Mockito.when;
 
 public class EntryViewHolderTest extends BaseTest {
     private View itemView;
-    private EntryPresenter presenter;
+    private MainPresenter presenter;
     private EntryViewHolder viewHolder;
 
 
@@ -30,7 +30,7 @@ public class EntryViewHolderTest extends BaseTest {
     public void setUp() throws Exception {
         super.setUp();
         itemView = View.inflate(getContext(), R.layout.listitem_entry, null);
-        presenter = mock(EntryPresenter.class);
+        presenter = mock(MainPresenter.class);
         viewHolder = new EntryViewHolder(itemView, presenter);
     }
 

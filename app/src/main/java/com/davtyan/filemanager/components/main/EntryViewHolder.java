@@ -1,4 +1,4 @@
-package com.davtyan.filemanager.components.entry;
+package com.davtyan.filemanager.components.main;
 
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
@@ -21,7 +21,7 @@ public class EntryViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.icon_main) ImageView iconView;
     @BindView(R.id.icon_selected) ImageView selectedIconView;
 
-    private final EntryPresenter presenter;
+    private final MainPresenter presenter;
 
     private final Drawable rootNormalBackground;
 
@@ -57,7 +57,7 @@ public class EntryViewHolder extends RecyclerView.ViewHolder {
         }
     };
 
-    public EntryViewHolder(View itemView, EntryPresenter presenter) {
+    public EntryViewHolder(View itemView, MainPresenter presenter) {
         super(itemView);
         this.presenter = presenter;
         ButterKnife.bind(this, itemView);

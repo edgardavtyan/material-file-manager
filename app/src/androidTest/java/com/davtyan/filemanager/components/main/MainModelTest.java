@@ -1,4 +1,4 @@
-package com.davtyan.filemanager.components.entry;
+package com.davtyan.filemanager.components.main;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -10,15 +10,15 @@ import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class EntryModelTest {
+public class MainModelTest {
     @Rule public TemporaryFolder tempFolderRoot = new TemporaryFolder();
 
-    private EntryModel model;
+    private MainModel model;
     private File tempFolderChild;
 
     @Before
     public void beforeEach() throws IOException {
-        model = new EntryModel();
+        model = new MainModel();
 
         tempFolderRoot.newFile("000");
         tempFolderRoot.newFile("001");

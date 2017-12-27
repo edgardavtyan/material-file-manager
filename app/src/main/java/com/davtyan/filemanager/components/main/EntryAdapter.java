@@ -1,4 +1,4 @@
-package com.davtyan.filemanager.components.entry;
+package com.davtyan.filemanager.components.main;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -15,9 +15,9 @@ import java.util.Arrays;
 public class EntryAdapter extends RecyclerView.Adapter<EntryViewHolder> {
 
     private final Context context;
-    private final EntryPresenter presenter;
+    private final MainPresenter presenter;
 
-    public EntryAdapter(Context context, EntryPresenter presenter) {
+    public EntryAdapter(Context context, MainPresenter presenter) {
         this.context = context;
         this.presenter = presenter;
     }

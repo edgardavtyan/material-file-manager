@@ -1,16 +1,16 @@
-package com.davtyan.filemanager.components.entry;
+package com.davtyan.filemanager.components.main;
 
 import com.davtyan.filemanager.data.Storage;
 
 import lombok.Getter;
 
-public class EntryPresenter {
-    private final EntryActivity view;
-    private final EntryModel model;
+public class MainPresenter {
+    private final MainActivity view;
+    private final MainModel model;
 
     private @Getter boolean isInSelectMode;
 
-    public EntryPresenter(EntryActivity view, EntryModel model) {
+    public MainPresenter(MainActivity view, MainModel model) {
         this.view = view;
         this.model = model;
         isInSelectMode = false;

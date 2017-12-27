@@ -1,4 +1,4 @@
-package com.davtyan.filemanager.components.entry;
+package com.davtyan.filemanager.components.main;
 
 import android.os.Environment;
 
@@ -9,7 +9,7 @@ import java.util.Stack;
 
 import lombok.Getter;
 
-public class EntryModel {
+public class MainModel {
     private final @Getter Storage internalStorage;
     private final @Getter Storage externalStorage;
 
@@ -18,7 +18,7 @@ public class EntryModel {
     private @Getter int selectedEntriesCount;
     private @Getter String currentPath;
 
-    public EntryModel() {
+    public MainModel() {
         entriesStack = new Stack<>();
 
         internalStorage = new Storage(Environment.getExternalStorageDirectory());
