@@ -100,6 +100,7 @@ public class MainActivity extends BaseActivity {
         navView.setNavigationItemSelectedListener(navItemSelectedListener);
         navDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, 0, 0);
         drawerLayout.addDrawerListener(navDrawerToggle);
+        drawerLayout.setScrimColor(ContextCompat.getColor(this, android.R.color.transparent));
 
         presenter.onCreate();
 
