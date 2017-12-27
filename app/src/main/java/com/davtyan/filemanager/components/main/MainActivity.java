@@ -8,6 +8,7 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.NavigationView;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SimpleItemAnimator;
@@ -43,6 +44,7 @@ public class MainActivity extends BaseActivity {
     private MainPresenter presenter;
 
     private Menu navMenu;
+    private ActionBarDrawerToggle navDrawerToggle;
 
     private boolean deleteMenuEnabled;
 
@@ -87,12 +89,17 @@ public class MainActivity extends BaseActivity {
         presenter = new MainPresenter(this, model);
         adapter = new EntryAdapter(this, presenter);
 
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         list.setLayoutManager(new LinearLayoutManager(this));
         list.setAdapter(adapter);
         ((SimpleItemAnimator) list.getItemAnimator()).setSupportsChangeAnimations(false);
 
         navMenu = navView.getMenu();
         navView.setNavigationItemSelectedListener(navItemSelectedListener);
+        navDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, 0, 0);
+        drawerLayout.addDrawerListener(navDrawerToggle);
 
         presenter.onCreate();
 
@@ -100,7 +107,12 @@ public class MainActivity extends BaseActivity {
 
         originalAppBarBackground = appbar.getBackground();
         originalStatusBarColor = statusBarUtils.getStatusBarColor();
+    }
 
+    @Override
+    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        navDrawerToggle.syncState();
     }
 
     @Override
