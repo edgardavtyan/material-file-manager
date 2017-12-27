@@ -72,6 +72,13 @@ public class EntryActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         setContentView(R.layout.activity_entry);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
@@ -89,8 +96,7 @@ public class EntryActivity extends BaseActivity {
         navMenu = navView.getMenu();
         navView.setNavigationItemSelectedListener(navItemSelectedListener);
 
-        String path = getIntent().getStringExtra(EXTRA_PATH);
-        presenter.onCreate(path);
+        presenter.onCreate();
 
         statusBarUtils = new StatusBarUtils(getWindow());
 

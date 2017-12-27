@@ -16,8 +16,8 @@ public class EntryPresenter {
         isInSelectMode = false;
     }
 
-    public void onCreate(String path) {
-        model.updateEntries(path);
+    public void onCreate() {
+        model.updateEntries(model.getInternalStorage().getPath());
         view.updateEntries(model.getEntries());
         view.setCurrentPath(model.getCurrentPath());
         view.setInternalStorage();
