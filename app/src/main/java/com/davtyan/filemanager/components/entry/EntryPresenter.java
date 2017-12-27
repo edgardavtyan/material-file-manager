@@ -20,6 +20,8 @@ public class EntryPresenter {
         model.updateEntries(path);
         view.updateEntries(model.getEntries());
         view.setCurrentPath(model.getCurrentPath());
+        view.setInternalStorage();
+        view.setExternalStorage(model.getExternalStorage().getName());
     }
 
     public void onEntryClick(int position) {
@@ -73,5 +75,19 @@ public class EntryPresenter {
         model.deleteSelectedItems();
         view.updateEntries(model.getEntries());
         view.exitSelectMode();
+    }
+
+    public void onInternalStorageClicked() {
+        model.navigateToInternalStorage();
+        view.updateEntries(model.getEntries());
+        view.setCurrentPath(model.getCurrentPath());
+        view.closeDrawer();
+    }
+
+    public void onExternalStorageClicked() {
+        model.navigateToExternalStorage();
+        view.updateEntries(model.getEntries());
+        view.setCurrentPath(model.getCurrentPath());
+        view.closeDrawer();
     }
 }

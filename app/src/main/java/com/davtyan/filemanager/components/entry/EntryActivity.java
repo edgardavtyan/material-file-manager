@@ -2,9 +2,12 @@ package com.davtyan.filemanager.components.entry;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.NavigationView;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SimpleItemAnimator;
@@ -26,20 +29,45 @@ import butterknife.ButterKnife;
 public class EntryActivity extends BaseActivity {
     public static final String EXTRA_PATH = "extra_path";
 
+    private static final int GROUP_STORAGE = 0;
+    private static final int ITEM_STORAGE_INTERNAL = 0;
+    private static final int ITEM_STORAGE_EXTERNAL = 1;
+
     @BindView(R.id.list) RecyclerView list;
     @BindView(R.id.current_path) TextView currentPathView;
     @BindView(R.id.empty_directory_msg) LinearLayout emptyDirectoryView;
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.appbar) AppBarLayout appbar;
+    @BindView(R.id.navigation_view) NavigationView navView;
+    @BindView(R.id.drawer) DrawerLayout drawerLayout;
 
     private EntryAdapter adapter;
     private EntryPresenter presenter;
+
+    private Menu navMenu;
 
     private boolean deleteMenuEnabled;
 
     private StatusBarUtils statusBarUtils;
     private Drawable originalAppBarBackground;
     private int originalStatusBarColor;
+
+    private NavigationView.OnNavigationItemSelectedListener navItemSelectedListener
+            = new NavigationView.OnNavigationItemSelectedListener() {
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
+                case ITEM_STORAGE_INTERNAL:
+                    presenter.onInternalStorageClicked();
+                    return true;
+                case ITEM_STORAGE_EXTERNAL:
+                    presenter.onExternalStorageClicked();
+                    return true;
+                default:
+                    return false;
+            }
+        }
+    };
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -58,6 +86,9 @@ public class EntryActivity extends BaseActivity {
         list.setAdapter(adapter);
         ((SimpleItemAnimator) list.getItemAnimator()).setSupportsChangeAnimations(false);
 
+        navMenu = navView.getMenu();
+        navView.setNavigationItemSelectedListener(navItemSelectedListener);
+
         String path = getIntent().getStringExtra(EXTRA_PATH);
         presenter.onCreate(path);
 
@@ -65,6 +96,7 @@ public class EntryActivity extends BaseActivity {
 
         originalAppBarBackground = appbar.getBackground();
         originalStatusBarColor = statusBarUtils.getStatusBarColor();
+
     }
 
     @Override
@@ -136,5 +168,19 @@ public class EntryActivity extends BaseActivity {
         toolbar.setTitle(R.string.app_name);
         appbar.setBackground(originalAppBarBackground);
         statusBarUtils.setStatusBarColor(originalStatusBarColor);
+    }
+
+    public void setInternalStorage() {
+        navMenu.add(GROUP_STORAGE, ITEM_STORAGE_INTERNAL, 0, "Internal storage")
+                .setIcon(R.drawable.ic_smartphone);
+    }
+
+    public void setExternalStorage(String name) {
+        navMenu.add(GROUP_STORAGE, ITEM_STORAGE_EXTERNAL, 1, name)
+                .setIcon(R.drawable.ic_sdcard);
+    }
+
+    public void closeDrawer() {
+        drawerLayout.closeDrawers();
     }
 }
