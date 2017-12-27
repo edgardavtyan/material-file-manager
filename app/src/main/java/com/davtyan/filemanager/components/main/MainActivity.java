@@ -77,7 +77,7 @@ public class MainActivity extends BaseActivity {
             e.printStackTrace();
         }
 
-        setContentView(R.layout.activity_entry);
+        setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
 
