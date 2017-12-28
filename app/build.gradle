@@ -58,6 +58,7 @@ dependencies {
     androidTestImplementation 'com.crittercism.dexmaker:dexmaker-mockito:1.4'
     androidTestImplementation 'com.crittercism.dexmaker:dexmaker-dx:1.4'
     androidTestImplementation 'org.assertj:assertj-core:2.8.0'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 }
 
 

@@ -128,8 +128,14 @@ public class MainPresenterTest {
     }
 
     @Test
-    public void onDeleteMenuItemClicked_deleteSelectedEntries() {
+    public void onDeleteMenuItemClicked_showDeleteConfirmDialog() {
         presenter.onDeleteMenuItemClicked();
+        verify(view).showDeleteConfirmDialog();
+    }
+
+    @Test
+    public void onDeleteConfirmDialogPositiveButtonClicked_deleteSelectedEntries() {
+        presenter.onDeleteConfirmDialogPositiveButtonClicked();
         verify(model).deleteSelectedItems();
         verify(model).clearSelections();
         verify(view).updateEntries(entries);

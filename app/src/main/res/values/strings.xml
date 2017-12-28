@@ -4,4 +4,12 @@
     <string name="directory_empty">No files in this directory</string>
 
     <string name="select_mode_title">%1$d selected</string>
+
+    <string name="dialog_delete_title">Delete selected items?</string>
+    <string name="dialog_delete_message">
+        Deleting the selected items will permanently remove them from your device and they cannot be
+        recovered
+    </string>
+    <string name="dialog_delete_action_positive">Delete</string>
+
 </resources>

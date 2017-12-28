@@ -9,6 +9,8 @@
         <item name="android:windowTitleBackgroundStyle">@style/CustomWindowTitleBackground</item>
         <item name="android:windowTitleStyle">@style/CustomWindowTitle</item>
         <item name="android:windowNoTitle">false</item>
+
+        <item name="alertDialogTheme">@style/CustomAlertDialog</item>
     </style>
 
     <style name="CustomWindowTitleBackground">
@@ -22,6 +24,10 @@
     <style name="CustomWindowTitle">
         <item name="android:singleLine">true</item>
         <item name="android:textAppearance">@style/CustomWindowTitleText</item>
+    </style>
+
+    <style name="CustomAlertDialog" parent="@style/Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">@color/primary</item>
     </style>
 
 </resources>

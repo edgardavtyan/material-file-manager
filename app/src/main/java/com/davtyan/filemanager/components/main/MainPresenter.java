@@ -71,6 +71,10 @@ public class MainPresenter {
     }
 
     public void onDeleteMenuItemClicked() {
+        view.showDeleteConfirmDialog();
+    }
+
+    public void onDeleteConfirmDialogPositiveButtonClicked() {
         model.deleteSelectedItems();
         model.clearSelections();
         view.updateEntries(model.getEntries());

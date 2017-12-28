@@ -47,6 +47,7 @@ public class MainActivity extends BaseActivity {
     private ActionBarDrawerToggle navDrawerToggle;
 
     private boolean deleteMenuEnabled;
+    private DeleteConfirmDialog deleteConfirmDialog;
 
     private StatusBarUtils statusBarUtils;
     private Drawable originalAppBarBackground;
@@ -72,16 +73,17 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
+
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
 
-        deleteMenuEnabled = false;
-
         MainModel model = new MainModel();
         presenter = new MainPresenter(this, model);
         adapter = new EntryAdapter(this, presenter);
+
+        deleteMenuEnabled = false;
+        deleteConfirmDialog = new DeleteConfirmDialog(this, presenter);
 
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -190,5 +192,9 @@ public class MainActivity extends BaseActivity {
 
     public void closeDrawer() {
         drawerLayout.closeDrawers();
+    }
+
+    public void showDeleteConfirmDialog() {
+        deleteConfirmDialog.show();
     }
 }
