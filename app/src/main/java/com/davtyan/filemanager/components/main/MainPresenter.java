@@ -20,7 +20,6 @@ public class MainPresenter {
         model.updateEntries(model.getInternalStorage().getPath());
         view.updateEntries(model.getEntries());
         view.setCurrentPath(model.getCurrentPath());
-        view.setInternalStorage();
         view.setExternalStorage(model.getExternalStorage().getName());
     }
 
@@ -33,12 +32,13 @@ public class MainPresenter {
     public void onEntryToggleSelected(int position) {
         model.toggleEntrySelectedAt(position);
         view.updateViewSelectionAt(position);
+        view.setSelectedEntriesCount(model.getSelectedEntriesCount());
 
         if (model.getSelectedEntriesCount() == 0) {
             view.exitSelectMode();
             isInSelectMode = false;
         } else {
-            view.enterSelectMode(model.getSelectedEntriesCount());
+            view.enterSelectMode();
             isInSelectMode = true;
         }
     }
@@ -47,7 +47,6 @@ public class MainPresenter {
         if (isInSelectMode) {
             isInSelectMode = false;
             model.clearSelections();
-            view.clearSelections();
             view.exitSelectMode();
         } else {
             if (model.isAtRoot()) {

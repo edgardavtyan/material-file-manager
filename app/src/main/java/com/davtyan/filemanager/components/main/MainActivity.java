@@ -52,7 +52,7 @@ public class MainActivity extends BaseActivity {
     private Drawable originalAppBarBackground;
     private int originalStatusBarColor;
 
-    private NavigationView.OnNavigationItemSelectedListener navItemSelectedListener
+    private final NavigationView.OnNavigationItemSelectedListener navItemSelectedListener
             = new NavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -97,6 +97,8 @@ public class MainActivity extends BaseActivity {
         ((SimpleItemAnimator) list.getItemAnimator()).setSupportsChangeAnimations(false);
 
         navMenu = navView.getMenu();
+        navMenu.add(GROUP_STORAGE, ITEM_STORAGE_INTERNAL, 0, "Internal storage")
+                .setIcon(R.drawable.ic_smartphone);
         navView.setNavigationItemSelectedListener(navItemSelectedListener);
         navDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, 0, 0);
         drawerLayout.addDrawerListener(navDrawerToggle);
@@ -143,6 +145,10 @@ public class MainActivity extends BaseActivity {
         }
     }
 
+    public void close() {
+        finish();
+    }
+
     public void updateEntries(Storage[] entries) {
         adapter.updateEntries(entries);
 
@@ -155,41 +161,32 @@ public class MainActivity extends BaseActivity {
         }
     }
 
+    public void setCurrentPath(String currentPath) {
+        currentPathView.setText(currentPath);
+    }
+
     public void updateViewSelectionAt(int position) {
         adapter.notifyItemChanged(position);
         deleteMenuEnabled = true;
-        invalidateOptionsMenu();
     }
 
-    public void clearSelections() {
-        adapter.notifyDataSetChanged();
-        deleteMenuEnabled = false;
-        invalidateOptionsMenu();
+    public void setSelectedEntriesCount(int count) {
+        toolbar.setTitle(getString(R.string.select_mode_title, count));
     }
 
-    public void setCurrentPath(String path) {
-        currentPathView.setText(path);
-    }
-
-    public void close() {
-        finish();
-    }
-
-    public void enterSelectMode(int entriesCount) {
-        toolbar.setTitle(getString(R.string.select_mode_title, entriesCount));
+    public void enterSelectMode() {
         appbar.setBackgroundResource(R.color.selectMode);
         statusBarUtils.setStatusBarColor(ContextCompat.getColor(this, R.color.selectModeDark));
+        invalidateOptionsMenu();
     }
 
     public void exitSelectMode() {
         toolbar.setTitle(R.string.app_name);
         appbar.setBackground(originalAppBarBackground);
         statusBarUtils.setStatusBarColor(originalStatusBarColor);
-    }
-
-    public void setInternalStorage() {
-        navMenu.add(GROUP_STORAGE, ITEM_STORAGE_INTERNAL, 0, "Internal storage")
-                .setIcon(R.drawable.ic_smartphone);
+        adapter.notifyDataSetChanged();
+        deleteMenuEnabled = false;
+        invalidateOptionsMenu();
     }
 
     public void setExternalStorage(String name) {

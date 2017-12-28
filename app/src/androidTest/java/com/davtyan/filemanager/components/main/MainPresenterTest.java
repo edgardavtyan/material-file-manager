@@ -39,11 +39,20 @@ public class MainPresenterTest {
         Storage[] entries = new Storage[5];
         when(model.getEntries()).thenReturn(entries);
 
+        Storage internalStorage = mock(Storage.class);
+        when(internalStorage.getPath()).thenReturn(currentPath);
+        when(model.getInternalStorage()).thenReturn(internalStorage);
+
+        Storage externalStorage = mock(Storage.class);
+        when(externalStorage.getName()).thenReturn("external");
+        when(model.getExternalStorage()).thenReturn(externalStorage);
+
         presenter.onCreate();
 
         verify(model).updateEntries(currentPath);
         verify(view).updateEntries(entries);
         verify(view).setCurrentPath(currentPath);
+        verify(view).setExternalStorage("external");
     }
 
     @Test
@@ -59,7 +68,7 @@ public class MainPresenterTest {
         presenter.onEntryToggleSelected(0);
         verify(model).toggleEntrySelectedAt(0);
         verify(view).updateViewSelectionAt(0);
-        verify(view).enterSelectMode(selectedEntriesCount);
+        verify(view).enterSelectMode();
         assertThat(presenter.isInSelectMode()).isTrue();
     }
 
@@ -76,7 +85,6 @@ public class MainPresenterTest {
         presenter.onEntryToggleSelected(0);
         presenter.onNavigateBack();
         verify(model).clearSelections();
-        verify(view).clearSelections();
         verify(view).exitSelectMode();
         assertThat(presenter.isInSelectMode()).isFalse();
     }
