@@ -131,6 +131,9 @@ public class MainPresenterTest {
     public void onDeleteMenuItemClicked_deleteSelectedEntries() {
         presenter.onDeleteMenuItemClicked();
         verify(model).deleteSelectedItems();
+        verify(model).clearSelections();
         verify(view).updateEntries(entries);
+        verify(view).exitSelectMode();
+        assertThat(presenter.isInSelectMode()).isFalse();
     }
 }

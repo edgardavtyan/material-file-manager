@@ -72,8 +72,10 @@ public class MainPresenter {
 
     public void onDeleteMenuItemClicked() {
         model.deleteSelectedItems();
+        model.clearSelections();
         view.updateEntries(model.getEntries());
         view.exitSelectMode();
+        isInSelectMode = false;
     }
 
     public void onInternalStorageClicked() {
