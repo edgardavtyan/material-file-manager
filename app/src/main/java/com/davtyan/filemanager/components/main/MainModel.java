@@ -24,12 +24,12 @@ public class MainModel {
 
         internalStorage = new Storage(Environment.getExternalStorageDirectory());
 
-        File externalStorageDir = getSDCardFile();
-        if (externalStorageDir == null) {
+        File sdCardDirectory = getSDCardDirectory();
+        if (sdCardDirectory == null) {
             externalStorage = null;
             hasExternalStorage = false;
         } else {
-            externalStorage = new Storage(getSDCardFile());
+            externalStorage = new Storage(getSDCardDirectory());
             hasExternalStorage = true;
         }
     }
@@ -99,7 +99,7 @@ public class MainModel {
         updateEntries(externalStorage.getPath());
     }
 
-    private File getSDCardFile() {
+    private File getSDCardDirectory() {
         File storage = new File("/storage");
         for (String dir : storage.list()) {
             File file = new File(storage, dir);
