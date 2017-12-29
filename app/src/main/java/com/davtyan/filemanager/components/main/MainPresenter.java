@@ -20,7 +20,10 @@ public class MainPresenter {
         model.updateEntries(model.getInternalStorage().getPath());
         view.updateEntries(model.getEntries());
         view.setCurrentPath(model.getCurrentPath());
-        view.setExternalStorage(model.getExternalStorage().getName());
+
+        if (model.hasExternalStorage()) {
+            view.setExternalStorage(model.getExternalStorage().getName());
+        }
     }
 
     public void onEntryClick(int position) {

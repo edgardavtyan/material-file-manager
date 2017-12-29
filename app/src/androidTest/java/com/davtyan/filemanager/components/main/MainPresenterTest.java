@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -52,7 +53,38 @@ public class MainPresenterTest {
         verify(model).updateEntries(currentPath);
         verify(view).updateEntries(entries);
         verify(view).setCurrentPath(currentPath);
-        verify(view).setExternalStorage("external");
+    }
+
+    @Test
+    public void onCreate_hasExternalStorage_setViewExternalStorage() {
+        Storage internalStorage = mock(Storage.class);
+        when(model.getInternalStorage()).thenReturn(internalStorage);
+
+        Storage externalStorage = mock(Storage.class);
+        when(externalStorage.getName()).thenReturn("name");
+        when(model.getExternalStorage()).thenReturn(externalStorage);
+
+        when(model.hasExternalStorage()).thenReturn(true);
+
+        presenter.onCreate();
+
+        verify(view).setExternalStorage("name");
+    }
+
+    @Test
+    public void onCreate_noExternalStorage_notSetViewExternalStorage() {
+        Storage internalStorage = mock(Storage.class);
+        when(model.getInternalStorage()).thenReturn(internalStorage);
+
+        Storage externalStorage = mock(Storage.class);
+        when(externalStorage.getName()).thenReturn("name");
+        when(model.getExternalStorage()).thenReturn(externalStorage);
+
+        when(model.hasExternalStorage()).thenReturn(false);
+
+        presenter.onCreate();
+
+        verify(view, never()).setExternalStorage("name");
     }
 
     @Test

@@ -12,8 +12,9 @@ import lombok.Getter;
 public class MainModel {
     private final @Getter Storage internalStorage;
     private final @Getter Storage externalStorage;
-
     private final Stack<String> entriesStack;
+    private final boolean hasExternalStorage;
+
     private @Getter Storage[] entries;
     private @Getter int selectedEntriesCount;
     private @Getter String currentPath;
@@ -22,7 +23,19 @@ public class MainModel {
         entriesStack = new Stack<>();
 
         internalStorage = new Storage(Environment.getExternalStorageDirectory());
-        externalStorage = new Storage(getSDCardFile());
+
+        File externalStorageDir = getSDCardFile();
+        if (externalStorageDir == null) {
+            externalStorage = null;
+            hasExternalStorage = false;
+        } else {
+            externalStorage = new Storage(getSDCardFile());
+            hasExternalStorage = true;
+        }
+    }
+
+    public boolean hasExternalStorage() {
+        return hasExternalStorage;
     }
 
     public void updateEntries(String dirPath) {
