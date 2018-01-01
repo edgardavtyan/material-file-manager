@@ -1,7 +1,12 @@
 package com.davtyan.filemanager.components.main;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
@@ -39,6 +44,8 @@ public class MainActivity extends BaseActivity {
     @BindView(R.id.appbar) AppBarLayout appbar;
     @BindView(R.id.navigation_view) NavigationView navView;
     @BindView(R.id.drawer) DrawerLayout drawerLayout;
+    @BindView(R.id.storage_permission_error) LinearLayout permissionErrorView;
+    @BindView(R.id.goto_settings_link) TextView gotoSettingsLinkView;
 
     private EntryAdapter adapter;
     private MainPresenter presenter;
@@ -87,6 +94,17 @@ public class MainActivity extends BaseActivity {
         }
     };
 
+    private final View.OnClickListener onGotoSettingsClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent();
+            intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+            Uri uri = Uri.fromParts("package", getPackageName(), null);
+            intent.setData(uri);
+            startActivity(intent);
+        }
+    };
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,7 +113,11 @@ public class MainActivity extends BaseActivity {
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
 
-        presenter = new MainPresenter(this, new MainModel());
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        StoragePermissionPrefs storagePermissionPrefs = new StoragePermissionPrefs(prefs);
+        storagePermissionRequest = new StoragePermissionRequest(this, storagePermissionPrefs);
+
+        presenter = new MainPresenter(this, new MainModel(), storagePermissionRequest);
         adapter = new EntryAdapter(this, presenter);
 
         deleteMenuEnabled = false;
@@ -119,10 +141,9 @@ public class MainActivity extends BaseActivity {
         originalAppBarBackground = appbar.getBackground();
         originalStatusBarColor = statusBarUtils.getStatusBarColor();
 
-        storagePermissionRequest = new StoragePermissionRequest(this);
-        storagePermissionRequest.setOnStoragePermissionGrantedListener(onStoragePermissionGrantedListener);
-        storagePermissionRequest.setOnStoragePermissionDeniedListener(onStoragePermissionDeniedListener);
-        storagePermissionRequest.requestPermissions();
+        gotoSettingsLinkView.setOnClickListener(onGotoSettingsClickListener);
+
+        presenter.onCreate();
     }
 
     @Override
@@ -224,5 +245,10 @@ public class MainActivity extends BaseActivity {
 
     public void showDeleteConfirmDialog() {
         deleteConfirmDialog.show();
+    }
+
+    public void showStoragePermissionError() {
+        list.setVisibility(View.GONE);
+        permissionErrorView.setVisibility(View.VISIBLE);
     }
 }

@@ -4,27 +4,40 @@ import com.davtyan.filemanager.data.Storage;
 
 import lombok.Getter;
 
-public class MainPresenter {
+public class MainPresenter
+        implements StoragePermissionRequest.OnStoragePermissionDeniedListener,
+                   StoragePermissionRequest.OnStoragePermissionGrantedListener {
+
     private final MainActivity view;
     private final MainModel model;
+    private final StoragePermissionRequest storagePermissionRequest;
 
     private @Getter boolean isInSelectMode;
 
-    public MainPresenter(MainActivity view, MainModel model) {
+    public MainPresenter(
+            MainActivity view,
+            MainModel model,
+            StoragePermissionRequest storagePermissionRequest) {
         this.view = view;
         this.model = model;
+        this.storagePermissionRequest = storagePermissionRequest;
+        this.storagePermissionRequest.setOnStoragePermissionDeniedListener(this);
+        this.storagePermissionRequest.setOnStoragePermissionGrantedListener(this);
         isInSelectMode = false;
     }
 
     public void onCreate() {
-        model.init();
-        model.updateEntries(model.getInternalStorage().getPath());
-        view.updateEntries(model.getEntries());
-        view.setCurrentPath(model.getCurrentPath());
-
-        view.setInternalStorage();
-        if (model.hasExternalStorage()) {
-            view.setExternalStorage(model.getExternalStorage().getName());
+        switch (storagePermissionRequest.getState()) {
+            case NOT_YET_ASKED:
+                storagePermissionRequest.request();
+                break;
+            case GRANTED:
+                initViewAndModel();
+                break;
+            case DENIED:
+            case NEVER_ASK_AGAIN:
+                view.showStoragePermissionError();
+                break;
         }
     }
 
@@ -33,6 +46,7 @@ public class MainPresenter {
         view.updateEntries(model.getEntries());
         view.setCurrentPath(model.getCurrentPath());
     }
+
 
     public void onEntryToggleSelected(int position) {
         model.toggleEntrySelectedAt(position);
@@ -101,11 +115,25 @@ public class MainPresenter {
         view.closeDrawer();
     }
 
+    @Override
     public void onStoragePermissionGranted() {
         onCreate();
     }
 
+    @Override
     public void onStoragePermissionDenied() {
+        view.showStoragePermissionError();
+    }
 
+    private void initViewAndModel() {
+        model.init();
+        model.updateEntries(model.getInternalStorage().getPath());
+        view.updateEntries(model.getEntries());
+        view.setCurrentPath(model.getCurrentPath());
+
+        view.setInternalStorage();
+        if (model.hasExternalStorage()) {
+            view.setExternalStorage(model.getExternalStorage().getName());
+        }
     }
 }
