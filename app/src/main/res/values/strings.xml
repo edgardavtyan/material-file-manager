@@ -12,7 +12,7 @@
     </string>
     <string name="dialog_delete_action_positive">Delete</string>
 
-    <string name="permissions_storage_message_neverAskAgain">
+    <string name="permissions_storage_neverAskAgain_message">
         You have denied the \'Storage\' permission. This app, being a file manager, requires it to
         read and write to the filesystem of your device. Follow steps below to enable the
         permission:
