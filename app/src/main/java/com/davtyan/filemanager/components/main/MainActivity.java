@@ -44,7 +44,7 @@ public class MainActivity extends BaseActivity {
     @BindView(R.id.appbar) AppBarLayout appbar;
     @BindView(R.id.navigation_view) NavigationView navView;
     @BindView(R.id.drawer) DrawerLayout drawerLayout;
-    @BindView(R.id.storage_permission_error) LinearLayout permissionErrorView;
+    @BindView(R.id.permission_storage_error_neverAskAgain) LinearLayout permissionStorageNeverAskAgainErrorView;
     @BindView(R.id.goto_settings_link) TextView gotoSettingsLinkView;
 
     private EntryAdapter adapter;
@@ -249,6 +249,6 @@ public class MainActivity extends BaseActivity {
 
     public void showStoragePermissionError() {
         list.setVisibility(View.GONE);
-        permissionErrorView.setVisibility(View.VISIBLE);
+        permissionStorageNeverAskAgainErrorView.setVisibility(View.VISIBLE);
     }
 }
