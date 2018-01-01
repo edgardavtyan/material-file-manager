@@ -17,10 +17,12 @@ public class MainPresenter {
     }
 
     public void onCreate() {
+        model.init();
         model.updateEntries(model.getInternalStorage().getPath());
         view.updateEntries(model.getEntries());
         view.setCurrentPath(model.getCurrentPath());
 
+        view.setInternalStorage();
         if (model.hasExternalStorage()) {
             view.setExternalStorage(model.getExternalStorage().getName());
         }
@@ -97,5 +99,13 @@ public class MainPresenter {
         view.updateEntries(model.getEntries());
         view.setCurrentPath(model.getCurrentPath());
         view.closeDrawer();
+    }
+
+    public void onStoragePermissionGranted() {
+        onCreate();
+    }
+
+    public void onStoragePermissionDenied() {
+
     }
 }

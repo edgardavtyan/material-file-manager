@@ -42,6 +42,7 @@ public class MainActivity extends BaseActivity {
 
     private EntryAdapter adapter;
     private MainPresenter presenter;
+    private StoragePermissionRequest storagePermissionRequest;
 
     private Menu navMenu;
     private ActionBarDrawerToggle navDrawerToggle;
@@ -70,6 +71,22 @@ public class MainActivity extends BaseActivity {
         }
     };
 
+    private final StoragePermissionRequest.OnStoragePermissionGrantedListener onStoragePermissionGrantedListener
+            = new StoragePermissionRequest.OnStoragePermissionGrantedListener() {
+        @Override
+        public void onStoragePermissionGranted() {
+            presenter.onStoragePermissionGranted();
+        }
+    };
+
+    private final StoragePermissionRequest.OnStoragePermissionDeniedListener onStoragePermissionDeniedListener
+            = new StoragePermissionRequest.OnStoragePermissionDeniedListener() {
+        @Override
+        public void onStoragePermissionDenied() {
+            presenter.onStoragePermissionDenied();
+        }
+    };
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,8 +95,7 @@ public class MainActivity extends BaseActivity {
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
 
-        MainModel model = new MainModel();
-        presenter = new MainPresenter(this, model);
+        presenter = new MainPresenter(this, new MainModel());
         adapter = new EntryAdapter(this, presenter);
 
         deleteMenuEnabled = false;
@@ -93,19 +109,20 @@ public class MainActivity extends BaseActivity {
         ((SimpleItemAnimator) list.getItemAnimator()).setSupportsChangeAnimations(false);
 
         navMenu = navView.getMenu();
-        navMenu.add(GROUP_STORAGE, ITEM_STORAGE_INTERNAL, 0, "Internal storage")
-                .setIcon(R.drawable.ic_smartphone);
         navView.setNavigationItemSelectedListener(navItemSelectedListener);
         navDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, 0, 0);
         drawerLayout.addDrawerListener(navDrawerToggle);
         drawerLayout.setScrimColor(ContextCompat.getColor(this, android.R.color.transparent));
 
-        presenter.onCreate();
-
         statusBarUtils = new StatusBarUtils(getWindow());
 
         originalAppBarBackground = appbar.getBackground();
         originalStatusBarColor = statusBarUtils.getStatusBarColor();
+
+        storagePermissionRequest = new StoragePermissionRequest(this);
+        storagePermissionRequest.setOnStoragePermissionGrantedListener(onStoragePermissionGrantedListener);
+        storagePermissionRequest.setOnStoragePermissionDeniedListener(onStoragePermissionDeniedListener);
+        storagePermissionRequest.requestPermissions();
     }
 
     @Override
@@ -139,6 +156,12 @@ public class MainActivity extends BaseActivity {
             default:
                 return false;
         }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(
+            int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        storagePermissionRequest.onRequestPermissionResult(requestCode, grantResults);
     }
 
     public void close() {
@@ -183,6 +206,11 @@ public class MainActivity extends BaseActivity {
         adapter.notifyDataSetChanged();
         deleteMenuEnabled = false;
         invalidateOptionsMenu();
+    }
+
+    public void setInternalStorage() {
+        navMenu.add(GROUP_STORAGE, ITEM_STORAGE_INTERNAL, 0, "Internal storage")
+                .setIcon(R.drawable.ic_smartphone);
     }
 
     public void setExternalStorage(String name) {

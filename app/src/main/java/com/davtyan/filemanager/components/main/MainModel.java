@@ -10,18 +10,21 @@ import java.util.Stack;
 import lombok.Getter;
 
 public class MainModel {
-    private final @Getter Storage internalStorage;
-    private final @Getter Storage externalStorage;
     private final Stack<String> entriesStack;
-    private final boolean hasExternalStorage;
 
+    private @Getter Storage internalStorage;
+    private @Getter Storage externalStorage;
     private @Getter Storage[] entries;
-    private @Getter int selectedEntriesCount;
     private @Getter String currentPath;
+    private @Getter int selectedEntriesCount;
+    private boolean hasExternalStorage;
 
     public MainModel() {
         entriesStack = new Stack<>();
+        entries = new Storage[0];
+    }
 
+    public void init() {
         internalStorage = new Storage(Environment.getExternalStorageDirectory());
 
         File sdCardDirectory = getSDCardDirectory();
