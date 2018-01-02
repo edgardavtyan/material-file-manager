@@ -1,11 +1,9 @@
 package com.davtyan.filemanager.components.main;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -104,15 +102,13 @@ public class MainActivity extends BaseActivity {
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
 
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        StoragePermissionPrefs storagePermissionPrefs = new StoragePermissionPrefs(prefs);
-        storagePermissionRequest = new StoragePermissionRequest(this, storagePermissionPrefs);
-
-        presenter = new MainPresenter(this, new MainModel(), storagePermissionRequest);
-        adapter = new EntryAdapter(this, presenter);
+        MainFactory factory = getFacotry();
+        storagePermissionRequest = factory.getStoragePermissionRequest();
+        presenter = factory.getPresenter();
+        adapter = factory.getAdapter();
+        deleteConfirmDialog = factory.getDeleteConfirmDialog();
 
         deleteMenuEnabled = false;
-        deleteConfirmDialog = new DeleteConfirmDialog(this, presenter);
 
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -247,5 +243,9 @@ public class MainActivity extends BaseActivity {
     public void showStoragePermissionDeniedError() {
         list.setVisibility(View.GONE);
         storagePermissionDeniedErrorView.setVisibility(View.VISIBLE);
+    }
+
+    protected MainFactory getFacotry() {
+        return new MainFactory(this);
     }
 }
