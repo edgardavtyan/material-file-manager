@@ -27,7 +27,7 @@
         android:paddingBottom="@dimen/spacing_normal"
         android:paddingTop="@dimen/spacing_normal"
         android:gravity="center_horizontal"
-        android:text="Tap here to allow permission"
+        android:text="@string/permission_storage_denied_request"
         android:textAllCaps="true"
         android:textColor="@color/accent"
         android:textSize="@dimen/font_normal"

@@ -25,5 +25,6 @@
         You have denied the \'Storage\' permission. This app, being a file manager, requires it to
         read and write to the filesystem of your device.
     </string>
+    <string name="permission_storage_denied_request">Tap here to allow permission</string>
 
 </resources>
