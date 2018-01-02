@@ -140,6 +140,18 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        presenter.onCheckPermission();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        presenter.onCheckPermission();
+    }
+
+    @Override
     public void onBackPressed() {
         presenter.onNavigateBack();
     }

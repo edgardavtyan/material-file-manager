@@ -36,6 +36,12 @@ public class MainPresenter
         }
     }
 
+    public void onCheckPermission() {
+        if (storagePermissionRequest.isGranted()) {
+            initViewAndModel();
+        }
+    }
+
     public void onEntryClick(int position) {
         model.navigateForward(position);
         view.updateEntries(model.getEntries());
