@@ -10,7 +10,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.davtyan.filemanager.R;
 import com.davtyan.filemanager.base.BaseActivity;
@@ -25,7 +24,6 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends BaseActivity {
     @BindView(R.id.list) RecyclerView list;
-    @BindView(R.id.current_path) TextView currentPathView;
     @BindView(R.id.empty_directory_msg) LinearLayout emptyDirectoryView;
 
     private EntryAdapter adapter;
@@ -132,7 +130,7 @@ public class MainActivity extends BaseActivity {
     }
 
     public void setCurrentPath(String currentPath) {
-        currentPathView.setText(currentPath);
+        toolbarPartial.setCurrentPath(currentPath);
     }
 
     public void updateViewSelectionAt(int position) {

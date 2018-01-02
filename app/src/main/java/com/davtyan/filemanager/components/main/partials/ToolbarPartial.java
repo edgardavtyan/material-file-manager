@@ -4,6 +4,7 @@ import android.graphics.drawable.Drawable;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
+import android.widget.TextView;
 
 import com.davtyan.filemanager.R;
 import com.davtyan.filemanager.components.main.MainActivity;
@@ -15,6 +16,7 @@ import lombok.Getter;
 
 public class ToolbarPartial {
     @BindView(R.id.appbar) AppBarLayout appbar;
+    @BindView(R.id.current_path) TextView currentPathView;
     @BindView(R.id.toolbar) @Getter Toolbar toolbar;
 
     private final MainActivity activity;
@@ -41,6 +43,10 @@ public class ToolbarPartial {
 
     public void setSelectedEntriesCount(int count) {
         toolbar.setTitle(activity.getString(R.string.select_mode_title, count));
+    }
+
+    public void setCurrentPath(String currentPath) {
+        currentPathView.setText(currentPath);
     }
 
     public void enterSelectMode() {
