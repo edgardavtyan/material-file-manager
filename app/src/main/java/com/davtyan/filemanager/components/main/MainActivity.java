@@ -80,15 +80,12 @@ public class MainActivity extends BaseActivity {
         }
     };
 
-    private final View.OnClickListener onGotoSettingsClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Intent intent = new Intent();
-            intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-            Uri uri = Uri.fromParts("package", getPackageName(), null);
-            intent.setData(uri);
-            startActivity(intent);
-        }
+    private final View.OnClickListener onGotoSettingsClickListener = v -> {
+        Intent intent = new Intent();
+        intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+        Uri uri = Uri.fromParts("package", getPackageName(), null);
+        intent.setData(uri);
+        startActivity(intent);
     };
 
     private final View.OnClickListener onRequestStoragePermissionLinkClickListener
