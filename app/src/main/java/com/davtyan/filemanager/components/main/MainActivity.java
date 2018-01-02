@@ -102,7 +102,7 @@ public class MainActivity extends BaseActivity {
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
 
-        MainFactory factory = getFacotry();
+        MainFactory factory = getFactory();
         storagePermissionRequest = factory.getStoragePermissionRequest();
         presenter = factory.getPresenter();
         adapter = factory.getAdapter();
@@ -245,7 +245,7 @@ public class MainActivity extends BaseActivity {
         storagePermissionDeniedErrorView.setVisibility(View.VISIBLE);
     }
 
-    protected MainFactory getFacotry() {
+    protected MainFactory getFactory() {
         return new MainFactory(this);
     }
 }
