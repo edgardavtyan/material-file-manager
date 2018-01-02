@@ -5,24 +5,20 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.LinearLayout;
 
 import com.davtyan.filemanager.R;
 import com.davtyan.filemanager.base.BaseActivity;
 import com.davtyan.filemanager.components.main.partials.DrawerPartial;
+import com.davtyan.filemanager.components.main.partials.EmptyDirectoryPartial;
 import com.davtyan.filemanager.components.main.partials.ListPartial;
 import com.davtyan.filemanager.components.main.partials.PermissionsPartial;
 import com.davtyan.filemanager.components.main.partials.ToolbarPartial;
 import com.davtyan.filemanager.data.Storage;
 import com.davtyan.filemanager.utils.StatusBarUtils;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends BaseActivity {
-    @BindView(R.id.empty_directory_msg) LinearLayout emptyDirectoryView;
-
     private MainPresenter presenter;
     private DeleteConfirmDialog deleteConfirmDialog;
 
@@ -30,6 +26,7 @@ public class MainActivity extends BaseActivity {
     private PermissionsPartial permissionsPartial;
     private DrawerPartial drawerPartial;
     private ListPartial listPartial;
+    private EmptyDirectoryPartial emptyDirectoryPartial;
 
     private boolean deleteMenuEnabled;
 
@@ -48,6 +45,7 @@ public class MainActivity extends BaseActivity {
         permissionsPartial = new PermissionsPartial(this, presenter, factory.getStoragePermissionRequest());
         drawerPartial = new DrawerPartial(this, presenter, toolbarPartial.getToolbar());
         listPartial = new ListPartial(this, factory.getAdapter());
+        emptyDirectoryPartial = new EmptyDirectoryPartial(this);
 
         deleteMenuEnabled = false;
     }
@@ -113,10 +111,11 @@ public class MainActivity extends BaseActivity {
 
         if (entries.length == 0) {
             listPartial.hideList();
-            emptyDirectoryView.setVisibility(View.VISIBLE);
+            emptyDirectoryPartial.show();
+
         } else {
             listPartial.showList();
-            emptyDirectoryView.setVisibility(View.GONE);
+            emptyDirectoryPartial.hide();
         }
     }
 
