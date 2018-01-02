@@ -46,6 +46,8 @@ public class MainActivity extends BaseActivity {
     @BindView(R.id.drawer) DrawerLayout drawerLayout;
     @BindView(R.id.permission_storage_error_neverAskAgain) LinearLayout permissionStorageNeverAskAgainErrorView;
     @BindView(R.id.goto_settings_link) TextView gotoSettingsLinkView;
+    @BindView(R.id.permission_storage_error_denied) LinearLayout permissionStorageDeniedErrorView;
+    @BindView(R.id.permission_storage_request_link) TextView requestStoragePermissionLinkView;
 
     private EntryAdapter adapter;
     private MainPresenter presenter;
@@ -105,6 +107,14 @@ public class MainActivity extends BaseActivity {
         }
     };
 
+    private final View.OnClickListener onRequestStoragePermissionLinkClickListener
+            = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            presenter.onRequestStoragePermissionLinkClicked();
+        }
+    };
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -142,6 +152,7 @@ public class MainActivity extends BaseActivity {
         originalStatusBarColor = statusBarUtils.getStatusBarColor();
 
         gotoSettingsLinkView.setOnClickListener(onGotoSettingsClickListener);
+        requestStoragePermissionLinkView.setOnClickListener(onRequestStoragePermissionLinkClickListener);
 
         presenter.onCreate();
     }
@@ -250,5 +261,10 @@ public class MainActivity extends BaseActivity {
     public void showStoragePermissionError() {
         list.setVisibility(View.GONE);
         permissionStorageNeverAskAgainErrorView.setVisibility(View.VISIBLE);
+    }
+
+    public void showStoragePermissionDeniedError() {
+        list.setVisibility(View.GONE);
+        permissionStorageDeniedErrorView.setVisibility(View.VISIBLE);
     }
 }

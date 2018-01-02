@@ -21,5 +21,9 @@
     <string name="permissions_storage_neverAskAgain_step2">2. Tap on \'Permissions\'</string>
     <string name="permissions_storage_neverAskAgain_step3">3. Tap on \'Storage\' to enable the permission</string>
 
+    <string name="permissions_storage_denied_message">
+        You have denied the \'Storage\' permission. This app, being a file manager, requires it to
+        read and write to the filesystem of your device.
+    </string>
 
 </resources>

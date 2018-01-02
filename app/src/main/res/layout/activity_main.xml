@@ -80,6 +80,8 @@
 
         <include layout="@layout/error_permission_storage_never_ask_again"/>
 
+        <include layout="@layout/error_permission_storage_denied" />
+
     </LinearLayout>
 
     <android.support.design.widget.NavigationView
