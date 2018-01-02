@@ -24,7 +24,6 @@ public class MainActivity extends BaseActivity {
     @BindView(R.id.empty_directory_msg) LinearLayout emptyDirectoryView;
 
     private MainPresenter presenter;
-    private StoragePermissionRequest storagePermissionRequest;
     private DeleteConfirmDialog deleteConfirmDialog;
 
     private ToolbarPartial toolbarPartial;
@@ -42,12 +41,11 @@ public class MainActivity extends BaseActivity {
         ButterKnife.bind(this);
 
         MainFactory factory = getFactory();
-        storagePermissionRequest = factory.getStoragePermissionRequest();
         presenter = factory.getPresenter();
         deleteConfirmDialog = factory.getDeleteConfirmDialog();
 
         toolbarPartial = new ToolbarPartial(this, new StatusBarUtils(getWindow()));
-        permissionsPartial = new PermissionsPartial(this, presenter);
+        permissionsPartial = new PermissionsPartial(this, presenter, factory.getStoragePermissionRequest());
         drawerPartial = new DrawerPartial(this, presenter, toolbarPartial.getToolbar());
         listPartial = new ListPartial(this, factory.getAdapter());
 
@@ -103,7 +101,7 @@ public class MainActivity extends BaseActivity {
     @Override
     public void onRequestPermissionsResult(
             int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        storagePermissionRequest.onRequestPermissionResult(requestCode, grantResults);
+        permissionsPartial.onRequestPermissionResult(requestCode, grantResults);
     }
 
     public void close() {
