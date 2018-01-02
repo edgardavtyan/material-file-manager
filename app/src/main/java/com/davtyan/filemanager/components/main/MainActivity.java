@@ -3,10 +3,6 @@ package com.davtyan.filemanager.components.main;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.NavigationView;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SimpleItemAnimator;
@@ -18,6 +14,7 @@ import android.widget.TextView;
 
 import com.davtyan.filemanager.R;
 import com.davtyan.filemanager.base.BaseActivity;
+import com.davtyan.filemanager.components.main.partials.DrawerPartial;
 import com.davtyan.filemanager.components.main.partials.PermissionsPartial;
 import com.davtyan.filemanager.components.main.partials.ToolbarPartial;
 import com.davtyan.filemanager.data.Storage;
@@ -27,44 +24,20 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends BaseActivity {
-    private static final int GROUP_STORAGE = 0;
-    private static final int ITEM_STORAGE_INTERNAL = 0;
-    private static final int ITEM_STORAGE_EXTERNAL = 1;
-
     @BindView(R.id.list) RecyclerView list;
     @BindView(R.id.current_path) TextView currentPathView;
     @BindView(R.id.empty_directory_msg) LinearLayout emptyDirectoryView;
-    @BindView(R.id.navigation_view) NavigationView navView;
-    @BindView(R.id.drawer) DrawerLayout drawerLayout;
 
     private EntryAdapter adapter;
     private MainPresenter presenter;
     private StoragePermissionRequest storagePermissionRequest;
     private DeleteConfirmDialog deleteConfirmDialog;
-    private ActionBarDrawerToggle navDrawerToggle;
-    private Menu navMenu;
 
     private ToolbarPartial toolbarPartial;
     private PermissionsPartial permissionsPartial;
+    private DrawerPartial drawerPartial;
 
     private boolean deleteMenuEnabled;
-
-    private final NavigationView.OnNavigationItemSelectedListener navItemSelectedListener
-            = new NavigationView.OnNavigationItemSelectedListener() {
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case ITEM_STORAGE_INTERNAL:
-                    presenter.onInternalStorageClicked();
-                    return true;
-                case ITEM_STORAGE_EXTERNAL:
-                    presenter.onExternalStorageClicked();
-                    return true;
-                default:
-                    return false;
-            }
-        }
-    };
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -81,24 +54,19 @@ public class MainActivity extends BaseActivity {
 
         toolbarPartial = new ToolbarPartial(this, new StatusBarUtils(getWindow()));
         permissionsPartial = new PermissionsPartial(this, presenter);
+        drawerPartial = new DrawerPartial(this, presenter, toolbarPartial.getToolbar());
 
         deleteMenuEnabled = false;
 
         list.setLayoutManager(new LinearLayoutManager(this));
         list.setAdapter(adapter);
         ((SimpleItemAnimator) list.getItemAnimator()).setSupportsChangeAnimations(false);
-
-        navMenu = navView.getMenu();
-        navView.setNavigationItemSelectedListener(navItemSelectedListener);
-        navDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbarPartial.getToolbar(), 0, 0);
-        drawerLayout.addDrawerListener(navDrawerToggle);
-        drawerLayout.setScrimColor(ContextCompat.getColor(this, android.R.color.transparent));
     }
 
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        navDrawerToggle.syncState();
+        drawerPartial.syncState();
         presenter.onCreate();
     }
 
@@ -189,17 +157,15 @@ public class MainActivity extends BaseActivity {
     }
 
     public void setInternalStorage() {
-        navMenu.add(GROUP_STORAGE, ITEM_STORAGE_INTERNAL, 0, "Internal storage")
-                .setIcon(R.drawable.ic_smartphone);
+        drawerPartial.setInternalStorageItem();
     }
 
     public void setExternalStorage(String name) {
-        navMenu.add(GROUP_STORAGE, ITEM_STORAGE_EXTERNAL, 1, name)
-                .setIcon(R.drawable.ic_sdcard);
+        drawerPartial.setExternalStorageItem(name);
     }
 
     public void closeDrawer() {
-        drawerLayout.closeDrawers();
+        drawerPartial.closeDrawer();
     }
 
     public void showDeleteConfirmDialog() {
