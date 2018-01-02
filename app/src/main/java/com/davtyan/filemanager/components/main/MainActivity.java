@@ -80,22 +80,6 @@ public class MainActivity extends BaseActivity {
         }
     };
 
-    private final StoragePermissionRequest.OnStoragePermissionGrantedListener onStoragePermissionGrantedListener
-            = new StoragePermissionRequest.OnStoragePermissionGrantedListener() {
-        @Override
-        public void onStoragePermissionGranted() {
-            presenter.onStoragePermissionGranted();
-        }
-    };
-
-    private final StoragePermissionRequest.OnStoragePermissionDeniedListener onStoragePermissionDeniedListener
-            = new StoragePermissionRequest.OnStoragePermissionDeniedListener() {
-        @Override
-        public void onStoragePermissionDenied() {
-            presenter.onStoragePermissionDenied();
-        }
-    };
-
     private final View.OnClickListener onGotoSettingsClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
