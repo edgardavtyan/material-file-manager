@@ -50,14 +50,14 @@ public class MainActivity extends BaseActivity {
     private EntryAdapter adapter;
     private MainPresenter presenter;
     private StoragePermissionRequest storagePermissionRequest;
-
-    private Menu navMenu;
-    private ActionBarDrawerToggle navDrawerToggle;
-
-    private boolean deleteMenuEnabled;
     private DeleteConfirmDialog deleteConfirmDialog;
+    private ActionBarDrawerToggle navDrawerToggle;
+    private Menu navMenu;
 
     private StatusBarUtils statusBarUtils;
+
+    private boolean deleteMenuEnabled;
+
     private Drawable originalAppBarBackground;
     private int originalStatusBarColor;
 
@@ -117,6 +117,9 @@ public class MainActivity extends BaseActivity {
         list.setAdapter(adapter);
         ((SimpleItemAnimator) list.getItemAnimator()).setSupportsChangeAnimations(false);
 
+        gotoSettingsLinkView.setOnClickListener(onGotoSettingsClickListener);
+        requestStoragePermissionLinkView.setOnClickListener(onRequestStoragePermissionLinkClickListener);
+
         navMenu = navView.getMenu();
         navView.setNavigationItemSelectedListener(navItemSelectedListener);
         navDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, 0, 0);
@@ -127,9 +130,6 @@ public class MainActivity extends BaseActivity {
 
         originalAppBarBackground = appbar.getBackground();
         originalStatusBarColor = statusBarUtils.getStatusBarColor();
-
-        gotoSettingsLinkView.setOnClickListener(onGotoSettingsClickListener);
-        requestStoragePermissionLinkView.setOnClickListener(onRequestStoragePermissionLinkClickListener);
     }
 
     @Override
