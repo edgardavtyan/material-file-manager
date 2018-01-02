@@ -14,6 +14,8 @@ public class MainPresenter
 
     private @Getter boolean isInSelectMode;
 
+    private boolean storagePermissionDeniedBeforeExit;
+
     public MainPresenter(
             MainActivity view,
             MainModel model,
@@ -28,16 +30,18 @@ public class MainPresenter
 
     public void onCreate() {
         if (storagePermissionRequest.isGranted()) {
+            storagePermissionDeniedBeforeExit = false;
             initViewAndModel();
         } else {
             //TODO: HACK, fixes animation glitch on startup, find proper solution
             view.waitForAnimation();
             storagePermissionRequest.request();
+            storagePermissionDeniedBeforeExit = true;
         }
     }
 
     public void onCheckPermission() {
-        if (storagePermissionRequest.isGranted()) {
+        if (storagePermissionRequest.isGranted() && storagePermissionDeniedBeforeExit) {
             initViewAndModel();
         }
     }

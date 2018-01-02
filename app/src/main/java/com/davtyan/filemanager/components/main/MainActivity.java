@@ -59,12 +59,6 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        presenter.onCheckPermission();
-    }
-
-    @Override
     public void onBackPressed() {
         presenter.onNavigateBack();
     }
