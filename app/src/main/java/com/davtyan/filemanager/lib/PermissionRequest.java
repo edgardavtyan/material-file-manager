@@ -3,10 +3,10 @@ package com.davtyan.filemanager.lib;
 import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.support.v4.app.ActivityCompat;
 
 import com.davtyan.filemanager.components.main.StoragePermissionRequest;
 
-import lombok.Getter;
 import lombok.Setter;
 
 public abstract class PermissionRequest {
@@ -14,13 +14,11 @@ public abstract class PermissionRequest {
     private final PermissionRequestPrefs prefs;
     private final String[] listOfPermissions;
 
-    private @Getter PermissionState state;
-
     private @Setter StoragePermissionRequest.OnStoragePermissionDeniedListener onStoragePermissionDeniedListener;
     private @Setter StoragePermissionRequest.OnStoragePermissionGrantedListener onStoragePermissionGrantedListener;
 
     public interface OnStoragePermissionDeniedListener {
-        void onStoragePermissionDenied();
+        void onStoragePermissionDenied(boolean isNeverAskAgainSelected);
     }
 
     public interface OnStoragePermissionGrantedListener {
@@ -32,16 +30,6 @@ public abstract class PermissionRequest {
         this.prefs = prefs;
 
         listOfPermissions = getListOfPermissions();
-
-        if (isGranted()) {
-            state = PermissionState.GRANTED;
-        } else if (isNeverAskAgainSelected()) {
-            state = PermissionState.NEVER_ASK_AGAIN;
-        } else if (isExplicitlyDeniedByUser()) {
-            state = PermissionState.DENIED;
-        } else {
-            state = PermissionState.NOT_YET_ASKED;
-        }
     }
 
     protected abstract String[] getListOfPermissions();
@@ -60,7 +48,7 @@ public abstract class PermissionRequest {
         }
 
         if (grantResults.length == 0 || grantResults[0] == PackageManager.PERMISSION_DENIED) {
-            onStoragePermissionDeniedListener.onStoragePermissionDenied();
+            onStoragePermissionDeniedListener.onStoragePermissionDenied(isNeverAskAgainChecked());
             prefs.setUserDeniedPermission(true);
             return;
         }
@@ -73,22 +61,18 @@ public abstract class PermissionRequest {
         }
     }
 
-    private boolean isExplicitlyDeniedByUser() {
-        return prefs.hasUserDeniedPermission();
+    public boolean isGranted() {
+        return ActivityCompat.checkSelfPermission(activity, listOfPermissions[0])
+                == PackageManager.PERMISSION_GRANTED;
     }
 
-    private boolean isGranted() {
-        if (!isApi23()) return true;
-        return activity.checkSelfPermission(listOfPermissions[0]) == PackageManager.PERMISSION_GRANTED;
-    }
-
-    private boolean isNeverAskAgainSelected() {
+    private boolean isNeverAskAgainChecked() {
         if (!isApi23()) return false;
         return !activity.shouldShowRequestPermissionRationale(listOfPermissions[0]);
     }
 
     private void requestFirstPermission() {
-        if (isApi23()) activity.requestPermissions(new String[]{listOfPermissions[0]}, 0);
+        ActivityCompat.requestPermissions(activity, new String[]{listOfPermissions[0]}, 0);
     }
 
     private void requestSecondPermission() {

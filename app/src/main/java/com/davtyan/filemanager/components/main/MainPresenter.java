@@ -1,7 +1,6 @@
 package com.davtyan.filemanager.components.main;
 
 import com.davtyan.filemanager.data.Storage;
-import com.davtyan.filemanager.lib.PermissionState;
 
 import lombok.Getter;
 
@@ -28,19 +27,10 @@ public class MainPresenter
     }
 
     public void onCreate() {
-        switch (storagePermissionRequest.getState()) {
-            case NOT_YET_ASKED:
-                storagePermissionRequest.request();
-                break;
-            case GRANTED:
-                initViewAndModel();
-                break;
-            case DENIED:
-                view.showStoragePermissionDeniedError();
-                break;
-            case NEVER_ASK_AGAIN:
-                view.showStoragePermissionError();
-                break;
+        if (storagePermissionRequest.isGranted()) {
+            initViewAndModel();
+        } else {
+            storagePermissionRequest.request();
         }
     }
 
@@ -124,13 +114,12 @@ public class MainPresenter
 
     @Override
     public void onStoragePermissionGranted() {
-        onCreate();
+        initViewAndModel();
     }
 
     @Override
-    public void onStoragePermissionDenied() {
-        PermissionState state = storagePermissionRequest.getState();
-        if (state == PermissionState.NEVER_ASK_AGAIN) {
+    public void onStoragePermissionDenied(boolean isNeverAskAgainChecked) {
+        if (isNeverAskAgainChecked) {
             view.showStoragePermissionError();
         } else {
             view.showStoragePermissionDeniedError();

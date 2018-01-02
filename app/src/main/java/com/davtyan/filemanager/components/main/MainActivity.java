@@ -130,14 +130,13 @@ public class MainActivity extends BaseActivity {
 
         gotoSettingsLinkView.setOnClickListener(onGotoSettingsClickListener);
         requestStoragePermissionLinkView.setOnClickListener(onRequestStoragePermissionLinkClickListener);
-
-        presenter.onCreate();
     }
 
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         navDrawerToggle.syncState();
+        presenter.onCreate();
     }
 
     @Override
