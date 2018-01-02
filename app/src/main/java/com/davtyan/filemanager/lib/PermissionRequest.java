@@ -35,10 +35,10 @@ public abstract class PermissionRequest {
 
         if (isGranted()) {
             state = PermissionState.GRANTED;
-        } else if (isExplicitlyDeniedByUser()) {
-            state = PermissionState.DENIED;
         } else if (isNeverAskAgainSelected()) {
             state = PermissionState.NEVER_ASK_AGAIN;
+        } else if (isExplicitlyDeniedByUser()) {
+            state = PermissionState.DENIED;
         } else {
             state = PermissionState.NOT_YET_ASKED;
         }
@@ -84,7 +84,7 @@ public abstract class PermissionRequest {
 
     private boolean isNeverAskAgainSelected() {
         if (!isApi23()) return false;
-        return activity.shouldShowRequestPermissionRationale(listOfPermissions[0]);
+        return !activity.shouldShowRequestPermissionRationale(listOfPermissions[0]);
     }
 
     private void requestFirstPermission() {
