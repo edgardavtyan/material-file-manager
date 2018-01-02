@@ -21,7 +21,7 @@
         />
 
     <TextView
-        android:id="@+id/permission_storage_request_link"
+        android:id="@+id/permission_storage_link_request"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="@dimen/spacing_normal"

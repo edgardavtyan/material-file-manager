@@ -44,10 +44,10 @@ public class MainActivity extends BaseActivity {
     @BindView(R.id.appbar) AppBarLayout appbar;
     @BindView(R.id.navigation_view) NavigationView navView;
     @BindView(R.id.drawer) DrawerLayout drawerLayout;
-    @BindView(R.id.permission_storage_error_neverAskAgain) LinearLayout permissionStorageNeverAskAgainErrorView;
-    @BindView(R.id.goto_settings_link) TextView gotoSettingsLinkView;
-    @BindView(R.id.permission_storage_error_denied) LinearLayout permissionStorageDeniedErrorView;
-    @BindView(R.id.permission_storage_request_link) TextView requestStoragePermissionLinkView;
+    @BindView(R.id.permission_storage_error_neverAskAgain) LinearLayout storagePermissionNeverAskAgainErrorView;
+    @BindView(R.id.permission_storage_error_denied) LinearLayout storagePermissionDeniedErrorView;
+    @BindView(R.id.permission_storage_link_goto_settings) TextView gotoSettingsLinkView;
+    @BindView(R.id.permission_storage_link_request) TextView requestStoragePermissionLinkView;
 
     private EntryAdapter adapter;
     private MainPresenter presenter;
@@ -260,11 +260,11 @@ public class MainActivity extends BaseActivity {
 
     public void showStoragePermissionError() {
         list.setVisibility(View.GONE);
-        permissionStorageNeverAskAgainErrorView.setVisibility(View.VISIBLE);
+        storagePermissionNeverAskAgainErrorView.setVisibility(View.VISIBLE);
     }
 
     public void showStoragePermissionDeniedError() {
         list.setVisibility(View.GONE);
-        permissionStorageDeniedErrorView.setVisibility(View.VISIBLE);
+        storagePermissionDeniedErrorView.setVisibility(View.VISIBLE);
     }
 }
