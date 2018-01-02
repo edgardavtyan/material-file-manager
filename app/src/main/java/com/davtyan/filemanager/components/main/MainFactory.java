@@ -3,6 +3,8 @@ package com.davtyan.filemanager.components.main;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import com.davtyan.filemanager.utils.StatusBarUtils;
+
 public class MainFactory {
     private final MainActivity activity;
 
@@ -13,6 +15,7 @@ public class MainFactory {
     private SharedPreferences prefs;
     private EntryAdapter adapter;
     private DeleteConfirmDialog deleteConfirmDialog;
+    private StatusBarUtils statusBarUtils;
 
     public MainFactory(MainActivity activity) {
         this.activity = activity;
@@ -58,5 +61,11 @@ public class MainFactory {
         if (prefs == null)
             prefs = PreferenceManager.getDefaultSharedPreferences(activity);
         return prefs;
+    }
+
+    public StatusBarUtils getStatusBarUtils() {
+        if (statusBarUtils == null)
+            statusBarUtils = new StatusBarUtils(activity.getWindow());
+        return statusBarUtils;
     }
 }

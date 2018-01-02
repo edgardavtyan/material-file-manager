@@ -14,7 +14,6 @@ import com.davtyan.filemanager.components.main.partials.ListPartial;
 import com.davtyan.filemanager.components.main.partials.PermissionsPartial;
 import com.davtyan.filemanager.components.main.partials.ToolbarPartial;
 import com.davtyan.filemanager.data.Storage;
-import com.davtyan.filemanager.utils.StatusBarUtils;
 
 import butterknife.ButterKnife;
 
@@ -39,7 +38,7 @@ public class MainActivity extends BaseActivity {
         presenter = factory.getPresenter();
         deleteConfirmDialog = factory.getDeleteConfirmDialog();
 
-        toolbarPartial = new ToolbarPartial(this, new StatusBarUtils(getWindow()));
+        toolbarPartial = new ToolbarPartial(this, factory.getStatusBarUtils());
         permissionsPartial = new PermissionsPartial(this, presenter, factory.getStoragePermissionRequest());
         drawerPartial = new DrawerPartial(this, presenter, toolbarPartial.getToolbar());
         listPartial = new ListPartial(this, factory.getAdapter());
