@@ -48,7 +48,7 @@
         android:padding="@dimen/spacing_small"
         android:adjustViewBounds="true"
         android:background="@drawable/border"
-        android:src="@drawable/ss_permissions_storage_1"
+        android:src="@drawable/permissions_storage_never_ask_again_img1"
         />
 
     <TextView
@@ -67,7 +67,7 @@
         android:adjustViewBounds="true"
         android:background="@drawable/border"
         android:scaleType="centerInside"
-        android:src="@drawable/ss_permissions_storage_2"
+        android:src="@drawable/permissions_storage_never_ask_again_img2"
         />
 
 </LinearLayout>
