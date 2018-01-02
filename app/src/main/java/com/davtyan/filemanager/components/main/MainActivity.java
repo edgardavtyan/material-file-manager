@@ -1,13 +1,11 @@
 package com.davtyan.filemanager.components.main;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.NavigationView;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -15,7 +13,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SimpleItemAnimator;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,6 +21,7 @@ import android.widget.TextView;
 
 import com.davtyan.filemanager.R;
 import com.davtyan.filemanager.base.BaseActivity;
+import com.davtyan.filemanager.components.main.partials.ToolbarPartial;
 import com.davtyan.filemanager.data.Storage;
 import com.davtyan.filemanager.utils.StatusBarUtils;
 
@@ -38,8 +36,6 @@ public class MainActivity extends BaseActivity {
     @BindView(R.id.list) RecyclerView list;
     @BindView(R.id.current_path) TextView currentPathView;
     @BindView(R.id.empty_directory_msg) LinearLayout emptyDirectoryView;
-    @BindView(R.id.toolbar) Toolbar toolbar;
-    @BindView(R.id.appbar) AppBarLayout appbar;
     @BindView(R.id.navigation_view) NavigationView navView;
     @BindView(R.id.drawer) DrawerLayout drawerLayout;
     @BindView(R.id.permission_storage_error_neverAskAgain) LinearLayout storagePermissionNeverAskAgainErrorView;
@@ -54,12 +50,9 @@ public class MainActivity extends BaseActivity {
     private ActionBarDrawerToggle navDrawerToggle;
     private Menu navMenu;
 
-    private StatusBarUtils statusBarUtils;
+    private ToolbarPartial toolbarPartial;
 
     private boolean deleteMenuEnabled;
-
-    private Drawable originalAppBarBackground;
-    private int originalStatusBarColor;
 
     private final NavigationView.OnNavigationItemSelectedListener navItemSelectedListener
             = new NavigationView.OnNavigationItemSelectedListener() {
@@ -100,7 +93,8 @@ public class MainActivity extends BaseActivity {
 
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        setSupportActionBar(toolbar);
+
+        toolbarPartial = new ToolbarPartial(this, new StatusBarUtils(getWindow()));
 
         MainFactory factory = getFactory();
         storagePermissionRequest = factory.getStoragePermissionRequest();
@@ -109,9 +103,6 @@ public class MainActivity extends BaseActivity {
         deleteConfirmDialog = factory.getDeleteConfirmDialog();
 
         deleteMenuEnabled = false;
-
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         list.setLayoutManager(new LinearLayoutManager(this));
         list.setAdapter(adapter);
@@ -122,14 +113,9 @@ public class MainActivity extends BaseActivity {
 
         navMenu = navView.getMenu();
         navView.setNavigationItemSelectedListener(navItemSelectedListener);
-        navDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, 0, 0);
+        navDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbarPartial.getToolbar(), 0, 0);
         drawerLayout.addDrawerListener(navDrawerToggle);
         drawerLayout.setScrimColor(ContextCompat.getColor(this, android.R.color.transparent));
-
-        statusBarUtils = new StatusBarUtils(getWindow());
-
-        originalAppBarBackground = appbar.getBackground();
-        originalStatusBarColor = statusBarUtils.getStatusBarColor();
     }
 
     @Override
@@ -210,19 +196,16 @@ public class MainActivity extends BaseActivity {
     }
 
     public void setSelectedEntriesCount(int count) {
-        toolbar.setTitle(getString(R.string.select_mode_title, count));
+        toolbarPartial.setSelectedEntriesCount(count);
     }
 
     public void enterSelectMode() {
-        appbar.setBackgroundResource(R.color.selectMode);
-        statusBarUtils.setStatusBarColor(ContextCompat.getColor(this, R.color.selectModeDark));
+        toolbarPartial.enterSelectMode();
         invalidateOptionsMenu();
     }
 
     public void exitSelectMode() {
-        toolbar.setTitle(R.string.app_name);
-        appbar.setBackground(originalAppBarBackground);
-        statusBarUtils.setStatusBarColor(originalStatusBarColor);
+        toolbarPartial.exitSelectMode();
         adapter.notifyDataSetChanged();
         deleteMenuEnabled = false;
         invalidateOptionsMenu();
