@@ -1,9 +1,6 @@
 package com.davtyan.filemanager.components.main;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
@@ -21,6 +18,7 @@ import android.widget.TextView;
 
 import com.davtyan.filemanager.R;
 import com.davtyan.filemanager.base.BaseActivity;
+import com.davtyan.filemanager.components.main.partials.PermissionsPartial;
 import com.davtyan.filemanager.components.main.partials.ToolbarPartial;
 import com.davtyan.filemanager.data.Storage;
 import com.davtyan.filemanager.utils.StatusBarUtils;
@@ -38,10 +36,6 @@ public class MainActivity extends BaseActivity {
     @BindView(R.id.empty_directory_msg) LinearLayout emptyDirectoryView;
     @BindView(R.id.navigation_view) NavigationView navView;
     @BindView(R.id.drawer) DrawerLayout drawerLayout;
-    @BindView(R.id.permission_storage_error_neverAskAgain) LinearLayout storagePermissionNeverAskAgainErrorView;
-    @BindView(R.id.permission_storage_error_denied) LinearLayout storagePermissionDeniedErrorView;
-    @BindView(R.id.permission_storage_link_goto_settings) TextView gotoSettingsLinkView;
-    @BindView(R.id.permission_storage_link_request) TextView requestStoragePermissionLinkView;
 
     private EntryAdapter adapter;
     private MainPresenter presenter;
@@ -51,6 +45,7 @@ public class MainActivity extends BaseActivity {
     private Menu navMenu;
 
     private ToolbarPartial toolbarPartial;
+    private PermissionsPartial permissionsPartial;
 
     private boolean deleteMenuEnabled;
 
@@ -71,22 +66,6 @@ public class MainActivity extends BaseActivity {
         }
     };
 
-    private final View.OnClickListener onGotoSettingsClickListener = v -> {
-        Intent intent = new Intent();
-        intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-        Uri uri = Uri.fromParts("package", getPackageName(), null);
-        intent.setData(uri);
-        startActivity(intent);
-    };
-
-    private final View.OnClickListener onRequestStoragePermissionLinkClickListener
-            = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            presenter.onRequestStoragePermissionLinkClicked();
-        }
-    };
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,22 +73,20 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        toolbarPartial = new ToolbarPartial(this, new StatusBarUtils(getWindow()));
-
         MainFactory factory = getFactory();
         storagePermissionRequest = factory.getStoragePermissionRequest();
         presenter = factory.getPresenter();
         adapter = factory.getAdapter();
         deleteConfirmDialog = factory.getDeleteConfirmDialog();
 
+        toolbarPartial = new ToolbarPartial(this, new StatusBarUtils(getWindow()));
+        permissionsPartial = new PermissionsPartial(this, presenter);
+
         deleteMenuEnabled = false;
 
         list.setLayoutManager(new LinearLayoutManager(this));
         list.setAdapter(adapter);
         ((SimpleItemAnimator) list.getItemAnimator()).setSupportsChangeAnimations(false);
-
-        gotoSettingsLinkView.setOnClickListener(onGotoSettingsClickListener);
-        requestStoragePermissionLinkView.setOnClickListener(onRequestStoragePermissionLinkClickListener);
 
         navMenu = navView.getMenu();
         navView.setNavigationItemSelectedListener(navItemSelectedListener);
@@ -231,12 +208,12 @@ public class MainActivity extends BaseActivity {
 
     public void showStoragePermissionNeverAskAgainError() {
         list.setVisibility(View.GONE);
-        storagePermissionNeverAskAgainErrorView.setVisibility(View.VISIBLE);
+        permissionsPartial.showNeverAskAgainError();
     }
 
     public void showStoragePermissionDeniedError() {
         list.setVisibility(View.GONE);
-        storagePermissionDeniedErrorView.setVisibility(View.VISIBLE);
+        permissionsPartial.showDeniedError();
     }
 
     public void waitForAnimation() {
