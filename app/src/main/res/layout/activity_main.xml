@@ -78,7 +78,7 @@
 
         </LinearLayout>
 
-        <include layout="@layout/error_permission_storage_neverAskAgain"/>
+        <include layout="@layout/error_permission_storage_never_ask_again"/>
 
     </LinearLayout>
 
