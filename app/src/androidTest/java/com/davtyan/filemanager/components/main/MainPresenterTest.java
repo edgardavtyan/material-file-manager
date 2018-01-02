@@ -15,15 +15,18 @@ public class MainPresenterTest {
     private MainPresenter presenter;
     private MainActivity view;
     private MainModel model;
+    private StoragePermissionRequest storagePermissionRequest;
 
     private Storage[] entries;
     private String currentPath;
+    private String externalStorageName;
     private int selectedEntriesCount;
 
     @Before
     public void setUp() throws Exception {
         entries = new Storage[5];
         currentPath = "path";
+        externalStorageName = "external";
         selectedEntriesCount = 3;
 
         model = mock(MainModel.class);
@@ -31,25 +34,24 @@ public class MainPresenterTest {
         when(model.getCurrentPath()).thenReturn(currentPath);
         when(model.getSelectedEntriesCount()).thenReturn(selectedEntriesCount);
 
-        view = mock(MainActivity.class);
-        presenter = new MainPresenter(view, model);
-    }
-
-    @Test
-    public void onCreate_updateModelAndView() {
-        Storage[] entries = new Storage[5];
-        when(model.getEntries()).thenReturn(entries);
-
         Storage internalStorage = mock(Storage.class);
         when(internalStorage.getPath()).thenReturn(currentPath);
         when(model.getInternalStorage()).thenReturn(internalStorage);
 
         Storage externalStorage = mock(Storage.class);
-        when(externalStorage.getName()).thenReturn("external");
+        when(externalStorage.getName()).thenReturn(externalStorageName);
         when(model.getExternalStorage()).thenReturn(externalStorage);
 
-        presenter.onCreate();
+        storagePermissionRequest = mock(StoragePermissionRequest.class);
+        when(storagePermissionRequest.isGranted()).thenReturn(true);
 
+        view = mock(MainActivity.class);
+        presenter = new MainPresenter(view, model, storagePermissionRequest);
+    }
+
+    @Test
+    public void onCreate_updateModelAndView() {
+        presenter.onCreate();
         verify(model).updateEntries(currentPath);
         verify(view).updateEntries(entries);
         verify(view).setCurrentPath(currentPath);
@@ -57,34 +59,16 @@ public class MainPresenterTest {
 
     @Test
     public void onCreate_hasExternalStorage_setViewExternalStorage() {
-        Storage internalStorage = mock(Storage.class);
-        when(model.getInternalStorage()).thenReturn(internalStorage);
-
-        Storage externalStorage = mock(Storage.class);
-        when(externalStorage.getName()).thenReturn("name");
-        when(model.getExternalStorage()).thenReturn(externalStorage);
-
         when(model.hasExternalStorage()).thenReturn(true);
-
         presenter.onCreate();
-
-        verify(view).setExternalStorage("name");
+        verify(view).setExternalStorage(externalStorageName);
     }
 
     @Test
     public void onCreate_noExternalStorage_notSetViewExternalStorage() {
-        Storage internalStorage = mock(Storage.class);
-        when(model.getInternalStorage()).thenReturn(internalStorage);
-
-        Storage externalStorage = mock(Storage.class);
-        when(externalStorage.getName()).thenReturn("name");
-        when(model.getExternalStorage()).thenReturn(externalStorage);
-
         when(model.hasExternalStorage()).thenReturn(false);
-
         presenter.onCreate();
-
-        verify(view, never()).setExternalStorage("name");
+        verify(view, never()).setExternalStorage(externalStorageName);
     }
 
     @Test
