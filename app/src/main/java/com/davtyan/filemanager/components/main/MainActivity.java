@@ -28,8 +28,6 @@ public class MainActivity extends BaseActivity {
     private ListPartial listPartial;
     private EmptyDirectoryPartial emptyDirectoryPartial;
 
-    private boolean deleteMenuEnabled;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,8 +44,6 @@ public class MainActivity extends BaseActivity {
         drawerPartial = new DrawerPartial(this, presenter, toolbarPartial.getToolbar());
         listPartial = new ListPartial(this, factory.getAdapter());
         emptyDirectoryPartial = new EmptyDirectoryPartial(this);
-
-        deleteMenuEnabled = false;
     }
 
     @Override
@@ -77,11 +73,7 @@ public class MainActivity extends BaseActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_entry, menu);
-
-        MenuItem deleteMenuItem = menu.findItem(R.id.menuitem_delete);
-        deleteMenuItem.setVisible(deleteMenuEnabled);
-        deleteMenuItem.setEnabled(deleteMenuEnabled);
-
+        toolbarPartial.onCreateOptionsMenu(menu);
         return true;
     }
 
@@ -125,7 +117,7 @@ public class MainActivity extends BaseActivity {
 
     public void updateViewSelectionAt(int position) {
         listPartial.notifyItemChanged(position);
-        deleteMenuEnabled = true;
+        toolbarPartial.setDeleteMenuEnabled(true);
     }
 
     public void setSelectedEntriesCount(int count) {
@@ -134,14 +126,11 @@ public class MainActivity extends BaseActivity {
 
     public void enterSelectMode() {
         toolbarPartial.enterSelectMode();
-        invalidateOptionsMenu();
     }
 
     public void exitSelectMode() {
         toolbarPartial.exitSelectMode();
         listPartial.notifyDataSetChanged();
-        deleteMenuEnabled = false;
-        invalidateOptionsMenu();
     }
 
     public void setInternalStorage() {

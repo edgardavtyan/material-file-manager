@@ -4,6 +4,8 @@ import android.graphics.drawable.Drawable;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.davtyan.filemanager.R;
@@ -26,6 +28,8 @@ public class ToolbarPartial {
     private final int originalStatusBarColor;
     private final int selectModeStatusBarColor;
 
+    private boolean deleteMenuEnabled;
+
     public ToolbarPartial(MainActivity activity, StatusBarUtils statusBarUtils) {
         this.activity = activity;
         this.statusBarUtils = statusBarUtils;
@@ -39,6 +43,8 @@ public class ToolbarPartial {
         originalAppBarBackground = appbar.getBackground();
         originalStatusBarColor = statusBarUtils.getStatusBarColor();
         selectModeStatusBarColor = ContextCompat.getColor(activity, R.color.selectMode);
+
+        deleteMenuEnabled = false;
     }
 
     public void setSelectedEntriesCount(int count) {
@@ -52,11 +58,24 @@ public class ToolbarPartial {
     public void enterSelectMode() {
         appbar.setBackgroundResource(R.color.selectMode);
         statusBarUtils.setStatusBarColor(selectModeStatusBarColor);
+        activity.invalidateOptionsMenu();
     }
 
     public void exitSelectMode() {
         toolbar.setTitle(R.string.app_name);
         appbar.setBackground(originalAppBarBackground);
         statusBarUtils.setStatusBarColor(originalStatusBarColor);
+        setDeleteMenuEnabled(false);
+        activity.invalidateOptionsMenu();
+    }
+
+    public void onCreateOptionsMenu(Menu menu) {
+        MenuItem deleteMenuItem = menu.findItem(R.id.menuitem_delete);
+        deleteMenuItem.setVisible(deleteMenuEnabled);
+        deleteMenuItem.setEnabled(deleteMenuEnabled);
+    }
+
+    public void setDeleteMenuEnabled(boolean enabled) {
+        deleteMenuEnabled = enabled;
     }
 }
