@@ -234,7 +234,7 @@ public class MainActivity extends BaseActivity {
         deleteConfirmDialog.show();
     }
 
-    public void showStoragePermissionError() {
+    public void showStoragePermissionNeverAskAgainError() {
         list.setVisibility(View.GONE);
         storagePermissionNeverAskAgainErrorView.setVisibility(View.VISIBLE);
     }

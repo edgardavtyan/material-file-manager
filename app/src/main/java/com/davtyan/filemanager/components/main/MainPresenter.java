@@ -122,7 +122,7 @@ public class MainPresenter
     @Override
     public void onStoragePermissionDenied(boolean isNeverAskAgainChecked) {
         if (isNeverAskAgainChecked) {
-            view.showStoragePermissionError();
+            view.showStoragePermissionNeverAskAgainError();
         } else {
             view.showStoragePermissionDeniedError();
         }
