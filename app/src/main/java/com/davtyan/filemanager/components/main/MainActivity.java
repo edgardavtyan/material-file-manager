@@ -3,9 +3,6 @@ package com.davtyan.filemanager.components.main;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SimpleItemAnimator;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,6 +11,7 @@ import android.widget.LinearLayout;
 import com.davtyan.filemanager.R;
 import com.davtyan.filemanager.base.BaseActivity;
 import com.davtyan.filemanager.components.main.partials.DrawerPartial;
+import com.davtyan.filemanager.components.main.partials.ListPartial;
 import com.davtyan.filemanager.components.main.partials.PermissionsPartial;
 import com.davtyan.filemanager.components.main.partials.ToolbarPartial;
 import com.davtyan.filemanager.data.Storage;
@@ -23,10 +21,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends BaseActivity {
-    @BindView(R.id.list) RecyclerView list;
     @BindView(R.id.empty_directory_msg) LinearLayout emptyDirectoryView;
 
-    private EntryAdapter adapter;
     private MainPresenter presenter;
     private StoragePermissionRequest storagePermissionRequest;
     private DeleteConfirmDialog deleteConfirmDialog;
@@ -34,6 +30,7 @@ public class MainActivity extends BaseActivity {
     private ToolbarPartial toolbarPartial;
     private PermissionsPartial permissionsPartial;
     private DrawerPartial drawerPartial;
+    private ListPartial listPartial;
 
     private boolean deleteMenuEnabled;
 
@@ -47,18 +44,14 @@ public class MainActivity extends BaseActivity {
         MainFactory factory = getFactory();
         storagePermissionRequest = factory.getStoragePermissionRequest();
         presenter = factory.getPresenter();
-        adapter = factory.getAdapter();
         deleteConfirmDialog = factory.getDeleteConfirmDialog();
 
         toolbarPartial = new ToolbarPartial(this, new StatusBarUtils(getWindow()));
         permissionsPartial = new PermissionsPartial(this, presenter);
         drawerPartial = new DrawerPartial(this, presenter, toolbarPartial.getToolbar());
+        listPartial = new ListPartial(this, factory.getAdapter());
 
         deleteMenuEnabled = false;
-
-        list.setLayoutManager(new LinearLayoutManager(this));
-        list.setAdapter(adapter);
-        ((SimpleItemAnimator) list.getItemAnimator()).setSupportsChangeAnimations(false);
     }
 
     @Override
@@ -118,13 +111,13 @@ public class MainActivity extends BaseActivity {
     }
 
     public void updateEntries(Storage[] entries) {
-        adapter.updateEntries(entries);
+        listPartial.updateEntries(entries);
 
         if (entries.length == 0) {
-            list.setVisibility(View.GONE);
+            listPartial.hideList();
             emptyDirectoryView.setVisibility(View.VISIBLE);
         } else {
-            list.setVisibility(View.VISIBLE);
+            listPartial.showList();
             emptyDirectoryView.setVisibility(View.GONE);
         }
     }
@@ -134,7 +127,7 @@ public class MainActivity extends BaseActivity {
     }
 
     public void updateViewSelectionAt(int position) {
-        adapter.notifyItemChanged(position);
+        listPartial.notifyItemChanged(position);
         deleteMenuEnabled = true;
     }
 
@@ -149,7 +142,7 @@ public class MainActivity extends BaseActivity {
 
     public void exitSelectMode() {
         toolbarPartial.exitSelectMode();
-        adapter.notifyDataSetChanged();
+        listPartial.notifyDataSetChanged();
         deleteMenuEnabled = false;
         invalidateOptionsMenu();
     }
@@ -171,12 +164,12 @@ public class MainActivity extends BaseActivity {
     }
 
     public void showStoragePermissionNeverAskAgainError() {
-        list.setVisibility(View.GONE);
+        listPartial.hideList();
         permissionsPartial.showNeverAskAgainError();
     }
 
     public void showStoragePermissionDeniedError() {
-        list.setVisibility(View.GONE);
+        listPartial.hideList();
         permissionsPartial.showDeniedError();
     }
 
