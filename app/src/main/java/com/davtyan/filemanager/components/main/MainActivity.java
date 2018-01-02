@@ -244,6 +244,14 @@ public class MainActivity extends BaseActivity {
         storagePermissionDeniedErrorView.setVisibility(View.VISIBLE);
     }
 
+    public void waitForAnimation() {
+        try {
+            Thread.sleep(200);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
     protected MainFactory getFactory() {
         return new MainFactory(this);
     }

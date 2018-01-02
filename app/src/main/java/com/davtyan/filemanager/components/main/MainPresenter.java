@@ -30,6 +30,8 @@ public class MainPresenter
         if (storagePermissionRequest.isGranted()) {
             initViewAndModel();
         } else {
+            //TODO: HACK, fixes animation glitch on startup, find proper solution
+            view.waitForAnimation();
             storagePermissionRequest.request();
         }
     }
