@@ -1,12 +1,13 @@
 package com.davtyan.filemanager.components.main;
 
 import com.davtyan.filemanager.data.Storage;
+import com.davtyan.filemanager.lib.PermissionRequest;
 
 import lombok.Getter;
 
 public class MainPresenter
-        implements StoragePermissionRequest.OnStoragePermissionDeniedListener,
-                   StoragePermissionRequest.OnStoragePermissionGrantedListener {
+        implements PermissionRequest.OnDeniedListener,
+                   PermissionRequest.OnGrantedListener {
 
     private final MainActivity view;
     private final MainModel model;
@@ -23,8 +24,8 @@ public class MainPresenter
         this.view = view;
         this.model = model;
         this.storagePermissionRequest = storagePermissionRequest;
-        this.storagePermissionRequest.setOnStoragePermissionDeniedListener(this);
-        this.storagePermissionRequest.setOnStoragePermissionGrantedListener(this);
+        this.storagePermissionRequest.setOnDeniedListener(this);
+        this.storagePermissionRequest.setOnGrantedListener(this);
         isInSelectMode = false;
     }
 

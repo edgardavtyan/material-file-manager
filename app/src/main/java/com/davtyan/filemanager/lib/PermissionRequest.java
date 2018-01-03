@@ -4,8 +4,6 @@ import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
 
-import com.davtyan.filemanager.components.main.StoragePermissionRequest;
-
 import lombok.Setter;
 
 public abstract class PermissionRequest {
@@ -13,14 +11,14 @@ public abstract class PermissionRequest {
     private final PermissionRequestPrefs prefs;
     private final String[] listOfPermissions;
 
-    private @Setter StoragePermissionRequest.OnStoragePermissionDeniedListener onStoragePermissionDeniedListener;
-    private @Setter StoragePermissionRequest.OnStoragePermissionGrantedListener onStoragePermissionGrantedListener;
+    private @Setter OnDeniedListener onDeniedListener;
+    private @Setter OnGrantedListener onGrantedListener;
 
-    public interface OnStoragePermissionDeniedListener {
+    public interface OnDeniedListener {
         void onStoragePermissionDenied(boolean isNeverAskAgainSelected);
     }
 
-    public interface OnStoragePermissionGrantedListener {
+    public interface OnGrantedListener {
         void onStoragePermissionGranted();
     }
 
@@ -47,13 +45,13 @@ public abstract class PermissionRequest {
         }
 
         if (grantResults.length == 0 || grantResults[0] == PackageManager.PERMISSION_DENIED) {
-            onStoragePermissionDeniedListener.onStoragePermissionDenied(isNeverAskAgainChecked());
+            onDeniedListener.onStoragePermissionDenied(isNeverAskAgainChecked());
             prefs.setUserDeniedPermission(true);
             return;
         }
 
         if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            onStoragePermissionGrantedListener.onStoragePermissionGranted();
+            onGrantedListener.onStoragePermissionGranted();
             prefs.setUserDeniedPermission(false);
             requestSecondPermission();
             return;
