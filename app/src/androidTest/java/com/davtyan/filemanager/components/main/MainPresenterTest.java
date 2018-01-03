@@ -85,7 +85,6 @@ public class MainPresenterTest {
         verify(model).toggleEntrySelectedAt(0);
         verify(view).updateViewSelectionAt(0);
         verify(view).enterSelectMode();
-        assertThat(presenter.isInSelectMode()).isTrue();
     }
 
     @Test
@@ -93,7 +92,6 @@ public class MainPresenterTest {
         when(model.getSelectedEntriesCount()).thenReturn(0);
         presenter.onEntryToggleSelected(0);
         verify(view).exitSelectMode();
-        assertThat(presenter.isInSelectMode()).isFalse();
     }
 
     @Test
@@ -102,7 +100,6 @@ public class MainPresenterTest {
         presenter.onNavigateBack();
         verify(model).clearSelections();
         verify(view).exitSelectMode();
-        assertThat(presenter.isInSelectMode()).isFalse();
     }
 
     @Test
@@ -156,6 +153,5 @@ public class MainPresenterTest {
         verify(model).clearSelections();
         verify(view).updateEntries(entries);
         verify(view).exitSelectMode();
-        assertThat(presenter.isInSelectMode()).isFalse();
     }
 }

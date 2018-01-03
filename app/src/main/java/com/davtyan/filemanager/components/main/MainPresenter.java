@@ -3,15 +3,12 @@ package com.davtyan.filemanager.components.main;
 import com.davtyan.filemanager.data.Storage;
 import com.davtyan.filemanager.lib.PermissionRequest;
 
-import lombok.Getter;
-
 public class MainPresenter {
     private final MainActivity view;
     private final MainModel model;
     private final StoragePermissionRequest storagePermissionRequest;
 
-    private @Getter boolean isInSelectMode;
-
+    private boolean isInSelectMode;
     private boolean storagePermissionDeniedBeforeExit;
 
     @SuppressWarnings("FieldCanBeLocal")
@@ -67,9 +64,13 @@ public class MainPresenter {
     }
 
     public void onEntryClick(int position) {
-        model.navigateForward(position);
-        view.updateEntries(model.getEntries());
-        view.setCurrentPath(model.getCurrentPath());
+        if (isInSelectMode) {
+            onEntryToggleSelected(position);
+        } else {
+            model.navigateForward(position);
+            view.updateEntries(model.getEntries());
+            view.setCurrentPath(model.getCurrentPath());
+        }
     }
 
 

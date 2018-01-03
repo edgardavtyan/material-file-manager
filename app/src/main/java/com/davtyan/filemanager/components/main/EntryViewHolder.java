@@ -39,11 +39,7 @@ public class EntryViewHolder extends RecyclerView.ViewHolder {
             = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if (presenter.isInSelectMode()) {
-                presenter.onEntryToggleSelected(getAdapterPosition());
-            } else {
-                presenter.onEntryClick(getAdapterPosition());
-            }
+            presenter.onEntryClick(getAdapterPosition());
         }
     };
 
