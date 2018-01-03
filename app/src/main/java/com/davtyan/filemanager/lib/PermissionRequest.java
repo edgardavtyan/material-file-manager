@@ -15,11 +15,11 @@ public abstract class PermissionRequest {
     private @Setter OnGrantedListener onGrantedListener;
 
     public interface OnDeniedListener {
-        void onStoragePermissionDenied(boolean isNeverAskAgainChecked);
+        void onDenied(boolean isNeverAskAgainChecked);
     }
 
     public interface OnGrantedListener {
-        void onStoragePermissionGranted();
+        void onGranted();
     }
 
     public PermissionRequest(Activity activity, PermissionRequestPrefs prefs) {
@@ -45,13 +45,13 @@ public abstract class PermissionRequest {
         }
 
         if (grantResults.length == 0 || grantResults[0] == PackageManager.PERMISSION_DENIED) {
-            onDeniedListener.onStoragePermissionDenied(isNeverAskAgainChecked());
+            onDeniedListener.onDenied(isNeverAskAgainChecked());
             prefs.setUserDeniedPermission(true);
             return;
         }
 
         if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            onGrantedListener.onStoragePermissionGranted();
+            onGrantedListener.onGranted();
             prefs.setUserDeniedPermission(false);
             requestSecondPermission();
             return;

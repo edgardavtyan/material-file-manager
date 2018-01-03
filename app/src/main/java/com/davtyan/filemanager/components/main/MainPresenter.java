@@ -5,10 +5,7 @@ import com.davtyan.filemanager.lib.PermissionRequest;
 
 import lombok.Getter;
 
-public class MainPresenter
-        implements PermissionRequest.OnDeniedListener,
-                   PermissionRequest.OnGrantedListener {
-
+public class MainPresenter {
     private final MainActivity view;
     private final MainModel model;
     private final StoragePermissionRequest storagePermissionRequest;
@@ -17,6 +14,28 @@ public class MainPresenter
 
     private boolean storagePermissionDeniedBeforeExit;
 
+    @SuppressWarnings("FieldCanBeLocal")
+    private final PermissionRequest.OnDeniedListener onDeniedListener
+            = new PermissionRequest.OnDeniedListener() {
+        @Override
+        public void onDenied(boolean isNeverAskAgainChecked) {
+            if (isNeverAskAgainChecked) {
+                view.showStoragePermissionNeverAskAgainError();
+            } else {
+                view.showStoragePermissionDeniedError();
+            }
+        }
+    };
+
+    @SuppressWarnings({"FieldCanBeLocal", "Convert2Lambda"})
+    private final PermissionRequest.OnGrantedListener onGrantedListener
+            = new PermissionRequest.OnGrantedListener() {
+        @Override
+        public void onGranted() {
+            initViewAndModel();
+        }
+    };
+
     public MainPresenter(
             MainActivity view,
             MainModel model,
@@ -24,8 +43,8 @@ public class MainPresenter
         this.view = view;
         this.model = model;
         this.storagePermissionRequest = storagePermissionRequest;
-        this.storagePermissionRequest.setOnDeniedListener(this);
-        this.storagePermissionRequest.setOnGrantedListener(this);
+        this.storagePermissionRequest.setOnDeniedListener(onDeniedListener);
+        this.storagePermissionRequest.setOnGrantedListener(onGrantedListener);
         isInSelectMode = false;
     }
 
@@ -123,20 +142,6 @@ public class MainPresenter
 
     public void onRequestStoragePermissionLinkClicked() {
         storagePermissionRequest.request();
-    }
-
-    @Override
-    public void onStoragePermissionGranted() {
-        initViewAndModel();
-    }
-
-    @Override
-    public void onStoragePermissionDenied(boolean isNeverAskAgainChecked) {
-        if (isNeverAskAgainChecked) {
-            view.showStoragePermissionNeverAskAgainError();
-        } else {
-            view.showStoragePermissionDeniedError();
-        }
     }
 
     private void initViewAndModel() {
