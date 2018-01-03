@@ -55,7 +55,6 @@ public class DrawerPartial {
         navView.setNavigationItemSelectedListener(navItemSelectedListener);
         navDrawerToggle = new ActionBarDrawerToggle(activity, drawerLayout, toolbar, 0, 0);
         drawerLayout.addDrawerListener(navDrawerToggle);
-        drawerLayout.setScrimColor(ContextCompat.getColor(activity, android.R.color.transparent));
     }
 
     public void syncState() {
