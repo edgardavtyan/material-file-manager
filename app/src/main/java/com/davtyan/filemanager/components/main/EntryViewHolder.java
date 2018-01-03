@@ -23,7 +23,7 @@ public class EntryViewHolder extends RecyclerView.ViewHolder {
 
     private final MainPresenter presenter;
 
-    private final Drawable rootNormalBackground;
+    private final Drawable originalRootBackground;
 
     @SuppressWarnings("FieldCanBeLocal")
     private final View.OnClickListener onIconWrapperClickListener
@@ -60,7 +60,7 @@ public class EntryViewHolder extends RecyclerView.ViewHolder {
         itemView.setOnClickListener(onEntryClickListener);
         itemView.setOnLongClickListener(onEntryLongClickListener);
         iconWrapperView.setOnClickListener(onIconWrapperClickListener);
-        rootNormalBackground = root.getBackground();
+        originalRootBackground = root.getBackground();
     }
 
     public void setTitle(String title) {
@@ -81,7 +81,7 @@ public class EntryViewHolder extends RecyclerView.ViewHolder {
             selectedIconView.setVisibility(View.VISIBLE);
             iconView.setVisibility(View.INVISIBLE);
         } else {
-            root.setBackground(rootNormalBackground);
+            root.setBackground(originalRootBackground);
             selectedIconView.setVisibility(View.INVISIBLE);
             iconView.setVisibility(View.VISIBLE);
         }
