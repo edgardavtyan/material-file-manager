@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/permission_storage_error_neverAskAgain"
     android:orientation="vertical"
@@ -48,7 +49,7 @@
         android:padding="@dimen/spacing_small"
         android:adjustViewBounds="true"
         android:background="@drawable/border"
-        android:src="@drawable/permissions_storage_never_ask_again_img1"
+        app:srcCompat="@drawable/permissions_storage_never_ask_again_img1"
         />
 
     <TextView
@@ -67,7 +68,7 @@
         android:adjustViewBounds="true"
         android:background="@drawable/border"
         android:scaleType="centerInside"
-        android:src="@drawable/permissions_storage_never_ask_again_img2"
+        app:srcCompat="@drawable/permissions_storage_never_ask_again_img2"
         />
 
 </LinearLayout>

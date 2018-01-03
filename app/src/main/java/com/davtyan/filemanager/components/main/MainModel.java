@@ -104,6 +104,11 @@ public class MainModel {
 
     private File getSDCardDirectory() {
         File storage = new File("/storage");
+
+        if (!storage.exists()) {
+            return null;
+        }
+
         for (String dir : storage.list()) {
             File file = new File(storage, dir);
             if (file.list() != null) {

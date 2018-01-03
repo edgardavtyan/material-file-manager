@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root"
     android:orientation="horizontal"
@@ -32,9 +33,9 @@
             android:layout_width="?listPreferredItemHeightSmall"
             android:layout_height="?listPreferredItemHeightSmall"
             android:padding="12dp"
-            android:src="@drawable/ic_check_circle"
             android:tint="@color/selectMode"
             android:visibility="gone"
+            app:srcCompat="@drawable/ic_check_circle"
             tools:visibility="visible"
             />
 
