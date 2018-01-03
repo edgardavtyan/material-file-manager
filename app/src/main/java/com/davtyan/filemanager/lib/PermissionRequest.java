@@ -2,7 +2,6 @@ package com.davtyan.filemanager.lib;
 
 import android.app.Activity;
 import android.content.pm.PackageManager;
-import android.os.Build;
 import android.support.v4.app.ActivityCompat;
 
 import com.davtyan.filemanager.components.main.StoragePermissionRequest;
@@ -35,7 +34,7 @@ public abstract class PermissionRequest {
     protected abstract String[] getListOfPermissions();
 
     public void request() {
-        if (isApi23()) requestFirstPermission();
+        requestFirstPermission();
     }
 
     public void onRequestPermissionResult(int requestCode, int[] grantResults) {
@@ -67,8 +66,7 @@ public abstract class PermissionRequest {
     }
 
     private boolean isNeverAskAgainChecked() {
-        if (!isApi23()) return false;
-        return !activity.shouldShowRequestPermissionRationale(listOfPermissions[0]);
+        return !ActivityCompat.shouldShowRequestPermissionRationale(activity, listOfPermissions[0]);
     }
 
     private void requestFirstPermission() {
@@ -76,10 +74,6 @@ public abstract class PermissionRequest {
     }
 
     private void requestSecondPermission() {
-        if (isApi23()) activity.requestPermissions(new String[]{listOfPermissions[1]}, 1);
-    }
-
-    private boolean isApi23() {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
+        ActivityCompat.requestPermissions(activity, new String[]{listOfPermissions[1]}, 1);
     }
 }
