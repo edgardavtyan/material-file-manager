@@ -15,7 +15,7 @@ public abstract class PermissionRequest {
     private @Setter OnGrantedListener onGrantedListener;
 
     public interface OnDeniedListener {
-        void onStoragePermissionDenied(boolean isNeverAskAgainSelected);
+        void onStoragePermissionDenied(boolean isNeverAskAgainChecked);
     }
 
     public interface OnGrantedListener {
