@@ -10,50 +10,50 @@ import android.widget.ImageView;
 import org.assertj.core.api.AbstractAssert;
 
 public class ImageViewAssert extends AbstractAssert<ImageViewAssert, ImageView> {
-	private final Context context;
+    private final Context context;
 
-	public ImageViewAssert(ImageView actual) {
-		super(actual, ImageViewAssert.class);
-		context = InstrumentationRegistry.getTargetContext();
-	}
+    public ImageViewAssert(ImageView actual) {
+        super(actual, ImageViewAssert.class);
+        context = InstrumentationRegistry.getTargetContext();
+    }
 
-	@SuppressWarnings("UnusedReturnValue")
-	public ImageViewAssert hasImageResource(@DrawableRes int drawableRes) {
-	    actual.setColorFilter(0);
-		Bitmap expectedBitmap = DrawableAssert.getBitmap(ContextCompat.getDrawable(context, drawableRes));
-		Bitmap actualBitmap = DrawableAssert.getBitmap(actual.getDrawable());
-		String drawableId = context.getResources().getResourceEntryName(drawableRes);
-		String errorMessage = "\nExpecting to have resource with id='%s'\n";
+    @SuppressWarnings("UnusedReturnValue")
+    public ImageViewAssert hasImageResource(@DrawableRes int drawableRes) {
+        actual.setColorFilter(0);
+        Bitmap expectedBitmap = DrawableAssert.getBitmap(ContextCompat.getDrawable(context, drawableRes));
+        Bitmap actualBitmap = DrawableAssert.getBitmap(actual.getDrawable());
+        String drawableId = context.getResources().getResourceEntryName(drawableRes);
+        String errorMessage = "\nExpecting to have resource with id='%s'\n";
 
-		isNotNull();
-		if (!expectedBitmap.sameAs(actualBitmap))
-			failWithMessage(errorMessage, drawableId);
+        isNotNull();
+        if (!expectedBitmap.sameAs(actualBitmap))
+            failWithMessage(errorMessage, drawableId);
 
-		return this;
-	}
+        return this;
+    }
 
-	@SuppressWarnings("UnusedReturnValue")
-	public ImageViewAssert hasImageBitmap(Bitmap expectedBitmap) {
-		Bitmap actualBitmap = DrawableAssert.getBitmap(actual.getDrawable());
-		String errorMessage = "\nExpecting bitmap to be\n<%s>\nbut was:\n<%s>\n";
+    @SuppressWarnings("UnusedReturnValue")
+    public ImageViewAssert hasImageBitmap(Bitmap expectedBitmap) {
+        Bitmap actualBitmap = DrawableAssert.getBitmap(actual.getDrawable());
+        String errorMessage = "\nExpecting bitmap to be\n<%s>\nbut was:\n<%s>\n";
 
-		isNotNull();
-		if (!expectedBitmap.sameAs(actualBitmap))
-			failWithMessage(errorMessage, expectedBitmap, actualBitmap);
+        isNotNull();
+        if (!expectedBitmap.sameAs(actualBitmap))
+            failWithMessage(errorMessage, expectedBitmap, actualBitmap);
 
-		return this;
-	}
+        return this;
+    }
 
-	@SuppressWarnings("UnusedReturnValue")
-	public ImageViewAssert hasImageAlpha(int expectedAlpha) {
-		int actualAlpha = actual.getImageAlpha();
-		String errorMessage = "\nExpected ImageAlpha to be <%s> but was <%s>\n";
+    @SuppressWarnings("UnusedReturnValue")
+    public ImageViewAssert hasImageAlpha(int expectedAlpha) {
+        int actualAlpha = actual.getImageAlpha();
+        String errorMessage = "\nExpected ImageAlpha to be <%s> but was <%s>\n";
 
-		isNotNull();
-		if (expectedAlpha != actualAlpha) {
-			failWithMessage(errorMessage, expectedAlpha, actualAlpha);
-		}
+        isNotNull();
+        if (expectedAlpha != actualAlpha) {
+            failWithMessage(errorMessage, expectedAlpha, actualAlpha);
+        }
 
-		return this;
-	}
+        return this;
+    }
 }

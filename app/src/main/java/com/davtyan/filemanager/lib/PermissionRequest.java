@@ -62,7 +62,7 @@ public abstract class PermissionRequest {
 
     public boolean isGranted() {
         return ActivityCompat.checkSelfPermission(activity, listOfPermissions[0])
-                == PackageManager.PERMISSION_GRANTED;
+               == PackageManager.PERMISSION_GRANTED;
     }
 
     private boolean isNeverAskAgainChecked() {

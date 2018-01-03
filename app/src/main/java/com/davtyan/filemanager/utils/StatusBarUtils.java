@@ -10,17 +10,17 @@ public class StatusBarUtils {
         this.window = window;
     }
 
-    public void setStatusBarColor(int color) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            window.setStatusBarColor(color);
-        }
-    }
-
     public int getStatusBarColor() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             return window.getStatusBarColor();
         } else {
             return 0;
+        }
+    }
+
+    public void setStatusBarColor(int color) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.setStatusBarColor(color);
         }
     }
 }

@@ -64,12 +64,12 @@ public class DrawerPartial {
 
     public void setInternalStorageItem() {
         navMenu.add(GROUP_STORAGE, ITEM_STORAGE_INTERNAL, 0, "Internal storage")
-                .setIcon(R.drawable.ic_smartphone);
+               .setIcon(R.drawable.ic_smartphone);
     }
 
     public void setExternalStorageItem(String name) {
         navMenu.add(GROUP_STORAGE, ITEM_STORAGE_EXTERNAL, 1, name)
-                .setIcon(R.drawable.ic_sdcard);
+               .setIcon(R.drawable.ic_sdcard);
     }
 
     public void closeDrawer() {

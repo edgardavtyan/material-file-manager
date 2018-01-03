@@ -11,10 +11,10 @@
         android:id="@+id/message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/textPrimary"
-        android:textSize="@dimen/font_normal"
         android:layout_marginLeft="@dimen/spacing_medium"
         android:layout_marginTop="@dimen/spacing_small"
+        android:textColor="@color/textPrimary"
+        android:textSize="@dimen/font_normal"
         tools:text="Lorem ipsum dolor sit amet"
         />
 

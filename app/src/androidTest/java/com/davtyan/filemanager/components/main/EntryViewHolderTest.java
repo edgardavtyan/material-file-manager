@@ -6,8 +6,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.davtyan.filemanager.lib_test.base.BaseTest;
 import com.davtyan.filemanager.R;
+import com.davtyan.filemanager.lib_test.base.BaseTest;
 
 import org.junit.Before;
 import org.junit.Test;
