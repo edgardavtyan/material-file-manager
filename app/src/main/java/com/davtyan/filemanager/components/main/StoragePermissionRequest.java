@@ -6,8 +6,8 @@ import android.app.Activity;
 import com.davtyan.filemanager.lib.PermissionRequest;
 
 public class StoragePermissionRequest extends PermissionRequest {
-    public StoragePermissionRequest(Activity activity, StoragePermissionPrefs prefs) {
-        super(activity, prefs);
+    public StoragePermissionRequest(Activity activity) {
+        super(activity);
     }
 
     @Override

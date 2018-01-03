@@ -8,7 +8,6 @@ import lombok.Setter;
 
 public abstract class PermissionRequest {
     private final Activity activity;
-    private final PermissionRequestPrefs prefs;
     private final String[] listOfPermissions;
 
     private @Setter OnDeniedListener onDeniedListener;
@@ -22,10 +21,8 @@ public abstract class PermissionRequest {
         void onGranted();
     }
 
-    public PermissionRequest(Activity activity, PermissionRequestPrefs prefs) {
+    public PermissionRequest(Activity activity) {
         this.activity = activity;
-        this.prefs = prefs;
-
         listOfPermissions = getListOfPermissions();
     }
 
@@ -46,13 +43,11 @@ public abstract class PermissionRequest {
 
         if (grantResults.length == 0 || grantResults[0] == PackageManager.PERMISSION_DENIED) {
             onDeniedListener.onDenied(isNeverAskAgainChecked());
-            prefs.setUserDeniedPermission(true);
             return;
         }
 
         if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             onGrantedListener.onGranted();
-            prefs.setUserDeniedPermission(false);
             requestSecondPermission();
             return;
         }

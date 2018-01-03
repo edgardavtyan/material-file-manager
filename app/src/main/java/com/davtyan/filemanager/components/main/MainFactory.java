@@ -1,8 +1,5 @@
 package com.davtyan.filemanager.components.main;
 
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-
 import com.davtyan.filemanager.utils.StatusBarUtils;
 
 public class MainFactory {
@@ -11,8 +8,6 @@ public class MainFactory {
     private MainModel model;
     private MainPresenter presenter;
     private StoragePermissionRequest storagePermissionRequest;
-    private StoragePermissionPrefs storagePermissionPrefs;
-    private SharedPreferences prefs;
     private EntryAdapter adapter;
     private DeleteConfirmDialog deleteConfirmDialog;
     private StatusBarUtils statusBarUtils;
@@ -47,20 +42,8 @@ public class MainFactory {
 
     public StoragePermissionRequest getStoragePermissionRequest() {
         if (storagePermissionRequest == null)
-            storagePermissionRequest = new StoragePermissionRequest(activity, getStoragePermissionPrefs());
+            storagePermissionRequest = new StoragePermissionRequest(activity);
         return storagePermissionRequest;
-    }
-
-    public StoragePermissionPrefs getStoragePermissionPrefs() {
-        if (storagePermissionPrefs == null)
-            storagePermissionPrefs = new StoragePermissionPrefs(getPrefs());
-        return storagePermissionPrefs;
-    }
-
-    public SharedPreferences getPrefs() {
-        if (prefs == null)
-            prefs = PreferenceManager.getDefaultSharedPreferences(activity);
-        return prefs;
     }
 
     public StatusBarUtils getStatusBarUtils() {
