@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.provider.Settings;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.davtyan.filemanager.R;
@@ -16,7 +17,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class PermissionsPartial {
-    @BindView(R.id.permission_storage_error_neverAskAgain) LinearLayout storagePermissionNeverAskAgainErrorView;
+    @BindView(R.id.permission_storage_error_neverAskAgain) ScrollView storagePermissionNeverAskAgainErrorView;
     @BindView(R.id.permission_storage_error_denied) LinearLayout storagePermissionDeniedErrorView;
     @BindView(R.id.permission_storage_link_goto_settings) TextView gotoSettingsLinkView;
     @BindView(R.id.permission_storage_link_request) TextView requestStoragePermissionLinkView;

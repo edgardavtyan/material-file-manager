@@ -1,74 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/permission_storage_error_neverAskAgain"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/spacing_normal"
     android:visibility="gone"
     tools:visibility="visible"
     >
 
-    <TextView
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/permissions_storage_neverAskAgain_message"
-        android:textColor="@color/textPrimary"
-        android:textSize="@dimen/font_normal"
-        />
+        android:padding="@dimen/spacing_normal"
+        >
 
-    <TextView
-        android:id="@+id/permission_storage_link_goto_settings"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/spacing_normal"
-        android:paddingTop="@dimen/spacing_normal"
-        android:clickable="true"
-        android:focusable="true"
-        android:text="@string/permissions_storage_neverAskAgain_step1"
-        android:textColor="@color/accent"
-        android:textSize="@dimen/font_normal"
-        android:textStyle="bold"
-        />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/permissions_storage_neverAskAgain_message"
+            android:textColor="@color/textPrimary"
+            android:textSize="@dimen/font_normal"
+            />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/permissions_storage_neverAskAgain_step2"
-        android:textColor="@color/textPrimary"
-        android:textSize="@dimen/font_normal"
-        />
+        <TextView
+            android:id="@+id/permission_storage_link_goto_settings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/spacing_normal"
+            android:paddingTop="@dimen/spacing_normal"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="@string/permissions_storage_neverAskAgain_step1"
+            android:textColor="@color/accent"
+            android:textSize="@dimen/font_normal"
+            android:textStyle="bold"
+            />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/spacing_normal"
-        android:padding="@dimen/spacing_small"
-        android:adjustViewBounds="true"
-        android:background="@drawable/border"
-        app:srcCompat="@drawable/permissions_storage_never_ask_again_img1"
-        />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/permissions_storage_neverAskAgain_step2"
+            android:textColor="@color/textPrimary"
+            android:textSize="@dimen/font_normal"
+            />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/spacing_normal"
-        android:text="@string/permissions_storage_neverAskAgain_step3"
-        android:textColor="@color/textPrimary"
-        android:textSize="@dimen/font_normal"
-        />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_normal"
+            android:padding="@dimen/spacing_small"
+            android:adjustViewBounds="true"
+            android:background="@drawable/border"
+            app:srcCompat="@drawable/permissions_storage_never_ask_again_img1"
+            />
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/spacing_normal"
-        android:adjustViewBounds="true"
-        android:background="@drawable/border"
-        android:scaleType="centerInside"
-        app:srcCompat="@drawable/permissions_storage_never_ask_again_img2"
-        />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_normal"
+            android:text="@string/permissions_storage_neverAskAgain_step3"
+            android:textColor="@color/textPrimary"
+            android:textSize="@dimen/font_normal"
+            />
 
-</LinearLayout>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_normal"
+            android:adjustViewBounds="true"
+            android:background="@drawable/border"
+            android:scaleType="centerInside"
+            app:srcCompat="@drawable/permissions_storage_never_ask_again_img2"
+            />
+
+    </LinearLayout>
+
+</ScrollView>
