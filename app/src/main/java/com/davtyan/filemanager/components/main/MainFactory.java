@@ -29,11 +29,11 @@ public class MainFactory {
     public void inject() {
         activity.presenter = getPresenter();
         activity.deleteConfirmDialog = getDeleteConfirmDialog();
-        toolbarPartial = getToolbarPartial();
-        permissionsPartial = getPermissionsPartial();
-        drawerPartial = getDrawerPartial();
-        listPartial = getListPartial();
-        emptyDirectoryPartial = getEmptyDirectoryPartial();
+        activity.toolbarPartial = getToolbarPartial();
+        activity.permissionsPartial = getPermissionsPartial();
+        activity.drawerPartial = getDrawerPartial();
+        activity.listPartial = getListPartial();
+        activity.emptyDirectoryPartial = getEmptyDirectoryPartial();
     }
 
     public MainPresenter getPresenter() {
