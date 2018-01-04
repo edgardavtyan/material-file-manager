@@ -61,7 +61,7 @@ public class DrawerPartial {
     }
 
     public void setInternalStorageItem() {
-        navMenu.add(GROUP_STORAGE, ITEM_STORAGE_INTERNAL, 0, "Internal storage")
+        navMenu.add(GROUP_STORAGE, ITEM_STORAGE_INTERNAL, 0, R.string.storage_internal_title)
                .setIcon(R.drawable.ic_smartphone);
     }
 
