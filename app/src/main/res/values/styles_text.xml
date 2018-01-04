@@ -1,14 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Text_Primary">
+    <style name="Text">
         <item name="android:textColor">@color/textPrimary</item>
         <item name="android:textSize">@dimen/font_normal</item>
     </style>
 
-    <style name="Text_Secondary">
+    <style name="Text.Secondary">
         <item name="android:textColor">@color/textSecondary</item>
         <item name="android:textSize">@dimen/font_small</item>
+    </style>
+
+    <style name="Text.Link">
+        <item name="android:textColor">@color/accent</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+    </style>
+
+    <style name="Text.Link.Caps">
+        <item name="android:textAllCaps">true</item>
     </style>
 
 </resources>

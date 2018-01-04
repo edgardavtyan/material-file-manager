@@ -13,9 +13,8 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/spacing_medium"
         android:layout_marginTop="@dimen/spacing_small"
-        android:textColor="@color/textPrimary"
-        android:textSize="@dimen/font_normal"
         tools:text="Lorem ipsum dolor sit amet"
+        style="@style/Text"
         />
 
 </LinearLayout>

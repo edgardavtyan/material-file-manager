@@ -49,9 +49,8 @@
         android:ellipsize="middle"
         android:gravity="center_vertical"
         android:singleLine="true"
-        android:textColor="@color/textPrimary"
-        android:textSize="@dimen/font_normal"
         tools:text="Directory"
+        style="@style/Text"
         />
 
 </LinearLayout>

@@ -16,8 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/permissions_storage_denied_message"
-        android:textColor="@color/textPrimary"
-        android:textSize="@dimen/font_normal"
+        style="@style/Text"
         />
 
     <TextView
@@ -28,10 +27,7 @@
         android:paddingTop="@dimen/spacing_normal"
         android:gravity="center_horizontal"
         android:text="@string/permissions_storage_denied_request"
-        android:textAllCaps="true"
-        android:textColor="@color/accent"
-        android:textSize="@dimen/font_normal"
-        android:textStyle="bold"
+        style="@style/Text.Link.Caps"
         />
 
 </LinearLayout>

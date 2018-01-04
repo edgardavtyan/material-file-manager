@@ -21,8 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/permissions_storage_neverAskAgain_message"
-            android:textColor="@color/textPrimary"
-            android:textSize="@dimen/font_normal"
+            style="@style/Text"
             />
 
         <TextView
@@ -31,20 +30,15 @@
             android:layout_height="wrap_content"
             android:paddingBottom="@dimen/spacing_normal"
             android:paddingTop="@dimen/spacing_normal"
-            android:clickable="true"
-            android:focusable="true"
             android:text="@string/permissions_storage_neverAskAgain_step1"
-            android:textColor="@color/accent"
-            android:textSize="@dimen/font_normal"
-            android:textStyle="bold"
+            style="@style/Text.Link"
             />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/permissions_storage_neverAskAgain_step2"
-            android:textColor="@color/textPrimary"
-            android:textSize="@dimen/font_normal"
+            style="@style/Text"
             />
 
         <ImageView
@@ -52,9 +46,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_normal"
             android:padding="@dimen/spacing_small"
-            android:adjustViewBounds="true"
-            android:background="@drawable/border"
             app:srcCompat="@drawable/permissions_storage_never_ask_again_img1"
+            style="@style/Image.Border"
             />
 
         <TextView
@@ -62,18 +55,15 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_normal"
             android:text="@string/permissions_storage_neverAskAgain_step3"
-            android:textColor="@color/textPrimary"
-            android:textSize="@dimen/font_normal"
+            style="@style/Text"
             />
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_normal"
-            android:adjustViewBounds="true"
-            android:background="@drawable/border"
-            android:scaleType="centerInside"
             app:srcCompat="@drawable/permissions_storage_never_ask_again_img2"
+            style="@style/Image.Border"
             />
 
     </LinearLayout>
