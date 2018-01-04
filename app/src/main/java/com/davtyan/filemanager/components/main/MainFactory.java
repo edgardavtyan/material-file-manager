@@ -26,6 +26,16 @@ public class MainFactory {
         this.activity = activity;
     }
 
+    public void inject() {
+        activity.presenter = getPresenter();
+        activity.deleteConfirmDialog = getDeleteConfirmDialog();
+        toolbarPartial = getToolbarPartial();
+        permissionsPartial = getPermissionsPartial();
+        drawerPartial = getDrawerPartial();
+        listPartial = getListPartial();
+        emptyDirectoryPartial = getEmptyDirectoryPartial();
+    }
+
     public MainPresenter getPresenter() {
         if (presenter == null)
             presenter = new MainPresenter(activity, getModel(), getStoragePermissionRequest());

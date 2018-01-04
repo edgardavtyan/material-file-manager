@@ -18,31 +18,21 @@ import com.davtyan.filemanager.data.Storage;
 import butterknife.ButterKnife;
 
 public class MainActivity extends BaseActivity {
-    private MainPresenter presenter;
-    private DeleteConfirmDialog deleteConfirmDialog;
+    MainPresenter presenter;
+    DeleteConfirmDialog deleteConfirmDialog;
 
-    private ToolbarPartial toolbarPartial;
-    private PermissionsPartial permissionsPartial;
-    private DrawerPartial drawerPartial;
-    private ListPartial listPartial;
-    private EmptyDirectoryPartial emptyDirectoryPartial;
+    ToolbarPartial toolbarPartial;
+    PermissionsPartial permissionsPartial;
+    DrawerPartial drawerPartial;
+    ListPartial listPartial;
+    EmptyDirectoryPartial emptyDirectoryPartial;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-
-        MainFactory factory = getFactory();
-        presenter = factory.getPresenter();
-        deleteConfirmDialog = factory.getDeleteConfirmDialog();
-
-        toolbarPartial = factory.getToolbarPartial();
-        permissionsPartial = factory.getPermissionsPartial();
-        drawerPartial = factory.getDrawerPartial();
-        listPartial = factory.getListPartial();
-        emptyDirectoryPartial = factory.getEmptyDirectoryPartial();
+        getFactory().inject();
     }
 
     @Override
