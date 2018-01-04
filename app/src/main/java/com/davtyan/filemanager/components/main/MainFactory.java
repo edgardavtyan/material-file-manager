@@ -1,5 +1,10 @@
 package com.davtyan.filemanager.components.main;
 
+import com.davtyan.filemanager.components.main.partials.DrawerPartial;
+import com.davtyan.filemanager.components.main.partials.EmptyDirectoryPartial;
+import com.davtyan.filemanager.components.main.partials.ListPartial;
+import com.davtyan.filemanager.components.main.partials.PermissionsPartial;
+import com.davtyan.filemanager.components.main.partials.ToolbarPartial;
 import com.davtyan.filemanager.utils.StatusBarUtils;
 
 public class MainFactory {
@@ -11,6 +16,11 @@ public class MainFactory {
     private EntryAdapter adapter;
     private DeleteConfirmDialog deleteConfirmDialog;
     private StatusBarUtils statusBarUtils;
+    private DrawerPartial drawerPartial;
+    private EmptyDirectoryPartial emptyDirectoryPartial;
+    private ListPartial listPartial;
+    private PermissionsPartial permissionsPartial;
+    private ToolbarPartial toolbarPartial;
 
     public MainFactory(MainActivity activity) {
         this.activity = activity;
@@ -50,5 +60,38 @@ public class MainFactory {
         if (statusBarUtils == null)
             statusBarUtils = new StatusBarUtils(activity.getWindow());
         return statusBarUtils;
+    }
+
+    // Partials
+
+    public DrawerPartial getDrawerPartial() {
+        if (drawerPartial == null)
+            drawerPartial = new DrawerPartial(activity, getPresenter());
+        return drawerPartial;
+    }
+
+    public EmptyDirectoryPartial getEmptyDirectoryPartial() {
+        if (emptyDirectoryPartial == null)
+            emptyDirectoryPartial = new EmptyDirectoryPartial(activity);
+        return emptyDirectoryPartial;
+    }
+
+    public ListPartial getListPartial() {
+        if (listPartial == null)
+            listPartial = new ListPartial(activity, getAdapter());
+        return listPartial;
+    }
+
+    public PermissionsPartial getPermissionsPartial() {
+        if (permissionsPartial == null)
+            permissionsPartial = new PermissionsPartial(
+                    activity, getPresenter(), getStoragePermissionRequest());
+        return permissionsPartial;
+    }
+
+    public ToolbarPartial getToolbarPartial() {
+        if (toolbarPartial == null)
+            toolbarPartial = new ToolbarPartial(activity, getStatusBarUtils());
+        return toolbarPartial;
     }
 }

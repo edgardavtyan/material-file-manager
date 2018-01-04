@@ -38,11 +38,11 @@ public class MainActivity extends BaseActivity {
         presenter = factory.getPresenter();
         deleteConfirmDialog = factory.getDeleteConfirmDialog();
 
-        toolbarPartial = new ToolbarPartial(this, factory.getStatusBarUtils());
-        permissionsPartial = new PermissionsPartial(this, presenter, factory.getStoragePermissionRequest());
-        drawerPartial = new DrawerPartial(this, presenter);
-        listPartial = new ListPartial(this, factory.getAdapter());
-        emptyDirectoryPartial = new EmptyDirectoryPartial(this);
+        toolbarPartial = factory.getToolbarPartial();
+        permissionsPartial = factory.getPermissionsPartial();
+        drawerPartial = factory.getDrawerPartial();
+        listPartial = factory.getListPartial();
+        emptyDirectoryPartial = factory.getEmptyDirectoryPartial();
     }
 
     @Override
