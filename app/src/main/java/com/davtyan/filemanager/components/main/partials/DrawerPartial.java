@@ -22,6 +22,7 @@ public class DrawerPartial {
 
     @BindView(R.id.navigation_view) NavigationView navView;
     @BindView(R.id.drawer) DrawerLayout drawerLayout;
+    @BindView(R.id.toolbar) Toolbar toolbar;
 
     private final MainPresenter presenter;
     private final Menu navMenu;
@@ -45,7 +46,7 @@ public class DrawerPartial {
         }
     };
 
-    public DrawerPartial(MainActivity activity, MainPresenter presenter, Toolbar toolbar) {
+    public DrawerPartial(MainActivity activity, MainPresenter presenter) {
         this.presenter = presenter;
 
         ButterKnife.bind(this, activity);

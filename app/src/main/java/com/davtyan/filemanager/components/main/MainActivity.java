@@ -40,7 +40,7 @@ public class MainActivity extends BaseActivity {
 
         toolbarPartial = new ToolbarPartial(this, factory.getStatusBarUtils());
         permissionsPartial = new PermissionsPartial(this, presenter, factory.getStoragePermissionRequest());
-        drawerPartial = new DrawerPartial(this, presenter, toolbarPartial.getToolbar());
+        drawerPartial = new DrawerPartial(this, presenter);
         listPartial = new ListPartial(this, factory.getAdapter());
         emptyDirectoryPartial = new EmptyDirectoryPartial(this);
     }
