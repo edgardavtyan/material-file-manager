@@ -51,32 +51,7 @@
             tools:visibility="gone"
             />
 
-        <LinearLayout
-            android:id="@+id/empty_directory_msg"
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:visibility="gone"
-            tools:ignore="UseCompoundDrawables"
-            tools:visibility="gone"
-            >
-
-            <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:tint="@color/iconTintPrimary"
-                app:srcCompat="@drawable/ic_directory"
-                />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/directory_empty"
-                android:textSize="18sp"
-                />
-
-        </LinearLayout>
+        <include layout="@layout/error_directory_empty"/>
 
         <include layout="@layout/error_permission_storage_never_ask_again"/>
 
