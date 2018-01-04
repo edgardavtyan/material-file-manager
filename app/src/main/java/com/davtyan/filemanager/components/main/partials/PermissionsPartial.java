@@ -17,10 +17,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class PermissionsPartial {
-    @BindView(R.id.permission_storage_error_neverAskAgain) ScrollView storagePermissionNeverAskAgainErrorView;
-    @BindView(R.id.permission_storage_error_denied) LinearLayout storagePermissionDeniedErrorView;
-    @BindView(R.id.permission_storage_link_goto_settings) TextView gotoSettingsLinkView;
-    @BindView(R.id.permission_storage_link_request) TextView requestStoragePermissionLinkView;
+    @BindView(R.id.error_neverAskAgain) ScrollView neverAskAgainErrorView;
+    @BindView(R.id.error_denied) LinearLayout deniedErrorView;
+    @BindView(R.id.link_goto_settings) TextView gotoSettingsLinkView;
+    @BindView(R.id.link_request) TextView requestPermissionLinkView;
 
     private final MainActivity activity;
     private final MainPresenter presenter;
@@ -40,7 +40,7 @@ public class PermissionsPartial {
     };
 
     @SuppressWarnings("FieldCanBeLocal")
-    private final View.OnClickListener onRequestStoragePermissionLinkClickListener
+    private final View.OnClickListener onRequestPermissionClickListener
             = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -58,15 +58,15 @@ public class PermissionsPartial {
         ButterKnife.bind(this, activity);
 
         gotoSettingsLinkView.setOnClickListener(onGotoSettingsClickListener);
-        requestStoragePermissionLinkView.setOnClickListener(onRequestStoragePermissionLinkClickListener);
+        requestPermissionLinkView.setOnClickListener(onRequestPermissionClickListener);
     }
 
     public void showNeverAskAgainError() {
-        storagePermissionNeverAskAgainErrorView.setVisibility(View.VISIBLE);
+        neverAskAgainErrorView.setVisibility(View.VISIBLE);
     }
 
     public void showDeniedError() {
-        storagePermissionDeniedErrorView.setVisibility(View.VISIBLE);
+        deniedErrorView.setVisibility(View.VISIBLE);
     }
 
     public void onRequestPermissionResult(int requestCode, int[] grantResults) {

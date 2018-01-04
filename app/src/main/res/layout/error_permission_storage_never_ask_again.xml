@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/permission_storage_error_neverAskAgain"
+    android:id="@+id/error_neverAskAgain"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:visibility="gone"
@@ -26,7 +26,7 @@
             />
 
         <TextView
-            android:id="@+id/permission_storage_link_goto_settings"
+            android:id="@+id/link_goto_settings"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="@dimen/spacing_normal"
