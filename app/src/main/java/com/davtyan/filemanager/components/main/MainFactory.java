@@ -5,6 +5,7 @@ import com.davtyan.filemanager.components.main.partials.EmptyDirectoryPartial;
 import com.davtyan.filemanager.components.main.partials.ListPartial;
 import com.davtyan.filemanager.components.main.partials.PermissionsPartial;
 import com.davtyan.filemanager.components.main.partials.ToolbarPartial;
+import com.davtyan.filemanager.lib.StorageAccessFramework;
 import com.davtyan.filemanager.utils.StatusBarUtils;
 
 public class MainFactory {
@@ -21,6 +22,7 @@ public class MainFactory {
     private ListPartial listPartial;
     private PermissionsPartial permissionsPartial;
     private ToolbarPartial toolbarPartial;
+    private StorageAccessFramework storageAccessFramework;
 
     public MainFactory(MainActivity activity) {
         this.activity = activity;
@@ -34,6 +36,14 @@ public class MainFactory {
         activity.drawerPartial = getDrawerPartial();
         activity.listPartial = getListPartial();
         activity.emptyDirectoryPartial = getEmptyDirectoryPartial();
+        activity.saf = getStorageAccessFramework();
+    }
+
+    private StorageAccessFramework getStorageAccessFramework() {
+        if (storageAccessFramework == null) {
+            storageAccessFramework = new StorageAccessFramework(activity);
+        }
+        return storageAccessFramework;
     }
 
     public MainPresenter getPresenter() {
@@ -44,7 +54,7 @@ public class MainFactory {
 
     public MainModel getModel() {
         if (model == null)
-            model = new MainModel();
+            model = new MainModel(activity);
         return model;
     }
 

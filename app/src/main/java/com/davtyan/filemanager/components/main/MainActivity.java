@@ -1,5 +1,6 @@
 package com.davtyan.filemanager.components.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,6 +15,7 @@ import com.davtyan.filemanager.components.main.partials.ListPartial;
 import com.davtyan.filemanager.components.main.partials.PermissionsPartial;
 import com.davtyan.filemanager.components.main.partials.ToolbarPartial;
 import com.davtyan.filemanager.data.Storage;
+import com.davtyan.filemanager.lib.StorageAccessFramework;
 
 import butterknife.ButterKnife;
 
@@ -26,6 +28,7 @@ public class MainActivity extends BaseActivity {
     DrawerPartial drawerPartial;
     ListPartial listPartial;
     EmptyDirectoryPartial emptyDirectoryPartial;
+    StorageAccessFramework saf;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -33,6 +36,7 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         getFactory().inject();
+        saf.makeAccessRequest();
     }
 
     @Override
@@ -40,6 +44,11 @@ public class MainActivity extends BaseActivity {
         super.onPostCreate(savedInstanceState);
         drawerPartial.syncState();
         presenter.onCreate();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        saf.persistPermissions(requestCode, data);
     }
 
     @Override
