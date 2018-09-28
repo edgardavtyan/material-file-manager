@@ -14,7 +14,7 @@ import com.davtyan.filemanager.components.main.partials.EmptyDirectoryPartial;
 import com.davtyan.filemanager.components.main.partials.ListPartial;
 import com.davtyan.filemanager.components.main.partials.PermissionsPartial;
 import com.davtyan.filemanager.components.main.partials.ToolbarPartial;
-import com.davtyan.filemanager.data.Storage;
+import com.davtyan.filemanager.data.Entry;
 import com.davtyan.filemanager.lib.StorageAccessFramework;
 
 import butterknife.ButterKnife;
@@ -90,7 +90,7 @@ public class MainActivity extends BaseActivity {
         finish();
     }
 
-    public void updateEntries(Storage[] entries) {
+    public void updateEntries(Entry[] entries) {
         listPartial.updateEntries(entries);
 
         if (entries.length == 0) {

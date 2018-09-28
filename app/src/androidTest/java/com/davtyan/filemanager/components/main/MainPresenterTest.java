@@ -1,6 +1,6 @@
 package com.davtyan.filemanager.components.main;
 
-import com.davtyan.filemanager.data.Storage;
+import com.davtyan.filemanager.data.Entry;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -17,14 +17,14 @@ public class MainPresenterTest {
     private MainModel model;
     private StoragePermissionRequest storagePermissionRequest;
 
-    private Storage[] entries;
+    private Entry[] entries;
     private String currentPath;
     private String externalStorageName;
     private int selectedEntriesCount;
 
     @Before
     public void setUp() throws Exception {
-        entries = new Storage[5];
+        entries = new Entry[5];
         currentPath = "path";
         externalStorageName = "external";
         selectedEntriesCount = 3;
@@ -34,13 +34,13 @@ public class MainPresenterTest {
         when(model.getCurrentPath()).thenReturn(currentPath);
         when(model.getSelectedEntriesCount()).thenReturn(selectedEntriesCount);
 
-        Storage internalStorage = mock(Storage.class);
-        when(internalStorage.getPath()).thenReturn(currentPath);
-        when(model.getInternalStorage()).thenReturn(internalStorage);
+        Entry internalEntry = mock(Entry.class);
+        when(internalEntry.getPath()).thenReturn(currentPath);
+        when(model.getInternalRoot()).thenReturn(internalEntry);
 
-        Storage externalStorage = mock(Storage.class);
-        when(externalStorage.getName()).thenReturn(externalStorageName);
-        when(model.getExternalStorage()).thenReturn(externalStorage);
+        Entry externalEntry = mock(Entry.class);
+        when(externalEntry.getName()).thenReturn(externalStorageName);
+        when(model.getExternalRoot()).thenReturn(externalEntry);
 
         storagePermissionRequest = mock(StoragePermissionRequest.class);
         when(storagePermissionRequest.isGranted()).thenReturn(true);
@@ -120,7 +120,7 @@ public class MainPresenterTest {
 
     @Test
     public void onBindViewHolder_setViewHolderValues() {
-        Storage entry = mock(Storage.class);
+        Entry entry = mock(Entry.class);
         when(entry.getName()).thenReturn("name");
         when(entry.isDirectory()).thenReturn(true);
         when(entry.isSelected()).thenReturn(true);

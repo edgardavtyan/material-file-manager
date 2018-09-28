@@ -8,7 +8,7 @@ import android.view.View;
 import com.davtyan.filemanager.R;
 import com.davtyan.filemanager.components.main.EntryAdapter;
 import com.davtyan.filemanager.components.main.MainActivity;
-import com.davtyan.filemanager.data.Storage;
+import com.davtyan.filemanager.data.Entry;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,7 +35,7 @@ public class ListPartial {
         list.setVisibility(View.GONE);
     }
 
-    public void updateEntries(Storage[] entries) {
+    public void updateEntries(Entry[] entries) {
         adapter.updateEntries(entries);
     }
 

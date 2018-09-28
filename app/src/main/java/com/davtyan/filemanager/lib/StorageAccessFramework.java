@@ -11,7 +11,6 @@ import android.support.v4.provider.DocumentFile;
 public class StorageAccessFramework {
     private static final int REQUEST_MAIN = 1;
     private static final String SDCARD_NAME = "7875-6541/";
-    private static final String URI_BASE = "content://com.android.externalstorage.documents/document/7875-6541%3A";
     private static final String URI_BASE_SDCARD = "content://com.android.externalstorage.documents/tree/7875-6541%3A/document/7875-6541%3A";
 
     private final Activity activity;
@@ -29,8 +28,8 @@ public class StorageAccessFramework {
 
     public void persistPermissions(int requestCode, Intent intent) {
         if (requestCode == REQUEST_MAIN) {
-            activity.getContentResolver().takePersistableUriPermission(
-                    intent.getData(), Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            int flags = Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION;
+            activity.getContentResolver().takePersistableUriPermission(intent.getData(), flags);
         }
     }
 

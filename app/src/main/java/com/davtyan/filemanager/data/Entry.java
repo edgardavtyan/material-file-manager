@@ -4,11 +4,11 @@ import java.io.File;
 
 import lombok.Getter;
 
-public class Storage {
+public class Entry {
     private File file;
     private @Getter boolean isSelected;
 
-    public Storage(File file) {
+    public Entry(File file) {
         this.file = file;
     }
 

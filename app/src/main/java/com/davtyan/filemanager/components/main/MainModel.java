@@ -1,8 +1,9 @@
 package com.davtyan.filemanager.components.main;
 
 import android.os.Environment;
+import android.support.annotation.Nullable;
 
-import com.davtyan.filemanager.data.Storage;
+import com.davtyan.filemanager.data.Entry;
 import com.davtyan.filemanager.lib.StorageAccessFramework;
 
 import java.io.File;
@@ -14,9 +15,9 @@ public class MainModel {
     private final Stack<String> entriesStack;
     private final StorageAccessFramework saf;
 
-    private @Getter Storage internalStorage;
-    private @Getter Storage externalStorage;
-    private @Getter Storage[] entries;
+    private @Getter Entry internalRoot;
+    private @Getter Entry externalRoot;
+    private @Getter Entry[] entries;
     private @Getter String currentPath;
     private @Getter int selectedEntriesCount;
     private boolean hasExternalStorage;
@@ -24,18 +25,18 @@ public class MainModel {
     public MainModel(StorageAccessFramework saf) {
         this.saf = saf;
         entriesStack = new Stack<>();
-        entries = new Storage[0];
+        entries = new Entry[0];
     }
 
     public void init() {
-        internalStorage = new Storage(Environment.getExternalStorageDirectory());
+        internalRoot = new Entry(Environment.getExternalStorageDirectory());
 
         File sdCardDirectory = getSDCardDirectory();
         if (sdCardDirectory == null) {
-            externalStorage = null;
+            externalRoot = null;
             hasExternalStorage = false;
         } else {
-            externalStorage = new Storage(getSDCardDirectory());
+            externalRoot = new Entry(sdCardDirectory);
             hasExternalStorage = true;
         }
     }
@@ -46,10 +47,10 @@ public class MainModel {
 
     public void updateEntries(String dirPath) {
         String[] filenames = new File(dirPath).list();
-        Storage[] entries = new Storage[filenames.length];
+        Entry[] entries = new Entry[filenames.length];
         File dirFile = new File(dirPath);
         for (int i = 0; i < filenames.length; i++) {
-            entries[i] = new Storage(new File(dirFile, filenames[i]));
+            entries[i] = new Entry(new File(dirFile, filenames[i]));
         }
 
         this.entries = entries;
@@ -57,7 +58,7 @@ public class MainModel {
     }
 
     public void toggleEntrySelectedAt(int position) {
-        Storage entry = entries[position];
+        Entry entry = entries[position];
         if (entry.isSelected()) {
             entry.setSelected(false);
             selectedEntriesCount--;
@@ -68,7 +69,7 @@ public class MainModel {
     }
 
     public void clearSelections() {
-        for (Storage entry : entries) entry.clearSelection();
+        for (Entry entry : entries) entry.clearSelection();
         selectedEntriesCount = 0;
     }
 
@@ -86,8 +87,10 @@ public class MainModel {
     }
 
     public void deleteSelectedItems() {
-        for (Storage entry : entries) {
-            if (!entry.isSelected()) continue;
+        for (Entry entry : entries) {
+            if (!entry.isSelected()) {
+                continue;
+            }
 
             if (!entry.delete()) {
                 saf.deleteFile(entry.getPath());
@@ -99,16 +102,17 @@ public class MainModel {
 
     public void navigateToInternalStorage() {
         entriesStack.clear();
-        currentPath = internalStorage.getPath();
-        updateEntries(internalStorage.getPath());
+        currentPath = internalRoot.getPath();
+        updateEntries(internalRoot.getPath());
     }
 
     public void navigateToExternalStorage() {
         entriesStack.clear();
-        currentPath = externalStorage.getPath();
-        updateEntries(externalStorage.getPath());
+        currentPath = externalRoot.getPath();
+        updateEntries(externalRoot.getPath());
     }
 
+    @Nullable
     private File getSDCardDirectory() {
         File storage = new File("/storage");
 

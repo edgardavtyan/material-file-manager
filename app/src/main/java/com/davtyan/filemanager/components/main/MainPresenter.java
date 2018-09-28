@@ -1,6 +1,6 @@
 package com.davtyan.filemanager.components.main;
 
-import com.davtyan.filemanager.data.Storage;
+import com.davtyan.filemanager.data.Entry;
 import com.davtyan.filemanager.lib.PermissionRequest;
 
 public class MainPresenter {
@@ -105,7 +105,7 @@ public class MainPresenter {
     }
 
     public void onBindViewHolder(EntryViewHolder holder, int position) {
-        Storage entry = model.getEntries()[position];
+        Entry entry = model.getEntries()[position];
         holder.setTitle(entry.getName());
         holder.setIsDirectory(entry.isDirectory());
         holder.setIsSelected(entry.isSelected());
@@ -147,13 +147,13 @@ public class MainPresenter {
 
     private void initViewAndModel() {
         model.init();
-        model.updateEntries(model.getInternalStorage().getPath());
+        model.updateEntries(model.getInternalRoot().getPath());
         view.updateEntries(model.getEntries());
         view.setCurrentPath(model.getCurrentPath());
 
         view.setInternalStorage();
         if (model.hasExternalStorage()) {
-            view.setExternalStorage(model.getExternalStorage().getName());
+            view.setExternalStorage(model.getExternalRoot().getName());
         }
     }
 }
