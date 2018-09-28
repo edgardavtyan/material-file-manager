@@ -10,7 +10,10 @@
         Deleting the selected items will permanently remove them from your device and they cannot be
         recovered
     </string>
-    <string name="dialog_delete_action_positive">Delete</string>
+    <string name="dialog_delete_action">Delete</string>
+
+    <string name="dialog_rename_title">Rename file</string>
+    <string name="dialog_rename_action">Rename</string>
 
     <string name="permissions_storage_neverAskAgain_message">
         You have denied the \'Storage\' permission. This app, being a file manager, requires it to

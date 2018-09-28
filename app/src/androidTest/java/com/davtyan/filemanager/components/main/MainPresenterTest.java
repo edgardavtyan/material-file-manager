@@ -148,7 +148,7 @@ public class MainPresenterTest {
 
     @Test
     public void onDeleteConfirmDialogPositiveButtonClicked_deleteSelectedEntries() {
-        presenter.onDeleteConfirmDialogPositiveButtonClicked();
+        presenter.onDeleteDialogConfirmed();
         verify(model).deleteSelectedItems();
         verify(model).clearSelections();
         verify(view).updateEntries(entries);

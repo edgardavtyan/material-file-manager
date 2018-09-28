@@ -45,13 +45,13 @@ public class DeleteConfirmDialogTest extends BaseTest {
     public void positiveButtonClick_callPresenter() {
         runOnMainSync(deleteConfirmDialog::show);
         onView(withId(android.R.id.button1)).perform(click());
-        verify(presenter).onDeleteConfirmDialogPositiveButtonClicked();
+        verify(presenter).onDeleteDialogConfirmed();
     }
 
     @Test
     public void negativeButtonClick_notCallPresenter() {
         runOnMainSync(deleteConfirmDialog::show);
         onView(withId(android.R.id.button2)).perform(click());
-        verify(presenter, never()).onDeleteConfirmDialogPositiveButtonClicked();
+        verify(presenter, never()).onDeleteDialogConfirmed();
     }
 }

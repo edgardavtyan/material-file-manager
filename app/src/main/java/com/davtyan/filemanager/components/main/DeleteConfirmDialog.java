@@ -22,7 +22,7 @@ public class DeleteConfirmDialog {
             = new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialog, int which) {
-            presenter.onDeleteConfirmDialogPositiveButtonClicked();
+            presenter.onDeleteDialogConfirmed();
         }
     };
 
@@ -31,7 +31,7 @@ public class DeleteConfirmDialog {
             = new DialogInterface.OnClickListener() {
         @Override
         public void onClick(DialogInterface dialog, int which) {
-            presenter.onDeleteConfirmDialogNegativeButtonClicked();
+            presenter.onDeleteDialogCanceled();
         }
     };
 
@@ -45,7 +45,7 @@ public class DeleteConfirmDialog {
         dialog = new AlertDialog.Builder(context)
                 .setView(itemView)
                 .setTitle(R.string.dialog_delete_title)
-                .setPositiveButton(R.string.dialog_delete_action_positive, positiveButtonListener)
+                .setPositiveButton(R.string.dialog_delete_action, positiveButtonListener)
                 .setNegativeButton(android.R.string.cancel, negativeButtonListener)
                 .create();
     }

@@ -34,8 +34,11 @@ public class StorageAccessFramework {
     }
 
     public void deleteFile(String filePath) {
-        String fileSubPath = filePath.substring(filePath.indexOf(SDCARD_NAME) + SDCARD_NAME.length());
-        getDocumentFile(fileSubPath).delete();
+        getDocumentFile(filePath).delete();
+    }
+
+    public void renameFile(String filePath, String newName) {
+        getDocumentFile(filePath).renameTo(newName);
     }
 
     private boolean isPermissionGranted() {
@@ -49,7 +52,7 @@ public class StorageAccessFramework {
     }
 
     private DocumentFile getDocumentFile(String filePath) {
-        String[] fileParts = filePath.split("/");
+        String[] fileParts = filePath.substring(filePath.indexOf(SDCARD_NAME) + SDCARD_NAME.length()).split("/");
         DocumentFile resultDocument = DocumentFile.fromTreeUri(activity, Uri.parse(URI_BASE_SDCARD));
 
         for (String filePart : fileParts) {

@@ -9,8 +9,9 @@ public class MainPresenter {
     private final StoragePermissionRequest storagePermissionRequest;
 
     private boolean isInSelectMode;
-    private boolean storagePermissionDeniedBeforeExit;
     private boolean isInSingleEntryMode;
+    private boolean storagePermissionDeniedBeforeExit;
+    private int activeEntryPosition;
 
     @SuppressWarnings("FieldCanBeLocal")
     private final PermissionRequest.OnDeniedListener onDeniedListener
@@ -126,7 +127,7 @@ public class MainPresenter {
         onDeleteMenuItemClicked();
     }
 
-    public void onDeleteConfirmDialogPositiveButtonClicked() {
+    public void onDeleteDialogConfirmed() {
         model.deleteSelectedItems();
         model.clearSelections();
         view.updateEntries(model.getEntries());
@@ -134,10 +135,24 @@ public class MainPresenter {
         isInSelectMode = false;
     }
 
-    public void onDeleteConfirmDialogNegativeButtonClicked() {
+    public void onDeleteDialogCanceled() {
         if (isInSingleEntryMode) {
             model.clearSelections();
         }
+    }
+
+    public void onRenameMenuItemClicked(int position) {
+        activeEntryPosition = position;
+        view.showRenameDialog(model.getEntries()[position].getName());
+    }
+
+    public void onRenameDialogConfirm(String newName) {
+        model.renameEntry(activeEntryPosition, newName);
+        view.updateEntries(model.getEntries());
+    }
+
+    public void onRenameDialogCancel() {
+
     }
 
     public void onInternalStorageClicked() {

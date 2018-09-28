@@ -66,6 +66,8 @@ public class EntryViewHolder extends RecyclerView.ViewHolder {
                 case R.id.menuitem_delete:
                     presenter.onDeleteEntryClicked(getAdapterPosition());
                     return true;
+                case R.id.menu_rename:
+                    presenter.onRenameMenuItemClicked(getAdapterPosition());
                 default:
                     return false;
             }

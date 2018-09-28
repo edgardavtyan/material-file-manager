@@ -22,6 +22,7 @@ import butterknife.ButterKnife;
 public class MainActivity extends BaseActivity {
     MainPresenter presenter;
     DeleteConfirmDialog deleteConfirmDialog;
+    RenameDialog renameDialog;
 
     ToolbarPartial toolbarPartial;
     PermissionsPartial permissionsPartial;
@@ -64,7 +65,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_entry, menu);
+        getMenuInflater().inflate(R.menu.menu_toolbar, menu);
         toolbarPartial.onCreateOptionsMenu(menu);
         return true;
     }
@@ -139,6 +140,10 @@ public class MainActivity extends BaseActivity {
 
     public void showDeleteConfirmDialog() {
         deleteConfirmDialog.show();
+    }
+
+    public void showRenameDialog(String text) {
+        renameDialog.show(text);
     }
 
     public void showStoragePermissionNeverAskAgainError() {

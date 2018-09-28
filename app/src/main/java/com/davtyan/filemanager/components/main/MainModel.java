@@ -100,6 +100,16 @@ public class MainModel {
         }
     }
 
+    public void renameEntry(int position, String newName) {
+        File oldFile = new File(entries[position].getPath());
+        File directory = oldFile.getParentFile();
+        if (!oldFile.renameTo(new File(directory, newName))) {
+            saf.renameFile(entries[position].getPath(), newName);
+        }
+
+        updateEntries(currentPath);
+    }
+
     public void navigateToInternalStorage() {
         entriesStack.clear();
         currentPath = internalRoot.getPath();

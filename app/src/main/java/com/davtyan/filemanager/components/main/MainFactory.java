@@ -16,6 +16,7 @@ public class MainFactory {
     private StoragePermissionRequest storagePermissionRequest;
     private EntryAdapter adapter;
     private DeleteConfirmDialog deleteConfirmDialog;
+    private RenameDialog renameDialog;
     private StatusBarUtils statusBarUtils;
     private DrawerPartial drawerPartial;
     private EmptyDirectoryPartial emptyDirectoryPartial;
@@ -32,6 +33,7 @@ public class MainFactory {
         activity.saf = getStorageAccessFramework();
         activity.presenter = getPresenter();
         activity.deleteConfirmDialog = getDeleteConfirmDialog();
+        activity.renameDialog = getRenameDialog();
         activity.toolbarPartial = getToolbarPartial();
         activity.permissionsPartial = getPermissionsPartial();
         activity.drawerPartial = getDrawerPartial();
@@ -68,6 +70,12 @@ public class MainFactory {
         if (deleteConfirmDialog == null)
             deleteConfirmDialog = new DeleteConfirmDialog(activity, presenter);
         return deleteConfirmDialog;
+    }
+
+    private RenameDialog getRenameDialog() {
+        if (renameDialog == null)
+            renameDialog = new RenameDialog(activity, presenter);
+        return renameDialog;
     }
 
     public StoragePermissionRequest getStoragePermissionRequest() {
