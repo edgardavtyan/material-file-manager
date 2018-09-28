@@ -8,7 +8,7 @@ import lombok.Setter;
 
 public abstract class PermissionRequest {
     private final Activity activity;
-    private final String[] listOfPermissions;
+    private final String[] permissionsList;
 
     private @Setter OnDeniedListener onDeniedListener;
     private @Setter OnGrantedListener onGrantedListener;
@@ -21,12 +21,10 @@ public abstract class PermissionRequest {
         void onGranted();
     }
 
-    public PermissionRequest(Activity activity) {
+    public PermissionRequest(Activity activity, String... permissionsList) {
         this.activity = activity;
-        listOfPermissions = getListOfPermissions();
+        this.permissionsList = permissionsList;
     }
-
-    protected abstract String[] getListOfPermissions();
 
     public void request() {
         requestFirstPermission();
@@ -54,19 +52,19 @@ public abstract class PermissionRequest {
     }
 
     public boolean isGranted() {
-        return ActivityCompat.checkSelfPermission(activity, listOfPermissions[0])
+        return ActivityCompat.checkSelfPermission(activity, permissionsList[0])
                == PackageManager.PERMISSION_GRANTED;
     }
 
     private boolean isNeverAskAgainChecked() {
-        return !ActivityCompat.shouldShowRequestPermissionRationale(activity, listOfPermissions[0]);
+        return !ActivityCompat.shouldShowRequestPermissionRationale(activity, permissionsList[0]);
     }
 
     private void requestFirstPermission() {
-        ActivityCompat.requestPermissions(activity, new String[]{listOfPermissions[0]}, 0);
+        ActivityCompat.requestPermissions(activity, new String[]{permissionsList[0]}, 0);
     }
 
     private void requestSecondPermission() {
-        ActivityCompat.requestPermissions(activity, new String[]{listOfPermissions[1]}, 1);
+        ActivityCompat.requestPermissions(activity, new String[]{permissionsList[1]}, 1);
     }
 }
