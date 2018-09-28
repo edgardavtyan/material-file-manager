@@ -43,14 +43,23 @@
 
     <TextView
         android:id="@+id/title"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
+        android:layout_weight="1"
         android:paddingRight="8dp"
         android:ellipsize="middle"
         android:gravity="center_vertical"
         android:singleLine="true"
         tools:text="Directory"
         style="@style/Text"
+        />
+
+    <ImageButton
+        android:id="@+id/button_menu"
+        android:layout_width="?listPreferredItemHeightSmall"
+        android:layout_height="?listPreferredItemHeightSmall"
+        android:background="@drawable/ripple"
+        app:srcCompat="@drawable/ic_more_vert"
         />
 
 </LinearLayout>

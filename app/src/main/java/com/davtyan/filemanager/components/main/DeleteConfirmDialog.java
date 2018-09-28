@@ -26,6 +26,15 @@ public class DeleteConfirmDialog {
         }
     };
 
+    @SuppressWarnings("FieldCanBeLocal")
+    private final DialogInterface.OnClickListener negativeButtonListener
+            = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            presenter.onDeleteConfirmDialogNegativeButtonClicked();
+        }
+    };
+
     public DeleteConfirmDialog(Context context, MainPresenter presenter) {
         this.presenter = presenter;
         View itemView = View.inflate(context, R.layout.dialog_delete_confirm, null);
@@ -37,7 +46,7 @@ public class DeleteConfirmDialog {
                 .setView(itemView)
                 .setTitle(R.string.dialog_delete_title)
                 .setPositiveButton(R.string.dialog_delete_action_positive, positiveButtonListener)
-                .setNegativeButton(android.R.string.cancel, null)
+                .setNegativeButton(android.R.string.cancel, negativeButtonListener)
                 .create();
     }
 

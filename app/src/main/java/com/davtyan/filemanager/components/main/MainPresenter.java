@@ -10,6 +10,7 @@ public class MainPresenter {
 
     private boolean isInSelectMode;
     private boolean storagePermissionDeniedBeforeExit;
+    private boolean isInSingleEntryMode;
 
     @SuppressWarnings("FieldCanBeLocal")
     private final PermissionRequest.OnDeniedListener onDeniedListener
@@ -119,12 +120,24 @@ public class MainPresenter {
         view.showDeleteConfirmDialog();
     }
 
+    public void onDeleteEntryClicked(int position) {
+        isInSingleEntryMode = true;
+        model.toggleEntrySelectedAt(position);
+        onDeleteMenuItemClicked();
+    }
+
     public void onDeleteConfirmDialogPositiveButtonClicked() {
         model.deleteSelectedItems();
         model.clearSelections();
         view.updateEntries(model.getEntries());
         view.exitSelectMode();
         isInSelectMode = false;
+    }
+
+    public void onDeleteConfirmDialogNegativeButtonClicked() {
+        if (isInSingleEntryMode) {
+            model.clearSelections();
+        }
     }
 
     public void onInternalStorageClicked() {
