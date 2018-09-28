@@ -26,9 +26,7 @@ public class RenameDialog {
                 .setPositiveButton(
                         R.string.dialog_rename_action,
                         (d, w) -> presenter.onRenameDialogConfirm(editTextView.getText().toString()))
-                .setNegativeButton(
-                        android.R.string.cancel,
-                        (d, w) -> presenter.onRenameDialogCancel())
+                .setNegativeButton(android.R.string.cancel, null)
                 .create();
     }
 

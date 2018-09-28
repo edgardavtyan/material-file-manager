@@ -151,10 +151,6 @@ public class MainPresenter {
         view.updateEntries(model.getEntries());
     }
 
-    public void onRenameDialogCancel() {
-
-    }
-
     public void onInternalStorageClicked() {
         model.navigateToInternalStorage();
         view.updateEntries(model.getEntries());
