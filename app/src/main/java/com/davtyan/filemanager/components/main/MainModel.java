@@ -3,6 +3,7 @@ package com.davtyan.filemanager.components.main;
 import android.os.Environment;
 
 import com.davtyan.filemanager.data.Storage;
+import com.davtyan.filemanager.lib.StorageAccessFramework;
 
 import java.io.File;
 import java.util.Stack;
@@ -11,6 +12,7 @@ import lombok.Getter;
 
 public class MainModel {
     private final Stack<String> entriesStack;
+    private final StorageAccessFramework saf;
 
     private @Getter Storage internalStorage;
     private @Getter Storage externalStorage;
@@ -19,7 +21,8 @@ public class MainModel {
     private @Getter int selectedEntriesCount;
     private boolean hasExternalStorage;
 
-    public MainModel() {
+    public MainModel(StorageAccessFramework saf) {
+        this.saf = saf;
         entriesStack = new Stack<>();
         entries = new Storage[0];
     }
@@ -85,7 +88,11 @@ public class MainModel {
     public void deleteSelectedItems() {
         for (Storage entry : entries) {
             if (!entry.isSelected()) continue;
-            entry.delete();
+
+            if (!entry.delete()) {
+                saf.deleteFile(entry.getPath());
+            }
+
             updateEntries(currentPath);
         }
     }

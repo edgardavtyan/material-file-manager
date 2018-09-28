@@ -29,6 +29,7 @@ public class MainFactory {
     }
 
     public void inject() {
+        activity.saf = getStorageAccessFramework();
         activity.presenter = getPresenter();
         activity.deleteConfirmDialog = getDeleteConfirmDialog();
         activity.toolbarPartial = getToolbarPartial();
@@ -36,7 +37,6 @@ public class MainFactory {
         activity.drawerPartial = getDrawerPartial();
         activity.listPartial = getListPartial();
         activity.emptyDirectoryPartial = getEmptyDirectoryPartial();
-        activity.saf = getStorageAccessFramework();
     }
 
     private StorageAccessFramework getStorageAccessFramework() {
@@ -54,7 +54,7 @@ public class MainFactory {
 
     public MainModel getModel() {
         if (model == null)
-            model = new MainModel(activity);
+            model = new MainModel(storageAccessFramework);
         return model;
     }
 
