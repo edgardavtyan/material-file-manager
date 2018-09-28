@@ -9,7 +9,7 @@
         />
 
     <item
-        android:id="@+id/menu_rename"
+        android:id="@+id/menuitem_rename"
         android:title="@string/dialog_rename_action"
         />
 
