@@ -3,32 +3,29 @@ package com.davtyan.filemanager.lib;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.UriPermission;
 import android.net.Uri;
-import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.provider.DocumentFile;
 
 @TargetApi(21)
 public class StorageAccessFramework {
     private static final int REQUEST_MAIN = 1;
-    private static final String PREF_SAF_URI = "pref_saf_uri";
 
     private final Activity activity;
     private final String sdCardName;
     private final String sdCardEnding;
-    private final SharedPreferences prefs;
+    private final Uri sdCardUri;
 
     public StorageAccessFramework(Activity activity) {
         this.activity = activity;
         this.sdCardName = getSdCardName();
         this.sdCardEnding = sdCardName + "%3A";
-        this.prefs = PreferenceManager.getDefaultSharedPreferences(activity);
+        this.sdCardUri = getSdCardUri();
     }
 
     public void makeAccessRequest() {
-        if (!isPermissionGranted()) {
+        if (sdCardUri == null) {
             Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
             activity.startActivityForResult(intent, REQUEST_MAIN);
         }
@@ -38,7 +35,6 @@ public class StorageAccessFramework {
         if (requestCode == REQUEST_MAIN && intent.getData().toString().endsWith(sdCardEnding)) {
             int flags = Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION;
             activity.getContentResolver().takePersistableUriPermission(intent.getData(), flags);
-            prefs.edit().putString(PREF_SAF_URI, intent.getData().toString()).apply();
         }
     }
 
@@ -62,14 +58,15 @@ public class StorageAccessFramework {
         return sdCardPath.substring(sdCardNameStart, sdCardNameEnd);
     }
 
-    private boolean isPermissionGranted() {
+    @Nullable
+    private Uri getSdCardUri() {
         for (UriPermission uriPermission : activity.getContentResolver().getPersistedUriPermissions()) {
             if (uriPermission.getUri().toString().endsWith(sdCardEnding)) {
-                return true;
+                return uriPermission.getUri();
             }
         }
 
-        return false;
+        return null;
     }
 
     private DocumentFile getDocumentFile(String filePath) {
@@ -86,11 +83,6 @@ public class StorageAccessFramework {
     }
 
     private DocumentFile getRootFile() {
-        return DocumentFile.fromTreeUri(activity, Uri.parse(getSafUri()));
-    }
-
-    @Nullable
-    private String getSafUri() {
-        return prefs.getString(PREF_SAF_URI, null);
+        return DocumentFile.fromTreeUri(activity, sdCardUri);
     }
 }
