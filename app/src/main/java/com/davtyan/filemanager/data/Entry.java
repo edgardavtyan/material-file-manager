@@ -16,6 +16,10 @@ public class Entry {
         return file.getName();
     }
 
+    public String getExtension() {
+        return file.getName().substring(file.getName().lastIndexOf('.') + 1);
+    }
+
     public String getPath() {
         return file.getAbsolutePath();
     }

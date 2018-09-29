@@ -109,8 +109,13 @@ public class MainPresenter {
     public void onBindViewHolder(EntryViewHolder holder, int position) {
         Entry entry = model.getEntries()[position];
         holder.setTitle(entry.getName());
-        holder.setIsDirectory(entry.isDirectory());
         holder.setIsSelected(entry.isSelected());
+
+        if (entry.isDirectory()) {
+            holder.setAsDirectory();
+        } else {
+            holder.setAsFile(entry.getExtension());
+        }
     }
 
     public int getEntryCount() {

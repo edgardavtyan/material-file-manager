@@ -12,12 +12,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.davtyan.filemanager.R;
+import com.davtyan.filemanager.lib.ExtensionToIconMap;
+
+import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class EntryViewHolder extends RecyclerView.ViewHolder {
-
     @BindView(R.id.root) LinearLayout root;
     @BindView(R.id.title) TextView titleView;
     @BindView(R.id.icon_wrapper) FrameLayout iconWrapperView;
@@ -26,6 +28,7 @@ public class EntryViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.button_menu) ImageButton menuButtonView;
 
     private final MainPresenter presenter;
+    private final ExtensionToIconMap iconMap;
 
     private final Drawable originalRootBackground;
 
@@ -87,18 +90,26 @@ public class EntryViewHolder extends RecyclerView.ViewHolder {
         menu.inflate(R.menu.menu_entry);
         menu.setOnMenuItemClickListener(onMenuItemClickListener);
         menuButtonView.setOnClickListener(v -> menu.show());
+
+        HashMap<String[], Integer> iconHashMap = new HashMap<>();
+        iconHashMap.put(new String[]{"jpg", "gif", "png"}, R.drawable.ic_image);
+        iconHashMap.put(new String[]{"mp3", "m4a", "aac", "flac", "wav"}, R.drawable.ic_audio);
+        iconHashMap.put(new String[]{"zip", "rar", "gz"}, R.drawable.ic_archive);
+        iconHashMap.put(new String[]{"pdf"}, R.drawable.ic_pdf);
+        iconHashMap.put(new String[]{"txt"}, R.drawable.ic_text);
+        iconMap = new ExtensionToIconMap(iconHashMap, R.drawable.ic_file);
     }
 
     public void setTitle(String title) {
         titleView.setText(title);
     }
 
-    public void setIsDirectory(boolean isDirectory) {
-        if (isDirectory) {
-            iconView.setImageResource(R.drawable.ic_directory);
-        } else {
-            iconView.setImageResource(R.drawable.ic_file);
-        }
+    public void setAsDirectory() {
+        iconView.setImageResource(R.drawable.ic_directory);
+    }
+
+    public void setAsFile(String extension) {
+        iconView.setImageResource(iconMap.getIcon(extension));
     }
 
     public void setIsSelected(boolean isSelected) {
