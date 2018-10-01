@@ -44,6 +44,11 @@ public class Entry {
         return file.delete();
     }
 
+    public boolean renameTo(String newName) {
+        File directory = file.getParentFile();
+        return file.renameTo(new File(directory, newName));
+    }
+
     public void setSelected(boolean isSelected) {
         this.isSelected = isSelected;
     }

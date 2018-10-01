@@ -101,9 +101,7 @@ public class MainModel {
     }
 
     public void renameEntry(int position, String newName) {
-        File oldFile = new File(entries[position].getPath());
-        File directory = oldFile.getParentFile();
-        if (!oldFile.renameTo(new File(directory, newName))) {
+        if (!entries[position].renameTo(newName)) {
             saf.renameFile(entries[position].getPath(), newName);
         }
 
