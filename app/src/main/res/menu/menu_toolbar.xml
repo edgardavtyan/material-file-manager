@@ -11,4 +11,11 @@
         app:showAsAction="ifRoom"
         />
 
+    <item
+        android:id="@+id/menuitem_newFolder"
+        android:icon="@drawable/ic_new_folder"
+        android:title="@string/dialog_newFolder_menuitem"
+        app:showAsAction="ifRoom"
+        />
+
 </menu>

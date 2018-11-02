@@ -46,6 +46,10 @@ public class StorageAccessFramework {
         getDocumentFile(filePath).renameTo(newName);
     }
 
+    public void mkdir(String path, String name) {
+        getDocumentFile(path).createDirectory(name);
+    }
+
     @Nullable
     public String getSdCardName() {
         if (activity.getExternalCacheDirs().length < 2) {
@@ -70,6 +74,10 @@ public class StorageAccessFramework {
     }
 
     private DocumentFile getDocumentFile(String filePath) {
+        if (filePath.endsWith(sdCardName)) {
+            return getRootFile();
+        }
+
         String[] fileParts = filePath
                 .substring(filePath.indexOf(sdCardName) + sdCardName.length() + 1)
                 .split("/");

@@ -23,6 +23,7 @@ public class MainActivity extends BaseActivity {
     MainPresenter presenter;
     DeleteConfirmDialog deleteConfirmDialog;
     RenameDialog renameDialog;
+    NewFolderDialog newFolderDialog;
 
     ToolbarPartial toolbarPartial;
     PermissionsPartial permissionsPartial;
@@ -75,6 +76,9 @@ public class MainActivity extends BaseActivity {
         switch (item.getItemId()) {
             case R.id.menuitem_delete:
                 presenter.onDeleteMenuItemClicked();
+                return true;
+            case R.id.menuitem_newFolder:
+                presenter.onNewFolderMenuItemClicked();
                 return true;
             default:
                 return false;
@@ -144,6 +148,18 @@ public class MainActivity extends BaseActivity {
 
     public void showRenameDialog(String text) {
         renameDialog.show(text);
+    }
+
+    public void showNewFolderDialog() {
+        newFolderDialog.show();
+    }
+
+    public void showFolderExistsError() {
+        newFolderDialog.showExistsError();
+    }
+
+    public void closeNewFolderDialog() {
+        newFolderDialog.close();
     }
 
     public void showStoragePermissionNeverAskAgainError() {

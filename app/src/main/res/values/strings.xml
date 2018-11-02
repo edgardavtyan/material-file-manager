@@ -15,6 +15,11 @@
     <string name="dialog_rename_title">Rename file</string>
     <string name="dialog_rename_action">Rename</string>
 
+    <string name="dialog_newFolder_menuitem">Create New Folder</string>
+    <string name="dialog_newFolder_title">Create New Folder</string>
+    <string name="dialog_newFolder_action">Create</string>
+    <string name="dialog_newFolder_existsError">Folder \'%s\' already exists</string>
+
     <string name="permissions_storage_neverAskAgain_message">
         You have denied the \'Storage\' permission. This app, being a file manager, requires it to
         read and write to the filesystem of your device. Follow steps below to enable the
