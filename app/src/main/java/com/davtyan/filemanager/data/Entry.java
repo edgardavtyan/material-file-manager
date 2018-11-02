@@ -56,4 +56,8 @@ public class Entry {
     public void clearSelection() {
         isSelected = false;
     }
+
+    public boolean exists() {
+        return file.exists();
+    }
 }

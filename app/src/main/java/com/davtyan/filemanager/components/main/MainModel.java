@@ -3,7 +3,7 @@ package com.davtyan.filemanager.components.main;
 import android.os.Environment;
 import android.support.annotation.Nullable;
 
-import com.davtyan.filemanager.components.main.exceptions.FolderExistsException;
+import com.davtyan.filemanager.components.main.exceptions.EntryExistsException;
 import com.davtyan.filemanager.data.Entry;
 import com.davtyan.filemanager.lib.StorageAccessFramework;
 
@@ -101,7 +101,11 @@ public class MainModel {
         }
     }
 
-    public void renameEntry(int position, String newName) {
+    public void renameEntry(int position, String newName) throws EntryExistsException {
+        if (entries[position].exists()) {
+            throw new EntryExistsException(newName);
+        }
+
         if (!entries[position].renameTo(newName)) {
             saf.renameFile(entries[position].getPath(), newName);
         }
@@ -109,11 +113,11 @@ public class MainModel {
         updateEntries(currentPath);
     }
 
-    public void createNewFolder(String folderName) throws FolderExistsException {
+    public void createNewFolder(String folderName) throws EntryExistsException {
         File folder = new File(currentPath, folderName);
 
         if (folder.exists()) {
-            throw new FolderExistsException(folder.getAbsolutePath());
+            throw new EntryExistsException(folder.getAbsolutePath());
         }
 
         if (!folder.mkdir()) {

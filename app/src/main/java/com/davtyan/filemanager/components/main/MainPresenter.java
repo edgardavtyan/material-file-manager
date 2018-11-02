@@ -1,6 +1,6 @@
 package com.davtyan.filemanager.components.main;
 
-import com.davtyan.filemanager.components.main.exceptions.FolderExistsException;
+import com.davtyan.filemanager.components.main.exceptions.EntryExistsException;
 import com.davtyan.filemanager.data.Entry;
 import com.davtyan.filemanager.lib.PermissionRequest;
 
@@ -153,8 +153,12 @@ public class MainPresenter {
     }
 
     public void onRenameDialogConfirm(String newName) {
-        model.renameEntry(activeEntryPosition, newName);
-        view.updateEntries(model.getEntries());
+        try {
+            model.renameEntry(activeEntryPosition, newName);
+            view.updateEntries(model.getEntries());
+        } catch (EntryExistsException e) {
+            view.showRenameExistsError();
+        }
     }
 
     public void onNewFolderMenuItemClicked() {
@@ -166,7 +170,7 @@ public class MainPresenter {
             model.createNewFolder(folderName);
             view.updateEntries(model.getEntries());
             view.closeNewFolderDialog();
-        } catch (FolderExistsException e) {
+        } catch (EntryExistsException e) {
             view.showFolderExistsError();
         }
     }

@@ -14,6 +14,7 @@
 
     <string name="dialog_rename_title">Rename file</string>
     <string name="dialog_rename_action">Rename</string>
+    <string name="dialog_rename_existsError">Entry \'%s\' already exists</string>
 
     <string name="dialog_newFolder_menuitem">Create New Folder</string>
     <string name="dialog_newFolder_title">Create New Folder</string>

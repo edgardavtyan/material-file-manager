@@ -48,6 +48,11 @@ public abstract class EditTextDialog {
         return editTextView.getText().toString();
     }
 
+    protected void setText(String text) {
+        editTextView.setText(text);
+        editTextView.setSelection(editTextView.getText().length());
+    }
+
     protected void showError(Object... args) {
         existsErrorView.setText(context.getString(getErrorRes(), args));
         existsErrorView.setVisibility(View.VISIBLE);

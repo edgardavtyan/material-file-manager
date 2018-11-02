@@ -153,6 +153,10 @@ public class MainActivity extends BaseActivity {
         renameDialog.show(text);
     }
 
+    public void showRenameExistsError() {
+        renameDialog.showExistsError();
+    }
+
     public void showNewFolderDialog() {
         newFolderDialog.show();
     }
