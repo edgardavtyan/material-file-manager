@@ -1,4 +1,4 @@
-package com.davtyan.filemanager.components.main;
+package com.davtyan.filemanager.components.main.dialogs;
 
 import android.content.Context;
 import android.support.v7.app.AlertDialog;
@@ -7,6 +7,7 @@ import android.view.WindowManager;
 import android.widget.EditText;
 
 import com.davtyan.filemanager.R;
+import com.davtyan.filemanager.components.main.MainPresenter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

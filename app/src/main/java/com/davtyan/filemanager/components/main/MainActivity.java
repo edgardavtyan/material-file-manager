@@ -9,6 +9,9 @@ import android.view.MenuItem;
 
 import com.davtyan.filemanager.R;
 import com.davtyan.filemanager.base.BaseActivity;
+import com.davtyan.filemanager.components.main.dialogs.DeleteConfirmDialog;
+import com.davtyan.filemanager.components.main.dialogs.NewFolderDialog;
+import com.davtyan.filemanager.components.main.dialogs.RenameDialog;
 import com.davtyan.filemanager.components.main.partials.DrawerPartial;
 import com.davtyan.filemanager.components.main.partials.EmptyDirectoryPartial;
 import com.davtyan.filemanager.components.main.partials.ListPartial;

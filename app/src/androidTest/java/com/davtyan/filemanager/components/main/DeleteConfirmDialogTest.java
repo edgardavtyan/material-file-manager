@@ -4,6 +4,7 @@ package com.davtyan.filemanager.components.main;
 import android.support.test.rule.ActivityTestRule;
 
 import com.davtyan.filemanager.R;
+import com.davtyan.filemanager.components.main.dialogs.DeleteConfirmDialog;
 import com.davtyan.filemanager.lib_test.base.BaseTest;
 
 import org.junit.Rule;
