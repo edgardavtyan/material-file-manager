@@ -161,12 +161,12 @@ public class MainActivity extends BaseActivity {
         newFolderDialog.show();
     }
 
-    public void showFolderExistsError() {
-        newFolderDialog.showExistsError();
-    }
-
     public void closeNewFolderDialog() {
         newFolderDialog.close();
+    }
+
+    public void showNewFolderExistsError() {
+        newFolderDialog.showExistsError();
     }
 
     public void showStoragePermissionNeverAskAgainError() {

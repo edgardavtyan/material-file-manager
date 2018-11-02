@@ -171,7 +171,7 @@ public class MainPresenter {
             view.updateEntries(model.getEntries());
             view.closeNewFolderDialog();
         } catch (EntryExistsException e) {
-            view.showFolderExistsError();
+            view.showNewFolderExistsError();
         }
     }
 
