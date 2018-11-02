@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 
 import com.davtyan.filemanager.R;
 import com.davtyan.filemanager.data.Entry;
-import com.davtyan.filemanager.utils.BoolUtils;
 
 import java.util.Arrays;
 
@@ -40,7 +39,7 @@ public class EntryAdapter extends RecyclerView.Adapter<EntryViewHolder> {
 
     public void updateEntries(Entry[] entries) {
         Arrays.sort(entries, (a, b) -> a.getName().compareToIgnoreCase(b.getName()));
-        Arrays.sort(entries, (a, b) -> BoolUtils.compare(a.isFile(), b.isFile()));
+        Arrays.sort(entries, (a, b) -> Boolean.compare(a.isFile(), b.isFile()));
         notifyDataSetChanged();
     }
 }
