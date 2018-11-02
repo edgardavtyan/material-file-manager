@@ -14,10 +14,11 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="@dimen/spacing_small"
+        tools:text="Some random text"
         />
 
     <TextView
-        android:id="@+id/existsError"
+        android:id="@+id/error"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/spacing_medium"
@@ -26,6 +27,7 @@
         android:textSize="@dimen/font_normal"
         android:visibility="invisible"
         tools:text="Folder QWERTY already exists"
+        tools:visibility="visible"
         />
 
 </LinearLayout>
