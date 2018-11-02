@@ -41,7 +41,8 @@ public class Entry {
     }
 
     public boolean delete() {
-        return file.delete();
+        deleteRecursive(file);
+        return !file.exists();
     }
 
     public boolean renameTo(String newName) {
@@ -59,5 +60,13 @@ public class Entry {
 
     public boolean exists() {
         return file.exists();
+    }
+
+    private void deleteRecursive(File fileOrDirectory) {
+        if (fileOrDirectory.isDirectory())
+            for (File child : fileOrDirectory.listFiles())
+                deleteRecursive(child);
+
+        fileOrDirectory.delete();
     }
 }
