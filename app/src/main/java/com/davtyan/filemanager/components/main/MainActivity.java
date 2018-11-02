@@ -20,27 +20,36 @@ import com.davtyan.filemanager.components.main.partials.ToolbarPartial;
 import com.davtyan.filemanager.data.Entry;
 import com.davtyan.filemanager.lib.StorageAccessFramework;
 
+import javax.inject.Inject;
+
 import butterknife.ButterKnife;
 
 public class MainActivity extends BaseActivity {
-    MainPresenter presenter;
-    DeleteConfirmDialog deleteConfirmDialog;
-    RenameDialog renameDialog;
-    NewFolderDialog newFolderDialog;
+    @Inject MainPresenter presenter;
+    @Inject StorageAccessFramework saf;
 
-    ToolbarPartial toolbarPartial;
-    PermissionsPartial permissionsPartial;
-    DrawerPartial drawerPartial;
-    ListPartial listPartial;
-    EmptyDirectoryPartial emptyDirectoryPartial;
-    StorageAccessFramework saf;
+    @Inject DeleteConfirmDialog deleteConfirmDialog;
+    @Inject RenameDialog renameDialog;
+    @Inject NewFolderDialog newFolderDialog;
+
+    @Inject ToolbarPartial toolbarPartial;
+    @Inject PermissionsPartial permissionsPartial;
+    @Inject DrawerPartial drawerPartial;
+    @Inject ListPartial listPartial;
+    @Inject EmptyDirectoryPartial emptyDirectoryPartial;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        getFactory().inject();
+
+        DaggerMainDIComponent
+                .builder()
+                .mainDIModule(new MainDIModule(this))
+                .build()
+                .inject(this);
+
         saf.makeAccessRequest();
     }
 
@@ -185,9 +194,5 @@ public class MainActivity extends BaseActivity {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-    }
-
-    protected MainFactory getFactory() {
-        return new MainFactory(this);
     }
 }
