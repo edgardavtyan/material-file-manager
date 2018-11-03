@@ -15,12 +15,11 @@ import com.davtyan.filemanager.utils.StatusBarUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import lombok.Getter;
 
 public class ToolbarPartial {
     @BindView(R.id.appbar) AppBarLayout appbar;
     @BindView(R.id.current_path) TextView currentPathView;
-    @BindView(R.id.toolbar) @Getter Toolbar toolbar;
+    @BindView(R.id.toolbar) Toolbar toolbar;
 
     private final MainActivity activity;
     private final StatusBarUtils statusBarUtils;
