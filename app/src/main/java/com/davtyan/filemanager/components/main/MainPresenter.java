@@ -80,7 +80,6 @@ public class MainPresenter {
     public void onEntryToggleSelected(int position) {
         model.toggleEntrySelectedAt(position);
         view.updateViewSelectionAt(position);
-        view.setSelectedEntriesCount(model.getSelectedEntries().size());
 
         if (model.getSelectedEntries().size() == 0) {
             view.exitSelectMode();
@@ -208,27 +207,32 @@ public class MainPresenter {
     public void onEntryCopyClicked(int position) {
         model.toggleEntrySelectedAt(position);
         model.beginCopy();
+        view.setPasteMenuEnabled(true);
     }
 
     public void onEntryCutClicked(int position) {
         model.toggleEntrySelectedAt(position);
         model.beginCut();
+        view.setPasteMenuEnabled(true);
     }
 
     public void onToolbarCopyClicked() {
         model.beginCopy();
         view.exitSelectMode();
+        view.setPasteMenuEnabled(true);
         isInSelectMode = false;
     }
 
     public void onToolbarCutClicked() {
         model.beginCut();
         view.exitSelectMode();
+        view.setPasteMenuEnabled(true);
         isInSelectMode = false;
     }
 
     public void onToolbarPasteClicked() {
         model.paste();
         view.updateEntries(model.getEntries());
+        view.setPasteMenuEnabled(false);
     }
 }

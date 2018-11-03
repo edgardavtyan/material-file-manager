@@ -2,41 +2,43 @@
 <menu
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="AlwaysShowAction"
     >
 
     <item
         android:id="@+id/menuitem_delete"
         android:icon="@drawable/ic_delete"
         android:title="@string/dialog_delete_action"
-        app:showAsAction="ifRoom"
-        />
-
-    <item
-        android:id="@+id/menuitem_newFolder"
-        android:icon="@drawable/ic_new_folder"
-        android:title="@string/dialog_newFolder_menuitem"
-        app:showAsAction="ifRoom"
+        app:showAsAction="always"
         />
 
     <item
         android:id="@+id/menuitem_copy"
         android:icon="@drawable/ic_copy"
         android:title="@string/action_copy"
-        app:showAsAction="ifRoom"
+        app:showAsAction="always"
         />
 
     <item
         android:id="@+id/menuitem_cut"
         android:icon="@drawable/ic_cut"
         android:title="@string/action_cut"
-        app:showAsAction="ifRoom"
+        app:showAsAction="always"
         />
 
     <item
         android:id="@+id/menuitem_paste"
         android:icon="@drawable/ic_paste"
         android:title="@string/action_paste"
-        app:showAsAction="ifRoom"
+        app:showAsAction="always"
+        />
+
+    <item
+        android:id="@+id/menuitem_newFolder"
+        android:icon="@drawable/ic_new_folder"
+        android:title="@string/dialog_newFolder_menuitem"
+        app:showAsAction="always"
         />
 
 </menu>

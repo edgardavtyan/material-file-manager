@@ -135,11 +135,6 @@ public class MainActivity extends BaseActivity {
 
     public void updateViewSelectionAt(int position) {
         listPartial.notifyItemChanged(position);
-        toolbarPartial.setDeleteMenuEnabled(true);
-    }
-
-    public void setSelectedEntriesCount(int count) {
-        toolbarPartial.setSelectedEntriesCount(count);
     }
 
     public void enterSelectMode() {
@@ -149,6 +144,10 @@ public class MainActivity extends BaseActivity {
     public void exitSelectMode() {
         toolbarPartial.exitSelectMode();
         listPartial.notifyDataSetChanged();
+    }
+
+    public void setPasteMenuEnabled(boolean enabled) {
+        toolbarPartial.setPasteMenuEnabled(enabled);
     }
 
     public void setInternalStorage() {

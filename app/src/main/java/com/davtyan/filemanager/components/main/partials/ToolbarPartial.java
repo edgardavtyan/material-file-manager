@@ -1,6 +1,7 @@
 package com.davtyan.filemanager.components.main.partials;
 
 import android.graphics.drawable.Drawable;
+import android.support.annotation.IdRes;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
@@ -28,7 +29,10 @@ public class ToolbarPartial {
     private final int originalStatusBarColor;
     private final int selectModeStatusBarColor;
 
-    private boolean deleteMenuEnabled;
+    private boolean deleteMenuEnabled = false;
+    private boolean copyMenuEnabled = false;
+    private boolean cutMenuEnabled = false;
+    private boolean pasteMenuEnabled = false;
 
     public ToolbarPartial(MainActivity activity, StatusBarUtils statusBarUtils) {
         this.activity = activity;
@@ -39,16 +43,11 @@ public class ToolbarPartial {
         activity.setSupportActionBar(toolbar);
         activity.getSupportActionBar().setHomeButtonEnabled(true);
         activity.getSupportActionBar().setDisplayShowHomeEnabled(true);
+        activity.getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         originalAppBarBackground = appbar.getBackground();
         originalStatusBarColor = statusBarUtils.getStatusBarColor();
         selectModeStatusBarColor = ContextCompat.getColor(activity, R.color.selectMode);
-
-        deleteMenuEnabled = false;
-    }
-
-    public void setSelectedEntriesCount(int count) {
-        toolbar.setTitle(activity.getString(R.string.select_mode_title, count));
     }
 
     public void setCurrentPath(String currentPath) {
@@ -56,26 +55,40 @@ public class ToolbarPartial {
     }
 
     public void enterSelectMode() {
+        deleteMenuEnabled = true;
+        copyMenuEnabled = true;
+        cutMenuEnabled = true;
+
         appbar.setBackgroundResource(R.color.selectMode);
         statusBarUtils.setStatusBarColor(selectModeStatusBarColor);
         activity.invalidateOptionsMenu();
     }
 
     public void exitSelectMode() {
-        toolbar.setTitle(R.string.app_name);
+        deleteMenuEnabled = false;
+        copyMenuEnabled = false;
+        cutMenuEnabled = false;
+
         appbar.setBackground(originalAppBarBackground);
         statusBarUtils.setStatusBarColor(originalStatusBarColor);
-        setDeleteMenuEnabled(false);
+        activity.invalidateOptionsMenu();
+    }
+
+    public void setPasteMenuEnabled(boolean enabled) {
+        pasteMenuEnabled = enabled;
         activity.invalidateOptionsMenu();
     }
 
     public void onCreateOptionsMenu(Menu menu) {
-        MenuItem deleteMenuItem = menu.findItem(R.id.menuitem_delete);
-        deleteMenuItem.setVisible(deleteMenuEnabled);
-        deleteMenuItem.setEnabled(deleteMenuEnabled);
+        setMenuItemEnabled(menu, R.id.menuitem_delete, deleteMenuEnabled);
+        setMenuItemEnabled(menu, R.id.menuitem_copy, copyMenuEnabled);
+        setMenuItemEnabled(menu, R.id.menuitem_cut, cutMenuEnabled);
+        setMenuItemEnabled(menu, R.id.menuitem_paste, pasteMenuEnabled);
     }
 
-    public void setDeleteMenuEnabled(boolean enabled) {
-        deleteMenuEnabled = enabled;
+    private void setMenuItemEnabled(Menu menu, @IdRes int menuItemId, boolean enabled) {
+        MenuItem menuItem = menu.findItem(menuItemId);
+        menuItem.setVisible(enabled);
+        menuItem.setEnabled(enabled);
     }
 }
