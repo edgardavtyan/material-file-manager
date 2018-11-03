@@ -80,9 +80,9 @@ public class MainPresenter {
     public void onEntryToggleSelected(int position) {
         model.toggleEntrySelectedAt(position);
         view.updateViewSelectionAt(position);
-        view.setSelectedEntriesCount(model.getSelectedEntriesCount());
+        view.setSelectedEntriesCount(model.getSelectedEntries().size());
 
-        if (model.getSelectedEntriesCount() == 0) {
+        if (model.getSelectedEntries().size() == 0) {
             view.exitSelectMode();
             isInSelectMode = false;
         } else {
@@ -110,7 +110,7 @@ public class MainPresenter {
     public void onBindViewHolder(EntryViewHolder holder, int position) {
         Entry entry = model.getEntries()[position];
         holder.setTitle(entry.getName());
-        holder.setIsSelected(entry.isSelected());
+        holder.setIsSelected(model.isEntrySelected(entry));
 
         if (entry.isDirectory()) {
             holder.setAsDirectory();
@@ -203,5 +203,32 @@ public class MainPresenter {
         if (model.hasExternalStorage()) {
             view.setExternalStorage(model.getExternalRoot().getName());
         }
+    }
+
+    public void onEntryCopyClicked(int position) {
+        model.toggleEntrySelectedAt(position);
+        model.beginCopy();
+    }
+
+    public void onEntryCutClicked(int position) {
+        model.toggleEntrySelectedAt(position);
+        model.beginCut();
+    }
+
+    public void onToolbarCopyClicked() {
+        model.beginCopy();
+        view.exitSelectMode();
+        isInSelectMode = false;
+    }
+
+    public void onToolbarCutClicked() {
+        model.beginCut();
+        view.exitSelectMode();
+        isInSelectMode = false;
+    }
+
+    public void onToolbarPasteClicked() {
+        model.paste();
+        view.updateEntries(model.getEntries());
     }
 }

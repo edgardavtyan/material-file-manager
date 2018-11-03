@@ -92,6 +92,15 @@ public class MainActivity extends BaseActivity {
             case R.id.menuitem_newFolder:
                 presenter.onNewFolderMenuItemClicked();
                 return true;
+            case R.id.menuitem_copy:
+                presenter.onToolbarCopyClicked();
+                return true;
+            case R.id.menuitem_cut:
+                presenter.onToolbarCutClicked();
+                return true;
+            case R.id.menuitem_paste:
+                presenter.onToolbarPasteClicked();
+                return true;
             default:
                 return false;
         }

@@ -8,8 +8,16 @@ import com.davtyan.filemanager.data.Entry;
 import com.davtyan.filemanager.lib.StorageAccessFramework;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
+import lombok.Cleanup;
 import lombok.Getter;
 
 public class MainModel {
@@ -19,14 +27,18 @@ public class MainModel {
     private @Getter Entry internalRoot;
     private @Getter Entry externalRoot;
     private @Getter Entry[] entries;
+    private @Getter List<Entry> selectedEntries;
+    private @Getter List<Entry> copyEntries;
     private @Getter String currentPath;
-    private @Getter int selectedEntriesCount;
     private boolean hasExternalStorage;
+    private boolean isCutting;
 
     public MainModel(StorageAccessFramework saf) {
         this.saf = saf;
         entriesStack = new Stack<>();
         entries = new Entry[0];
+        selectedEntries = new ArrayList<>();
+        copyEntries = new ArrayList<>();
     }
 
     public void init() {
@@ -60,18 +72,19 @@ public class MainModel {
 
     public void toggleEntrySelectedAt(int position) {
         Entry entry = entries[position];
-        if (entry.isSelected()) {
-            entry.setSelected(false);
-            selectedEntriesCount--;
+        if (selectedEntries.contains(entry)) {
+            selectedEntries.remove(entry);
         } else {
-            entry.setSelected(true);
-            selectedEntriesCount++;
+            selectedEntries.add(entry);
         }
     }
 
     public void clearSelections() {
-        for (Entry entry : entries) entry.clearSelection();
-        selectedEntriesCount = 0;
+        selectedEntries.clear();
+    }
+
+    public boolean isEntrySelected(Entry entry) {
+        return selectedEntries.contains(entry);
     }
 
     public void navigateForward(int position) {
@@ -88,17 +101,12 @@ public class MainModel {
     }
 
     public void deleteSelectedItems() {
-        for (Entry entry : entries) {
-            if (!entry.isSelected()) {
-                continue;
-            }
-
-            if (!entry.delete()) {
+        for (Entry entry : selectedEntries) {
+            if (!entry.delete())
                 saf.deleteFile(entry.getPath());
-            }
-
-            updateEntries(currentPath);
         }
+
+        updateEntries(currentPath);
     }
 
     public void renameEntry(int position, String newName) throws EntryExistsException {
@@ -139,6 +147,41 @@ public class MainModel {
         updateEntries(externalRoot.getPath());
     }
 
+    public void beginCopy() {
+        copyEntries.clear();
+        copyEntries.addAll(selectedEntries);
+        selectedEntries.clear();
+        isCutting = false;
+    }
+
+    public void beginCut() {
+        beginCopy();
+        isCutting = true;
+    }
+
+    public void paste() {
+        File currentDir = new File(currentPath);
+
+        for (Entry copyEntry : copyEntries) {
+            File srcFile = new File(copyEntry.getPath());
+            File dstFile = new File(currentDir, copyEntry.getName());
+
+            copy(srcFile, dstFile);
+            if (!dstFile.exists()) {
+                saf.copyFile(currentPath, srcFile.getPath(), dstFile.getName());
+            }
+
+
+            if (isCutting) {
+                if (!srcFile.delete()) {
+                    saf.deleteFile(srcFile.getPath());
+                }
+            }
+        }
+
+        updateEntries(currentPath);
+    }
+
     @Nullable
     private File getSDCardDirectory() {
         File storage = new File("/storage");
@@ -155,5 +198,18 @@ public class MainModel {
         }
 
         return null;
+    }
+
+    private void copy(File src, File dst) {
+        try {
+            @Cleanup InputStream in = new FileInputStream(src);
+            @Cleanup OutputStream out = new FileOutputStream(dst);
+            byte[] buf = new byte[1024];
+            int len;
+            while ((len = in.read(buf)) > 0) {
+                out.write(buf, 0, len);
+            }
+        } catch (IOException ignored) {
+        }
     }
 }

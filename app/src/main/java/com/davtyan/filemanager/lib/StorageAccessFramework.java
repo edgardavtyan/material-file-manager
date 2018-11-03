@@ -8,6 +8,12 @@ import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.support.v4.provider.DocumentFile;
 
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+
+import lombok.Cleanup;
+
 @TargetApi(21)
 public class StorageAccessFramework {
     private static final int REQUEST_MAIN = 1;
@@ -92,5 +98,22 @@ public class StorageAccessFramework {
 
     private DocumentFile getRootFile() {
         return DocumentFile.fromTreeUri(activity, sdCardUri);
+    }
+
+    public void copyFile(String dstDir, String srcFullPath, String dstFileName) {
+        try {
+            DocumentFile dstDirDoc = getDocumentFile(dstDir);
+            DocumentFile dstFile = dstDirDoc.createFile("", dstFileName);
+
+            @Cleanup OutputStream out = activity.getContentResolver().openOutputStream(dstFile.getUri());
+            @Cleanup InputStream in = new FileInputStream(srcFullPath);
+
+            byte[] buffer = new byte[1024];
+            int read;
+            while ((read = in.read(buffer)) != -1) {
+                out.write(buffer, 0, read);
+            }
+        } catch (Exception ignored) {
+        }
     }
 }

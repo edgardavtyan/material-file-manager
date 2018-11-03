@@ -71,6 +71,13 @@ public class EntryViewHolder extends RecyclerView.ViewHolder {
                     return true;
                 case R.id.menuitem_rename:
                     presenter.onRenameMenuItemClicked(getAdapterPosition());
+                    return true;
+                case R.id.menuitem_copy:
+                    presenter.onEntryCopyClicked(getAdapterPosition());
+                    return true;
+                case R.id.menuitem_cut:
+                    presenter.onEntryCutClicked(getAdapterPosition());
+                    return true;
                 default:
                     return false;
             }
