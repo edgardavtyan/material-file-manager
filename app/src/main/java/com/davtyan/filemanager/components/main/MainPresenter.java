@@ -2,7 +2,6 @@ package com.davtyan.filemanager.components.main;
 
 import com.davtyan.filemanager.components.main.exceptions.EntryExistsException;
 import com.davtyan.filemanager.data.Entry;
-import com.davtyan.filemanager.lib.PermissionRequest;
 
 public class MainPresenter {
     private final MainActivity view;
@@ -14,28 +13,6 @@ public class MainPresenter {
     private boolean storagePermissionDeniedBeforeExit;
     private int activeEntryPosition;
 
-    @SuppressWarnings("FieldCanBeLocal")
-    private final PermissionRequest.OnDeniedListener onDeniedListener
-            = new PermissionRequest.OnDeniedListener() {
-        @Override
-        public void onDenied(boolean isNeverAskAgainChecked) {
-            if (isNeverAskAgainChecked) {
-                view.showStoragePermissionNeverAskAgainError();
-            } else {
-                view.showStoragePermissionDeniedError();
-            }
-        }
-    };
-
-    @SuppressWarnings({"FieldCanBeLocal", "Convert2Lambda"})
-    private final PermissionRequest.OnGrantedListener onGrantedListener
-            = new PermissionRequest.OnGrantedListener() {
-        @Override
-        public void onGranted() {
-            initViewAndModel();
-        }
-    };
-
     public MainPresenter(
             MainActivity view,
             MainModel model,
@@ -43,9 +20,21 @@ public class MainPresenter {
         this.view = view;
         this.model = model;
         this.storagePermissionRequest = storagePermissionRequest;
-        this.storagePermissionRequest.setOnDeniedListener(onDeniedListener);
-        this.storagePermissionRequest.setOnGrantedListener(onGrantedListener);
+        this.storagePermissionRequest.setOnDeniedListener(this::onDeniedListener);
+        this.storagePermissionRequest.setOnGrantedListener(this::onGrantedListener);
         isInSelectMode = false;
+    }
+
+    private void onDeniedListener(boolean isNeverAskAgainChecked) {
+        if (isNeverAskAgainChecked) {
+            view.showStoragePermissionNeverAskAgainError();
+        } else {
+            view.showStoragePermissionDeniedError();
+        }
+    }
+
+    private void onGrantedListener() {
+        initViewAndModel();
     }
 
     public void onCreate() {
