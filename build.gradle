@@ -25,5 +25,9 @@ task clean(type: Delete) {
 }
 
 ext {
+    appcompat_version = '27.1.1'
+    butterknife_version = '8.8.1'
     dagger_version = '2.14.1'
+    lombok_version = '1.16.18'
+    test_version = '1.0.2'
 }
