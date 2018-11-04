@@ -39,9 +39,9 @@
         read and write to the filesystem of your device.
     </string>
     <string name="permissions_storage_denied_request">Tap here to allow permission</string>
-    <string name="toast_delete_failed">Could not delete selected files: Unknown errror</string>
-    <string name="toast_rename_failed">Could not rename selected file: Unknown errror</string>
-    <string name="toast_newFolder_failed">Could not create new folder: Unknown errror</string>
+    <string name="toast_delete_failed">Could not delete selected files: Unknown error</string>
+    <string name="toast_rename_failed">Could not rename selected file: Unknown error</string>
+    <string name="toast_newFolder_failed">Could not create new folder: Unknown error</string>
     <string name="toast_copy_failed">Could not complete copy operation: Unknown error</string>
     <string name="toast_cut_failed">Could not delete cut files: Unknown error</string>
 
