@@ -61,7 +61,7 @@ public class FileManager {
         File dir = new File(parentDir, name);
         if (dir.exists()) {
             throw new EntryExistsException(dir.getPath());
-        } else if (dir.delete()) {
+        } else if (dir.mkdir()) {
             return;
         } else if (saf.createDirectory(parentDir, name)) {
             return;
