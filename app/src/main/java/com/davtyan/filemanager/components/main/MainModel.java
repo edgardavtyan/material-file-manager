@@ -26,8 +26,8 @@ public class MainModel {
     private @Getter Entry externalRoot;
     private @Getter Entry[] entries;
     private @Getter List<Entry> selectedEntries;
-    private @Getter List<Entry> copyEntries;
     private @Getter String currentDir;
+    private List<Entry> copyEntries;
     private boolean hasExternalStorage;
     private boolean isCutting;
 
