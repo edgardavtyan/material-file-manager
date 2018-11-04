@@ -9,6 +9,7 @@ import com.davtyan.filemanager.components.main.partials.EmptyDirectoryPartial;
 import com.davtyan.filemanager.components.main.partials.ListPartial;
 import com.davtyan.filemanager.components.main.partials.PermissionsPartial;
 import com.davtyan.filemanager.components.main.partials.ToolbarPartial;
+import com.davtyan.filemanager.lib.FileManager;
 import com.davtyan.filemanager.lib.StorageAccessFramework;
 import com.davtyan.filemanager.utils.StatusBarUtils;
 
@@ -26,8 +27,8 @@ public class MainDIModule {
 
     @Provides
     @ActivityScope
-    public MainModel provideMainModel(StorageAccessFramework saf) {
-        return new MainModel(saf);
+    public MainModel provideMainModel(FileManager fm) {
+        return new MainModel(fm);
     }
 
     @Provides
@@ -64,6 +65,12 @@ public class MainDIModule {
     @ActivityScope
     public StorageAccessFramework provideStorageAccessFramework() {
         return new StorageAccessFramework(activity);
+    }
+
+    @Provides
+    @ActivityScope
+    public FileManager provideFileManager(StorageAccessFramework saf) {
+        return new FileManager(saf);
     }
 
     @Provides

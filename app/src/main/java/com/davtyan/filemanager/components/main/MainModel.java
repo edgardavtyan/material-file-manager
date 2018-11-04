@@ -4,38 +4,36 @@ import android.os.Environment;
 import android.support.annotation.Nullable;
 
 import com.davtyan.filemanager.components.main.exceptions.EntryExistsException;
+import com.davtyan.filemanager.components.main.exceptions.FileCopyFailedException;
+import com.davtyan.filemanager.components.main.exceptions.FileDeleteFailedException;
+import com.davtyan.filemanager.components.main.exceptions.FileOperationFailedException;
+import com.davtyan.filemanager.components.main.exceptions.FileRenameFailedException;
 import com.davtyan.filemanager.data.Entry;
-import com.davtyan.filemanager.lib.StorageAccessFramework;
+import com.davtyan.filemanager.lib.FileManager;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
-import lombok.Cleanup;
 import lombok.Getter;
 
 public class MainModel {
-    private final Stack<String> entriesStack;
-    private final StorageAccessFramework saf;
+    private final Stack<String> dirsStack;
+    private final FileManager fm;
 
     private @Getter Entry internalRoot;
     private @Getter Entry externalRoot;
     private @Getter Entry[] entries;
     private @Getter List<Entry> selectedEntries;
     private @Getter List<Entry> copyEntries;
-    private @Getter String currentPath;
+    private @Getter String currentDir;
     private boolean hasExternalStorage;
     private boolean isCutting;
 
-    public MainModel(StorageAccessFramework saf) {
-        this.saf = saf;
-        entriesStack = new Stack<>();
+    public MainModel(FileManager fm) {
+        this.fm = fm;
+        dirsStack = new Stack<>();
         entries = new Entry[0];
         selectedEntries = new ArrayList<>();
         copyEntries = new ArrayList<>();
@@ -67,7 +65,7 @@ public class MainModel {
         }
 
         this.entries = entries;
-        this.currentPath = dirPath;
+        this.currentDir = dirPath;
     }
 
     public void toggleEntrySelectedAt(int position) {
@@ -88,62 +86,55 @@ public class MainModel {
     }
 
     public void navigateForward(int position) {
-        entriesStack.push(currentPath);
+        dirsStack.push(currentDir);
         updateEntries(entries[position].getPath());
     }
 
     public void navigateBack() {
-        updateEntries(entriesStack.pop());
+        updateEntries(dirsStack.pop());
     }
 
     public boolean isAtRoot() {
-        return entriesStack.size() == 0;
+        return dirsStack.size() == 0;
     }
 
-    public void deleteSelectedItems() {
-        for (Entry entry : selectedEntries) {
-            if (!entry.delete())
-                saf.deleteFile(entry.getPath());
+    public void deleteSelectedItems() throws FileDeleteFailedException {
+        try {
+            for (Entry entry : selectedEntries) {
+                fm.deleteFile(entry.getPath());
+            }
+        } finally {
+            updateEntries(currentDir);
         }
-
-        updateEntries(currentPath);
     }
 
-    public void renameEntry(int position, String newName) throws EntryExistsException {
-        if (entries[position].exists()) {
-            throw new EntryExistsException(newName);
+    public void renameEntry(int position, String newName)
+    throws EntryExistsException, FileRenameFailedException {
+        try {
+            fm.renameFile(entries[position].getPath(), newName);
+        } finally {
+            updateEntries(currentDir);
         }
-
-        if (!entries[position].renameTo(newName)) {
-            saf.renameFile(entries[position].getPath(), newName);
-        }
-
-        updateEntries(currentPath);
     }
 
-    public void createNewFolder(String folderName) throws EntryExistsException {
-        File folder = new File(currentPath, folderName);
-
-        if (folder.exists()) {
-            throw new EntryExistsException(folder.getAbsolutePath());
+    public void createNewFolder(String folderName)
+    throws EntryExistsException, FileOperationFailedException {
+        try {
+            fm.createDirectory(currentDir, folderName);
+        } finally {
+            updateEntries(currentDir);
         }
-
-        if (!folder.mkdir()) {
-            saf.mkdir(currentPath, folderName);
-        }
-
-        updateEntries(currentPath);
     }
 
     public void navigateToInternalStorage() {
-        entriesStack.clear();
-        currentPath = internalRoot.getPath();
+        dirsStack.clear();
+        currentDir = internalRoot.getPath();
         updateEntries(internalRoot.getPath());
     }
 
     public void navigateToExternalStorage() {
-        entriesStack.clear();
-        currentPath = externalRoot.getPath();
+        dirsStack.clear();
+        currentDir = externalRoot.getPath();
         updateEntries(externalRoot.getPath());
     }
 
@@ -159,27 +150,21 @@ public class MainModel {
         isCutting = true;
     }
 
-    public void paste() {
-        File currentDir = new File(currentPath);
+    public void paste() throws FileCopyFailedException, FileDeleteFailedException {
+        try {
+            for (Entry copyEntry : copyEntries) {
+                File srcFile = new File(copyEntry.getPath());
+                File dstFile = new File(currentDir, copyEntry.getName());
+                fm.copyFile(currentDir, srcFile, dstFile);
 
-        for (Entry copyEntry : copyEntries) {
-            File srcFile = new File(copyEntry.getPath());
-            File dstFile = new File(currentDir, copyEntry.getName());
-
-            copy(srcFile, dstFile);
-            if (!dstFile.exists()) {
-                saf.copyFile(currentPath, srcFile.getPath(), dstFile.getName());
-            }
-
-
-            if (isCutting) {
-                if (!srcFile.delete()) {
-                    saf.deleteFile(srcFile.getPath());
+                if (isCutting) {
+                    fm.deleteFile(srcFile.getPath());
                 }
             }
+        } finally {
+            updateEntries(currentDir);
         }
 
-        updateEntries(currentPath);
     }
 
     @Nullable
@@ -198,18 +183,5 @@ public class MainModel {
         }
 
         return null;
-    }
-
-    private void copy(File src, File dst) {
-        try {
-            @Cleanup InputStream in = new FileInputStream(src);
-            @Cleanup OutputStream out = new FileOutputStream(dst);
-            byte[] buf = new byte[1024];
-            int len;
-            while ((len = in.read(buf)) > 0) {
-                out.write(buf, 0, len);
-            }
-        } catch (IOException ignored) {
-        }
     }
 }

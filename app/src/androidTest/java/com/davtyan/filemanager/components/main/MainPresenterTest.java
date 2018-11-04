@@ -31,7 +31,7 @@ public class MainPresenterTest {
 
         model = mock(MainModel.class);
         when(model.getEntries()).thenReturn(entries);
-        when(model.getCurrentPath()).thenReturn(currentPath);
+        when(model.getCurrentDir()).thenReturn(currentPath);
         when(model.getSelectedEntriesCount()).thenReturn(selectedEntriesCount);
 
         Entry internalEntry = mock(Entry.class);

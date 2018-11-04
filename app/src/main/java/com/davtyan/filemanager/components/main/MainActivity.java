@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.davtyan.filemanager.R;
 import com.davtyan.filemanager.base.BaseActivity;
@@ -166,12 +167,20 @@ public class MainActivity extends BaseActivity {
         deleteConfirmDialog.show();
     }
 
+    public void showDeleteOperationFailed() {
+        Toast.makeText(this, R.string.toast_delete_failed, Toast.LENGTH_SHORT).show();
+    }
+
     public void showRenameDialog(String text) {
         renameDialog.show(text);
     }
 
     public void showRenameExistsError() {
         renameDialog.showExistsError();
+    }
+
+    public void showRenameFailedError() {
+        Toast.makeText(this, R.string.toast_rename_failed, Toast.LENGTH_SHORT).show();
     }
 
     public void showNewFolderDialog() {
@@ -184,6 +193,18 @@ public class MainActivity extends BaseActivity {
 
     public void showNewFolderExistsError() {
         newFolderDialog.showExistsError();
+    }
+
+    public void showNewFolderFailedError() {
+        Toast.makeText(this, R.string.toast_newFolder_failed, Toast.LENGTH_SHORT).show();
+    }
+
+    public void showCopyFailedError() {
+        Toast.makeText(this, R.string.toast_copy_failed, Toast.LENGTH_SHORT).show();
+    }
+
+    public void showCutFailedError() {
+        Toast.makeText(this, R.string.toast_cut_failed, Toast.LENGTH_SHORT).show();
     }
 
     public void showStoragePermissionNeverAskAgainError() {

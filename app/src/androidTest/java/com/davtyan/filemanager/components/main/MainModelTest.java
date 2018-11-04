@@ -145,12 +145,12 @@ public class MainModelTest {
 
     @Test
     public void getCurrentPath_returnCurrentPath() {
-        assertThat(model.getCurrentPath()).isEqualTo(tempFolderRoot.getRoot().getAbsolutePath());
+        assertThat(model.getCurrentDir()).isEqualTo(tempFolderRoot.getRoot().getAbsolutePath());
     }
 
     @Test
     public void getCurrentPath_navigateForward_change() {
         model.navigateForward(3);
-        assertThat(model.getCurrentPath()).isEqualTo(tempFolderChild.getAbsolutePath());
+        assertThat(model.getCurrentDir()).isEqualTo(tempFolderChild.getAbsolutePath());
     }
 }

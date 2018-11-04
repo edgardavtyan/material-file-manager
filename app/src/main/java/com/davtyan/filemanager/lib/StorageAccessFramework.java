@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.provider.DocumentFile;
 
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
@@ -44,16 +45,28 @@ public class StorageAccessFramework {
         }
     }
 
-    public void deleteFile(String filePath) {
-        getDocumentFile(filePath).delete();
+    public boolean deleteFile(String filePath) {
+        try {
+            return getDocumentFile(filePath).delete();
+        } catch (Exception e) {
+            return false;
+        }
     }
 
-    public void renameFile(String filePath, String newName) {
-        getDocumentFile(filePath).renameTo(newName);
+    public boolean renameFile(String filePath, String newName) {
+        try {
+            return getDocumentFile(filePath).renameTo(newName);
+        } catch (Exception e) {
+            return false;
+        }
     }
 
-    public void mkdir(String path, String name) {
-        getDocumentFile(path).createDirectory(name);
+    public boolean createDirectory(String path, String name) {
+        try {
+            return getDocumentFile(path).createDirectory(name) != null;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     @Nullable
@@ -100,20 +113,17 @@ public class StorageAccessFramework {
         return DocumentFile.fromTreeUri(activity, sdCardUri);
     }
 
-    public void copyFile(String dstDir, String srcFullPath, String dstFileName) {
-        try {
-            DocumentFile dstDirDoc = getDocumentFile(dstDir);
-            DocumentFile dstFile = dstDirDoc.createFile("", dstFileName);
+    public void copyFile(String dstDir, String srcFullPath, String dstFileName) throws IOException {
+        DocumentFile dstDirDoc = getDocumentFile(dstDir);
+        DocumentFile dstFile = dstDirDoc.createFile("", dstFileName);
 
-            @Cleanup OutputStream out = activity.getContentResolver().openOutputStream(dstFile.getUri());
-            @Cleanup InputStream in = new FileInputStream(srcFullPath);
+        @Cleanup OutputStream out = activity.getContentResolver().openOutputStream(dstFile.getUri());
+        @Cleanup InputStream in = new FileInputStream(srcFullPath);
 
-            byte[] buffer = new byte[1024];
-            int read;
-            while ((read = in.read(buffer)) != -1) {
-                out.write(buffer, 0, read);
-            }
-        } catch (Exception ignored) {
+        byte[] buffer = new byte[1024];
+        int read;
+        while ((read = in.read(buffer)) != -1) {
+            out.write(buffer, 0, read);
         }
     }
 }

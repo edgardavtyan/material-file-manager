@@ -1,6 +1,10 @@
 package com.davtyan.filemanager.components.main;
 
 import com.davtyan.filemanager.components.main.exceptions.EntryExistsException;
+import com.davtyan.filemanager.components.main.exceptions.FileCopyFailedException;
+import com.davtyan.filemanager.components.main.exceptions.FileDeleteFailedException;
+import com.davtyan.filemanager.components.main.exceptions.FileOperationFailedException;
+import com.davtyan.filemanager.components.main.exceptions.FileRenameFailedException;
 import com.davtyan.filemanager.data.Entry;
 
 public class MainPresenter {
@@ -61,7 +65,7 @@ public class MainPresenter {
         } else {
             model.navigateForward(position);
             view.updateEntries(model.getEntries());
-            view.setCurrentPath(model.getCurrentPath());
+            view.setCurrentPath(model.getCurrentDir());
         }
     }
 
@@ -90,7 +94,7 @@ public class MainPresenter {
             } else {
                 model.navigateBack();
                 view.updateEntries(model.getEntries());
-                view.setCurrentPath(model.getCurrentPath());
+                view.setCurrentPath(model.getCurrentDir());
             }
         }
     }
@@ -122,7 +126,13 @@ public class MainPresenter {
     }
 
     public void onDeleteDialogConfirmed() {
-        model.deleteSelectedItems();
+        try {
+            model.deleteSelectedItems();
+        } catch (FileDeleteFailedException e) {
+            view.showDeleteOperationFailed();
+        }
+
+
         model.clearSelections();
         view.updateEntries(model.getEntries());
         view.exitSelectMode();
@@ -146,6 +156,8 @@ public class MainPresenter {
             view.updateEntries(model.getEntries());
         } catch (EntryExistsException e) {
             view.showRenameExistsError();
+        } catch (FileRenameFailedException e) {
+            view.showRenameFailedError();
         }
     }
 
@@ -160,20 +172,22 @@ public class MainPresenter {
             view.closeNewFolderDialog();
         } catch (EntryExistsException e) {
             view.showNewFolderExistsError();
+        } catch (FileOperationFailedException e) {
+            view.showNewFolderFailedError();
         }
     }
 
     public void onInternalStorageClicked() {
         model.navigateToInternalStorage();
         view.updateEntries(model.getEntries());
-        view.setCurrentPath(model.getCurrentPath());
+        view.setCurrentPath(model.getCurrentDir());
         view.closeDrawer();
     }
 
     public void onExternalStorageClicked() {
         model.navigateToExternalStorage();
         view.updateEntries(model.getEntries());
-        view.setCurrentPath(model.getCurrentPath());
+        view.setCurrentPath(model.getCurrentDir());
         view.closeDrawer();
     }
 
@@ -185,7 +199,7 @@ public class MainPresenter {
         model.init();
         model.updateEntries(model.getInternalRoot().getPath());
         view.updateEntries(model.getEntries());
-        view.setCurrentPath(model.getCurrentPath());
+        view.setCurrentPath(model.getCurrentDir());
 
         view.setInternalStorage();
         if (model.hasExternalStorage()) {
@@ -220,7 +234,14 @@ public class MainPresenter {
     }
 
     public void onToolbarPasteClicked() {
-        model.paste();
+        try {
+            model.paste();
+        } catch (FileCopyFailedException e) {
+            view.showCopyFailedError();
+        } catch (FileDeleteFailedException e) {
+            view.showCutFailedError();
+        }
+
         view.updateEntries(model.getEntries());
         view.setPasteMenuEnabled(false);
     }
