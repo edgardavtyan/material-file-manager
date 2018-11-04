@@ -3,7 +3,7 @@ package com.davtyan.filemanager.data;
 import java.io.File;
 
 public class Entry {
-    private File file;
+    private final File file;
 
     public Entry(File file) {
         this.file = file;
