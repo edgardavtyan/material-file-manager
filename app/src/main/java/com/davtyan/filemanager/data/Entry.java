@@ -28,12 +28,4 @@ public class Entry {
     public boolean isFile() {
         return file.isFile();
     }
-
-    private void deleteRecursive(File fileOrDirectory) {
-        if (fileOrDirectory.isDirectory())
-            for (File child : fileOrDirectory.listFiles())
-                deleteRecursive(child);
-
-        fileOrDirectory.delete();
-    }
 }
