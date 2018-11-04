@@ -26,11 +26,13 @@ public class FileManager {
     public void deleteFile(String path) throws FileDeleteFailedException {
         File file = new File(path);
 
-        if (file.delete()) {
-            return;
-        } else if (saf.deleteFile(path)) {
-            return;
-        } else {
+        deleteRecursive(file);
+
+        if (file.exists()) {
+            saf.deleteFile(path);
+        }
+
+        if (file.exists()) {
             throw new FileDeleteFailedException(path);
         }
     }
@@ -94,5 +96,13 @@ public class FileManager {
         while ((len = in.read(buf)) > 0) {
             out.write(buf, 0, len);
         }
+    }
+
+    private void deleteRecursive(File fileOrDirectory) {
+        if (fileOrDirectory.isDirectory())
+            for (File child : fileOrDirectory.listFiles())
+                deleteRecursive(child);
+
+        fileOrDirectory.delete();
     }
 }
