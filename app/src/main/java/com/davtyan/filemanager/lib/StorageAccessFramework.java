@@ -26,9 +26,9 @@ public class StorageAccessFramework {
 
     public StorageAccessFramework(Activity activity) {
         this.activity = activity;
-        this.sdCardName = getSdCardName();
-        this.sdCardEnding = sdCardName + "%3A";
-        this.sdCardUri = getSdCardUri();
+        sdCardName = getSdCardName();
+        sdCardEnding = sdCardName + "%3A";
+        sdCardUri = getSdCardUri();
     }
 
     public void makeAccessRequest() {
