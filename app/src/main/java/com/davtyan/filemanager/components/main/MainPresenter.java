@@ -1,9 +1,9 @@
 package com.davtyan.filemanager.components.main;
 
+import com.davtyan.filemanager.components.main.exceptions.DirectoryCreateFailedException;
 import com.davtyan.filemanager.components.main.exceptions.EntryExistsException;
 import com.davtyan.filemanager.components.main.exceptions.FileCopyFailedException;
 import com.davtyan.filemanager.components.main.exceptions.FileDeleteFailedException;
-import com.davtyan.filemanager.components.main.exceptions.FileOperationFailedException;
 import com.davtyan.filemanager.components.main.exceptions.FileRenameFailedException;
 import com.davtyan.filemanager.data.Entry;
 
@@ -172,7 +172,7 @@ public class MainPresenter {
             view.closeNewFolderDialog();
         } catch (EntryExistsException e) {
             view.showNewFolderExistsError();
-        } catch (FileOperationFailedException e) {
+        } catch (DirectoryCreateFailedException e) {
             view.showNewFolderFailedError();
         }
     }

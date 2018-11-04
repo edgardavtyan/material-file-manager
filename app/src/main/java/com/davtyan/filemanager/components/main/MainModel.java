@@ -3,10 +3,10 @@ package com.davtyan.filemanager.components.main;
 import android.os.Environment;
 import android.support.annotation.Nullable;
 
+import com.davtyan.filemanager.components.main.exceptions.DirectoryCreateFailedException;
 import com.davtyan.filemanager.components.main.exceptions.EntryExistsException;
 import com.davtyan.filemanager.components.main.exceptions.FileCopyFailedException;
 import com.davtyan.filemanager.components.main.exceptions.FileDeleteFailedException;
-import com.davtyan.filemanager.components.main.exceptions.FileOperationFailedException;
 import com.davtyan.filemanager.components.main.exceptions.FileRenameFailedException;
 import com.davtyan.filemanager.data.Entry;
 import com.davtyan.filemanager.lib.FileManager;
@@ -118,7 +118,7 @@ public class MainModel {
     }
 
     public void createNewFolder(String folderName)
-    throws EntryExistsException, FileOperationFailedException {
+    throws EntryExistsException, DirectoryCreateFailedException {
         try {
             fm.createDirectory(currentDir, folderName);
         } finally {

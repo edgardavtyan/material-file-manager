@@ -1,9 +1,9 @@
 package com.davtyan.filemanager.lib;
 
+import com.davtyan.filemanager.components.main.exceptions.DirectoryCreateFailedException;
 import com.davtyan.filemanager.components.main.exceptions.EntryExistsException;
 import com.davtyan.filemanager.components.main.exceptions.FileCopyFailedException;
 import com.davtyan.filemanager.components.main.exceptions.FileDeleteFailedException;
-import com.davtyan.filemanager.components.main.exceptions.FileOperationFailedException;
 import com.davtyan.filemanager.components.main.exceptions.FileRenameFailedException;
 
 import java.io.File;
@@ -54,7 +54,7 @@ public class FileManager {
     }
 
     public void createDirectory(String parentDir, String name)
-    throws EntryExistsException, FileOperationFailedException {
+    throws EntryExistsException, DirectoryCreateFailedException {
         File dir = new File(parentDir, name);
         if (dir.exists()) {
             throw new EntryExistsException(dir.getPath());
@@ -63,7 +63,7 @@ public class FileManager {
         } else if (saf.createDirectory(parentDir, name)) {
             return;
         } else {
-            throw new FileOperationFailedException("Create directory '%s'", dir.getPath());
+            throw new DirectoryCreateFailedException(dir.getPath());
         }
     }
 
