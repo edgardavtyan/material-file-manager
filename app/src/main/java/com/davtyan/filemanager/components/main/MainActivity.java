@@ -19,7 +19,7 @@ import com.davtyan.filemanager.components.main.partials.ListPartial;
 import com.davtyan.filemanager.components.main.partials.PermissionsPartial;
 import com.davtyan.filemanager.components.main.partials.ToolbarPartial;
 import com.davtyan.filemanager.data.Entry;
-import com.davtyan.filemanager.lib.StorageAccessFramework;
+import com.davtyan.filemanager.lib.saf.StorageAccessFramework;
 
 import javax.inject.Inject;
 

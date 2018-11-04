@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.davtyan.filemanager.R;
 import com.davtyan.filemanager.components.main.MainActivity;
 import com.davtyan.filemanager.components.main.MainPresenter;
-import com.davtyan.filemanager.components.main.StoragePermissionRequest;
+import com.davtyan.filemanager.lib.saf.StoragePermissionRequest;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

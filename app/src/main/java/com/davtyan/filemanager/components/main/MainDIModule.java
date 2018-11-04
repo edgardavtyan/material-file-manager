@@ -10,7 +10,8 @@ import com.davtyan.filemanager.components.main.partials.ListPartial;
 import com.davtyan.filemanager.components.main.partials.PermissionsPartial;
 import com.davtyan.filemanager.components.main.partials.ToolbarPartial;
 import com.davtyan.filemanager.lib.FileManager;
-import com.davtyan.filemanager.lib.StorageAccessFramework;
+import com.davtyan.filemanager.lib.saf.StorageAccessFramework;
+import com.davtyan.filemanager.lib.saf.StoragePermissionRequest;
 import com.davtyan.filemanager.utils.StatusBarUtils;
 
 import dagger.Module;
