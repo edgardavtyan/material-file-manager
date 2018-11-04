@@ -28,73 +28,73 @@ public class MainDIModule {
 
     @Provides
     @ActivityScope
-    public MainModel provideMainModel(FileManager fm) {
+    public MainModel getMainModel(FileManager fm) {
         return new MainModel(fm);
     }
 
     @Provides
     @ActivityScope
-    public MainPresenter provideMainPresenter(MainModel model, StoragePermissionRequest spr) {
+    public MainPresenter getMainPresenter(MainModel model, StoragePermissionRequest spr) {
         return new MainPresenter(activity, model, spr);
     }
 
     @Provides
     @ActivityScope
-    public EntryAdapter provideEntryAdapter(MainPresenter presenter) {
+    public EntryAdapter getEntryAdapter(MainPresenter presenter) {
         return new EntryAdapter(activity, presenter);
     }
 
     @Provides
     @ActivityScope
-    public DeleteConfirmDialog provideDeleteConfirmDialog(MainPresenter presenter) {
+    public DeleteConfirmDialog getDeleteConfirmDialog(MainPresenter presenter) {
         return new DeleteConfirmDialog(activity, presenter);
     }
 
     @Provides
     @ActivityScope
-    public NewFolderDialog provideNewFolderDialog(MainPresenter presenter) {
+    public NewFolderDialog getNewFolderDialog(MainPresenter presenter) {
         return new NewFolderDialog(activity, presenter);
     }
 
     @Provides
     @ActivityScope
-    public RenameDialog provideRenameDialog(MainPresenter presenter) {
+    public RenameDialog getRenameDialog(MainPresenter presenter) {
         return new RenameDialog(activity, presenter);
     }
 
     @Provides
     @ActivityScope
-    public StorageAccessFramework provideStorageAccessFramework() {
+    public StorageAccessFramework getStorageAccessFramework() {
         return new StorageAccessFramework(activity);
     }
 
     @Provides
     @ActivityScope
-    public FileManager provideFileManager(StorageAccessFramework saf) {
+    public FileManager getFileManager(StorageAccessFramework saf) {
         return new FileManager(saf);
     }
 
     @Provides
     @ActivityScope
-    public DrawerPartial provideDrawerPartial(MainPresenter presenter) {
+    public DrawerPartial getDrawerPartial(MainPresenter presenter) {
         return new DrawerPartial(activity, presenter);
     }
 
     @Provides
     @ActivityScope
-    public EmptyDirectoryPartial provideEmptyDirectoryPartial() {
+    public EmptyDirectoryPartial getEmptyDirectoryPartial() {
         return new EmptyDirectoryPartial(activity);
     }
 
     @Provides
     @ActivityScope
-    public ListPartial provideListPartial(EntryAdapter entryAdapter) {
+    public ListPartial getListPartial(EntryAdapter entryAdapter) {
         return new ListPartial(activity, entryAdapter);
     }
 
     @Provides
     @ActivityScope
-    public PermissionsPartial providePermissionsPartial(
+    public PermissionsPartial getPermissionsPartial(
             MainPresenter presenter,
             StoragePermissionRequest spr) {
         return new PermissionsPartial(activity, presenter, spr);
@@ -102,13 +102,13 @@ public class MainDIModule {
 
     @Provides
     @ActivityScope
-    public StoragePermissionRequest provideStoragePermissionRequest() {
+    public StoragePermissionRequest getStoragePermissionRequest() {
         return new StoragePermissionRequest(activity);
     }
 
     @Provides
     @ActivityScope
-    public ToolbarPartial provideToolbarPartial() {
+    public ToolbarPartial getToolbarPartial() {
         return new ToolbarPartial(activity, new StatusBarUtils(activity.getWindow()));
     }
 }
