@@ -1,7 +1,6 @@
 package com.davtyan.filemanager.components.main.dialogs;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.TextView;
@@ -18,24 +17,6 @@ public class DeleteConfirmDialog {
     private final AlertDialog dialog;
     private final MainPresenter presenter;
 
-    @SuppressWarnings("FieldCanBeLocal")
-    private final DialogInterface.OnClickListener positiveButtonListener
-            = new DialogInterface.OnClickListener() {
-        @Override
-        public void onClick(DialogInterface dialog, int which) {
-            presenter.onDeleteDialogConfirmed();
-        }
-    };
-
-    @SuppressWarnings("FieldCanBeLocal")
-    private final DialogInterface.OnClickListener negativeButtonListener
-            = new DialogInterface.OnClickListener() {
-        @Override
-        public void onClick(DialogInterface dialog, int which) {
-            presenter.onDeleteDialogCanceled();
-        }
-    };
-
     public DeleteConfirmDialog(Context context, MainPresenter presenter) {
         this.presenter = presenter;
         View itemView = View.inflate(context, R.layout.dialog_delete_confirm, null);
@@ -46,9 +27,17 @@ public class DeleteConfirmDialog {
         dialog = new AlertDialog.Builder(context)
                 .setView(itemView)
                 .setTitle(R.string.dialog_delete_title)
-                .setPositiveButton(R.string.dialog_delete_action, positiveButtonListener)
-                .setNegativeButton(android.R.string.cancel, negativeButtonListener)
+                .setPositiveButton(R.string.dialog_delete_action, (d, w) -> onPositiveButtonClick())
+                .setNegativeButton(android.R.string.cancel, (d, w) -> onNegativeButtonClick())
                 .create();
+    }
+
+    private void onPositiveButtonClick() {
+        presenter.onDeleteDialogConfirmed();
+    }
+
+    private void onNegativeButtonClick() {
+        presenter.onDeleteDialogCanceled();
     }
 
     public void show() {
