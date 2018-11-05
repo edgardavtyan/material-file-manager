@@ -175,6 +175,10 @@ public class MainActivity extends BaseActivity {
         renameDialog.show(text);
     }
 
+    public void closeRenameDialog() {
+        renameDialog.close();
+    }
+
     public void showRenameExistsError() {
         renameDialog.showExistsError();
     }

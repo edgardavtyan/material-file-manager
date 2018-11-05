@@ -155,10 +155,12 @@ public class MainPresenter {
         try {
             model.renameEntry(activeEntryPosition, newName);
             view.updateEntries(model.getEntries());
+            view.closeRenameDialog();
         } catch (EntryExistsException e) {
             view.showRenameExistsError();
         } catch (FileRenameFailedException e) {
             view.showRenameFailedError();
+            view.closeRenameDialog();
         }
     }
 
@@ -175,6 +177,7 @@ public class MainPresenter {
             view.showNewFolderExistsError();
         } catch (DirectoryCreateFailedException e) {
             view.showNewFolderFailedError();
+            view.closeNewFolderDialog();
         }
     }
 
